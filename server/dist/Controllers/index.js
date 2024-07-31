@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const userController_1 = require("./userController");
+const userController_2 = require("./userController");
+const userController_3 = require("./userController");
+const newsController_1 = require("./newsController");
+const rateLimiter_1 = require("../Middlewares/rateLimiter");
+const rateLimiter_2 = require("../Middlewares/rateLimiter");
+const router = (0, express_1.Router)();
+router.post('/createUser', rateLimiter_1.userSignUpRateLimiter, userController_1.createUser);
+router.post('/createAdmin', rateLimiter_1.userSignUpRateLimiter, userController_1.createAdmin);
+router.post('/loginUser', userController_2.authenticateLoginAsUser);
+router.post('/getUserProfileData', userController_3.userProfileData);
+router.post('/addNews', rateLimiter_2.defaultRateLimiter, newsController_1.addNews);
+router.post('/news', rateLimiter_2.defaultRateLimiter, newsController_1.getAllNews);
+exports.default = router;
