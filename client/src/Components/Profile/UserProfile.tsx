@@ -11,7 +11,7 @@ const userImage = require("../../../../assets/userImage.png")
 
 const UserProfile : React.FC= observer(() => {
   const handleProfileFetch  = async () : Promise<void>  => {
-    const IP_ADDRESS : string = "192.168.1.108"
+    const IP_ADDRESS : string = "192.168.100.126"
     try {
       const response = await axios.post(`http://${IP_ADDRESS}:3000/api/getUserProfileData` , {
         user_email : getLoginStore().user_email.get(),

@@ -25,7 +25,7 @@ const Login : React.FC = observer(() => {
  
   const handleLogin = async (): Promise<void> => {
     try {
-      const IP_ADDRESS: string = "192.168.1.108";
+      const IP_ADDRESS: string = "192.168.100.126";
       const response = await axios.post(
         `http://${IP_ADDRESS}:3000/api/loginUser`,
         {

@@ -25,5 +25,3 @@ const createRateLimiter = (options: { windowMs: number; max: number }) => {
 
 export const userSignUpRateLimiter = createRateLimiter(rateLimitOptions.routes["/createUser"]);
 export const defaultRateLimiter = createRateLimiter(rateLimitOptions.default);
-//understand it more 
-//jihad stop giving code 

@@ -38,7 +38,7 @@ const AddNewsPopUp : React.FC = observer(() => {
 
     const handleAddNews = async () : Promise<void> => {
         try {
-            const IP_ADDRESS : string = "192.168.1.108"
+            const IP_ADDRESS : string = "192.168.100.126"
             if( getLoginStore().user_id.get() !== -1)
             {
                 await axios.post(`http://${IP_ADDRESS}:3000/api/addNews`, {

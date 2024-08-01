@@ -1,6 +1,4 @@
-
 import { Request, Response } from 'express';
-import userLibrary from '../Libraries/userLibrary';
 import newsLibrary from '../Libraries/newsLibrary';
 
 

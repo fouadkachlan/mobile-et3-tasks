@@ -77,18 +77,3 @@ export const userProfileData = async (req : Request , res : Response) : Promise<
         res.status(500).json({message : "Failed fetching data"});
     }
 }
-
-// export const fetchId = async (req : Request , res : Response ) : Promise<void> => {
-//     try 
-//     {
-//         const {user_email} = req.body;
-        
-//         const id = userLibrary.fetchId(user_email);
-//         if ( !id )
-//         {
-//             console.log("Id fetched successfully");
-//         }
-//     } catch ( error ) {
-//         res.status(500).json({error : "Internal server error , the ID is not fetched ."})
-//     }
-// }
