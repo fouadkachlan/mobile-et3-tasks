@@ -1,4 +1,6 @@
 import { MMKV } from 'react-native-mmkv';
+export const mmkv = new MMKV();
+
 
 export const storage = new MMKV({
   id: 'user-Login-storage',
@@ -16,3 +18,14 @@ export const getToken = () => {
 export const removeToken = () => {
   storage.delete('token');
 };
+
+
+export const initialRoute = new MMKV();
+
+export const getInitialRoute =  (key : string) => {
+  return initialRoute.getString(key);
+}
+
+export const setInitialRoute = (key : string , value : string) => {
+  initialRoute.set(key , value);
+}

@@ -1,273 +1,268 @@
-import React from 'react';
-import CustomButton from '../../CustomComponents/CustomButton'
-import CustomView from '../../CustomComponents/CustomView'
-import CustomText from '../../CustomComponents/CustomText'
-import CustomInput from '../../CustomComponents/CustomInput'
-import getLoginStore from '../../stores/loginStore'
-import { observer } from 'mobx-react-lite';
-import axios from "axios";
+import React, { useContext } from 'react';
 import { Alert } from 'react-native';
-import {useNavigation , NavigationProp} from "@react-navigation/native";
-import { RootStackParamList } from '../../types/navigation';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
+import CustomButton from '../../CustomComponents/CustomButton';
+import CustomView from '../../CustomComponents/CustomView';
+import CustomText from '../../CustomComponents/CustomText';
+import CustomInput from '../../CustomComponents/CustomInput';
+import getLoginStore from '../../stores/loginStore';
 import getThemeStore from '../../stores/themeStore';
-import { darkMode, lightMode } from '../colors/colors';
+import getRequestStore from '../../stores/requestsStore';
+import { ThemeContext } from '../ThemeContext/ThemeContext';
+import { createAccountText, emailAddressText, welcomingMessage } from '../Constant/constants';
+import { RootStackParamList } from '../../types/navigation';
+import getDimensionsStore from '../../stores/dimensionsStore';
 
-const CreateAccount : React.FC = observer(() => {
+
+const CreateAccount: React.FC = observer(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const handleSignUp = async () :Promise<void> => {
-    const IP_ADDRESS = "192.168.100.126"
-
-    try 
-    {
-      const response = await axios.post(`http://${IP_ADDRESS}:3000/api/createUser` , {
-        user_email : getLoginStore().user_email.get(),
-        user_name: getLoginStore().user_name.get(),
-        user_password: getLoginStore().user_password.get(),
-        user_phone_number : getLoginStore().user_phone_number.get(),
-        user_country : getLoginStore().user_country.get()
-      });
-      const data = response.data
-      if (data.message === "User Created Successfully")
-      {
+  const handleSignUp = async (): Promise<void> => {
+    try {
+      const response = await getRequestStore().signInRequest();
+      const data = response.data;
+      if (data.message === "User Created Successfully") {
         Alert.alert("Congratulations, you are now in our community");
-        navigation.navigate("Login");
+        navigation.navigate("Login", "Login");
       }
-    } catch ( error ) {
+    } catch (error) {
       console.error("Error during Sign Up", error);
-      Alert.alert("Error" , "Failed to Sign Up. Please try again later.")
+      Alert.alert("Error", "Failed to Sign Up. Please try again later.");
     }
+  };
 
-    
-  }
-  const theme = getThemeStore().isDarkThemeEnabled.get() ? darkMode : lightMode;
-
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <CustomView style={{
-      display: 'flex',
-      justifyContent:'center',
-      alignItems: 'flex-start',
-      width: 400,
-      height: 750,
-      backgroundColor: theme.backGroundColor,
-      }}>
-        <CustomText 
-            style={{
-              color : theme.fontColor,
-              marginLeft: 10
-            }}
-            fontSize={50}
-            fontWeight={'bold'}
-        >Sign Up</CustomText>
-
-        <CustomText
-          style={{
-            marginLeft: 10,
-            color : theme.fontColor
-          }}
-          fontSize={20}
-          fontWeight={'400'}
-        >
-          Welcome in our app
-        </CustomText>
-        <CustomText
-          style={{color : theme.fontColor,
-            marginTop: 20,
-            marginLeft: 10
-          }}
-          fontSize={20}
-          fontWeight={'500'}
-        >
-          Email Address
-        </CustomText>
-
-      <CustomInput 
+    //big view
+    <CustomView
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        paddingHorizontal: getDimensionsStore().windowWidth * 0.05,
+        backgroundColor: theme.backGroundColor,
+      }}
+    >
+      
+      <CustomText // sign up text
         style={{
-          width: 350,
-          borderColor: theme.borderColor
+          color: theme.fontColor,
+          marginBottom: getDimensionsStore().windowHeight  * 0.02,
         }}
-        height={50}
-        margin={12}
-        marginRight={30}
-        borderRadius={10}
-        borderWidth={2}
-        padding={10}
+        fontSize={getDimensionsStore().windowWidth * 0.1}
+        fontWeight={'bold'}
+      >
+        {createAccountText.signUp}
+      </CustomText>
+
+      <CustomText // welcome to the app text
+        style={{
+          color: theme.fontColor,
+          marginBottom: getDimensionsStore().windowHeight  * 0.02,
+        }}
+        fontSize={getDimensionsStore().windowWidth * 0.05}
+        fontWeight={'400'}
+      >
+        {welcomingMessage}
+      </CustomText>
+
+      <CustomText // Email Address
+        style={{
+          color: theme.fontColor,
+          marginTop: getDimensionsStore().windowHeight  * 0.02,
+          marginBottom: getDimensionsStore().windowHeight  * 0.01,
+        }}
+        fontSize={getDimensionsStore().windowWidth * 0.05}
+        fontWeight={'500'}
+      >
+        {emailAddressText}
+      </CustomText>
+
+      <CustomInput // email Address input
+        style={{
+          width: '100%',
+          borderColor: theme.borderColor,
+          marginBottom: getDimensionsStore().windowHeight  * 0.02,
+          borderRadius: 10,
+          borderWidth: 2,
+          padding: getDimensionsStore().windowWidth * 0.02,
+        }}
+        height={getDimensionsStore().windowHeight  * 0.06}
         value={getLoginStore().user_email.get()}
-        onChangeText={(email : string)=>getLoginStore().setEmail(email)}
-        placeholder="hello@example.com" 
+        onChangeText={(email: string) => getLoginStore().setEmail(email)}
+        placeholder="hello@example.com"
         placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
-        keyboardType="email-address"  
+        keyboardType="email-address"
         secureTextEntry={false}
+      />
 
-        />
-        <CustomText
-          style={{
-            color: theme.borderColor,
-            marginTop: 5,
-            marginLeft: 10
-          }}
-          fontSize={20}
-          fontWeight={'500'}
-        >
-          Username
-        </CustomText>
-        <CustomInput 
+      <CustomText // username 
         style={{
-          width: 350,
-          borderColor: theme.borderColor
+          color: theme.fontColor,
+          marginBottom: getDimensionsStore().windowHeight  * 0.01,
         }}
-        height={50}
-        margin={12}
-        marginRight={30}
-        borderRadius={10}
-        borderWidth={2}
-        padding={10}
+        fontSize={getDimensionsStore().windowWidth * 0.05}
+        fontWeight={'500'}
+      >
+        {createAccountText.username}
+      </CustomText>
+
+      <CustomInput // username input
+        style={{
+          width: '100%',
+          borderColor: theme.borderColor,
+          marginBottom: getDimensionsStore().windowHeight  * 0.02,
+          borderRadius: 10,
+          borderWidth: 2,
+          padding: getDimensionsStore().windowWidth * 0.02,
+        }}
+        height={getDimensionsStore().windowHeight  * 0.06}
         value={getLoginStore().user_name.get()}
-        onChangeText={(username : string)=>getLoginStore().setUsername(username)}
-        placeholder="myapp" 
+        onChangeText={(username: string) => getLoginStore().setUsername(username)}
+        placeholder="myapp"
         placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
         keyboardType='default'
         secureTextEntry={false}
+      />
 
-        />
-         <CustomText
-          style={{
-            color: theme.borderColor,
-            marginTop: 5,
-            marginLeft: 10
-          }}
-          fontSize={20}
-          fontWeight={'500'}
-        >
-          Password
-        </CustomText>
-      <CustomInput 
+      <CustomText // password
         style={{
+          color: theme.fontColor,
+          marginBottom: getDimensionsStore().windowHeight  * 0.01,
+        }}
+        fontSize={getDimensionsStore().windowWidth * 0.05}
+        fontWeight={'500'}
+      >
+        {createAccountText.password}
+      </CustomText>
+
+      <CustomInput // password input 
+        style={{
+          width: '100%',
           borderColor: theme.borderColor,
-          marginBottom:30,
-          width: 350
+          marginBottom: getDimensionsStore().windowHeight  * 0.03,
+          borderRadius: 10,
+          borderWidth: 2,
+          padding: getDimensionsStore().windowWidth * 0.02,
         }}
-        height={50}
-        margin={12}
-        marginRight={30}
-        borderRadius={10}
-        borderWidth={2}
-        padding={10}
-        placeholder="*********" 
-        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
+        height={getDimensionsStore().windowHeight  * 0.06}
         value={getLoginStore().user_password.get()}
-        onChangeText={(password : string)=> getLoginStore().setPassword(password) }
-        keyboardType="password "
-        secureTextEntry={true}
-        />
-        <CustomView style ={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: 60
-        }}>
-           <CustomText
-          style = {{
-            color: theme.fontColor,
-            marginTop: 5 ,
-            marginLeft: 10
-          }}
-          fontSize={20}
-          fontWeight={'500'}
-        >
-          User Country
-        </CustomText>
-        <CustomText
-          style={{
-            color: theme.fontColor,
-            marginTop: 5,
-            marginLeft: 10
-          }}
-          fontSize={20}
-          fontWeight={'500'}
-        >
-          Phone Number
-        </CustomText>
-        </CustomView>
-        <CustomView style={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '50%'
-        }}>
-          
-      <CustomInput 
-        style={{
-          marginBottom:30,
-          borderColor: theme.borderColor
-        }}
-        height={50}
-        margin={12}
-        marginRight={30}
-        borderRadius={10}
-        borderWidth={2}
-        padding={10}
-        placeholder="example: Lebanon" 
+        onChangeText={(password: string) => getLoginStore().setPassword(password)}
+        placeholder="*********"
         placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
-        value={getLoginStore().user_country.get()}
-        onChangeText={(country : string)=> getLoginStore().setUserCountry(country)}
         keyboardType="default"
-        secureTextEntry={false}
-        />
-        
-      <CustomInput 
+        secureTextEntry={true}
+      />
+
+      <CustomView
         style={{
-          marginBottom:30,
-          borderColor: theme.borderColor
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '100%',
+          marginBottom: getDimensionsStore().windowHeight  * 0.01,
         }}
-        height={50}
-        margin={12}
-        marginRight={30}
-        borderRadius={10}
-        borderWidth={2}
-        padding={10}
-        placeholder="+961-XXX-XXX => " 
-        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
-        value={getLoginStore().user_phone_number.get()}
-        onChangeText={(number : string)=> getLoginStore().setPhoneNumber(number)}
-        keyboardType="number-pad"
-        secureTextEntry={false}
-        />
-        </CustomView>
-          <CustomView 
+      >
+        <CustomText // country
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginLeft: 6
+            color: theme.fontColor,
           }}
+          fontSize={getDimensionsStore().windowWidth * 0.05}
+          fontWeight={'500'}
         >
-            <CustomButton onPress={handleSignUp}
-                style={{
-                  backgroundColor: getThemeStore().isDarkThemeEnabled.get() ? darkMode.fontColor :'#77E4C8',
-                  marginBottom: 5 ,
-                  borderRadius: 30,
-                  marginLeft: 10
-                }}
-                height={60}
-                width={350}
+          {createAccountText.userCountry}
+        </CustomText>
+
+        <CustomText // phone number
+          style={{
+            color: theme.fontColor,
+            marginRight : getDimensionsStore().windowWidth * 0.1
+          }}
+          fontSize={getDimensionsStore().windowWidth * 0.05}
+          fontWeight={'500'}
+        >
+          {createAccountText.phoneNumber}
+        </CustomText>
+      </CustomView>
+
+      <CustomView
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '100%',
+          marginBottom: getDimensionsStore().windowHeight  * 0.03,
+        }}
+      >
+        <CustomInput // country input
+          style={{
+            width: '48%',
+            borderColor: theme.borderColor,
+            borderRadius: 10,
+            borderWidth: 2,
+            padding: getDimensionsStore().windowWidth * 0.02,
+          }}
+          height={getDimensionsStore().windowHeight  * 0.06}
+          placeholder="example: Lebanon"
+          placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
+          value={getLoginStore().user_country.get()}
+          onChangeText={(country: string) => getLoginStore().setUserCountry(country)}
+          keyboardType="default"
+          secureTextEntry={false}
+        />
+
+        <CustomInput // phone number input
+          style={{
+            width: '48%',
+            borderColor: theme.borderColor,
+            borderRadius: 10,
+            borderWidth: 2,
+            padding: getDimensionsStore().windowWidth * 0.02,
+          }}
+          height={getDimensionsStore().windowHeight  * 0.06}
+          placeholder="+961-XXX-XXX => "
+          placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
+          value={getLoginStore().user_phone_number.get()}
+          onChangeText={(number: string) => getLoginStore().setPhoneNumber(number)}
+          keyboardType="number-pad"
+          secureTextEntry={false}
+        />
+      </CustomView>
+
+      <CustomView // sign up button
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
+        <CustomButton
+          onPress={handleSignUp}
+          style={{
+            backgroundColor: theme.borderColor,
+            borderRadius: 30,
+          }}
+          height={getDimensionsStore().windowHeight * 0.08}
+          width={getDimensionsStore().windowWidth * 0.9}
+        >
+          <CustomView style={{ justifyContent: 'center', alignItems: 'center'  }}>
+            <CustomText
+              style={{
+                color: 'black',
+                marginLeft: getDimensionsStore().windowWidth * 0.36,
+                marginTop: getDimensionsStore().windowWidth * 0.05
                 
+              }}
+              fontSize={getDimensionsStore().windowWidth * 0.05}
+              fontWeight='300'
             >
-                <CustomView 
-                    style={{display:'flex' , justifyContent:'center' , alignContent:'center'}}
-                >
-                    <CustomText
-                        style={{
-                          color: 'black',
-                          marginTop:10,
-                          marginLeft:140
-                        }}
-                        fontSize={20}
-                        fontWeight='300'
-                    >Sign Up</CustomText>
-                </CustomView>
-            </CustomButton>
+              {createAccountText.signUp}
+            </CustomText>
           </CustomView>
+        </CustomButton>
+      </CustomView>
     </CustomView>
-  )
-})
-export default CreateAccount
+  );
+});
+
+export default CreateAccount;

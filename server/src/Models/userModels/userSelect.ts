@@ -1,11 +1,16 @@
-import { executeQuery } from "../utils/database";
-import {User} from "../Interfaces/userProps";
-import { userFetchDataProps } from "../Interfaces/userProps";
+import { connectDB, executeQuery, pool } from "../../utils/database";
+import {User} from "../../Types/userProps";
+import { userFetchDataProps } from "../../Types/userProps";
 
-export const getUserModel = {
+export const userSelect = {
     LoginAsUser: async (user_email: string): Promise<User | null> => {
-        const userLoginQuery : string = "SELECT * FROM `news_reader_app`.`users` WHERE user_email=?";
-        const result = await executeQuery<User>(userLoginQuery, [user_email]);
+        const userEmailParameter : string = user_email;
+        const userLoginQuery : string =
+        `
+            SELECT * FROM users
+            WHERE user_email=
+        ` + pool.escape(userEmailParameter);
+        const result = await executeQuery<User>(userLoginQuery, []);
         if (result.length === 0) {
             return null;
         }
@@ -16,8 +21,14 @@ export const getUserModel = {
         };
     },
     LoginAsAdmin: async (user_email: string): Promise<User | null> => {
-        const userLoginQuery : string = "SELECT * FROM `news_reader_app`.`users` WHERE user_email=?";
-        const result = await executeQuery<User>(userLoginQuery, [user_email]);
+        const userEmailParameter : string = user_email;
+        const userLoginQuery : string = 
+        `
+            SELECT *
+            FROM users
+            WHERE user_email=
+        ` + pool.escape(userEmailParameter);
+        const result = await executeQuery<User>(userLoginQuery, []);
         if (result.length === 0) {
             return null;
         }
@@ -28,8 +39,14 @@ export const getUserModel = {
         };
     },
     fetchProfile: async (user_email: string): Promise<userFetchDataProps | null> => {
-        const userLoginQuery : string = "SELECT * FROM `news_reader_app`.`users` WHERE user_email=?";
-        const result = await executeQuery<userFetchDataProps>(userLoginQuery, [user_email]);
+        const userEmailParameter : string = user_email;
+        const userLoginQuery : string =
+        `
+            SELECT *
+            FROM users
+            WHERE user_email=
+        ` + pool.escape(userEmailParameter);
+        const result = await executeQuery<userFetchDataProps>(userLoginQuery, []);
         console.log(userLoginQuery , result);
         if (result.length === 0) {
             return null;

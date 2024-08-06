@@ -13,15 +13,27 @@ exports.userSignUp = void 0;
 const database_1 = require("../utils/database");
 exports.userSignUp = {
     registerAsAdmin: (user_email, hashedPassword, user_phone_number, user_country, user_name) => __awaiter(void 0, void 0, void 0, function* () {
-        const registerUser = "INSERT INTO `news_reader_app`.`users` (`user_email`, `user_password`, `user_phone_number`, `user_country` , `user_role` , `user_name`) VALUES (?,?,?,?,'admin',?)";
-        console.log('SQL Query:', registerUser);
-        console.log('Parameters:', [user_email, hashedPassword, user_phone_number, user_country, user_name]);
-        yield (0, database_1.executeQuery)(registerUser, [user_email, hashedPassword, user_phone_number, user_country, user_name]);
+        const userEmailParameter = user_email;
+        const hashedPasswordParameter = hashedPassword;
+        const phoneNumberparameter = user_phone_number;
+        const userCountryParameter = user_country;
+        const userNameParameter = user_name;
+        const registerUser = `
+            INSERT INTO users (user_email, user_password, user_phone_number, user_country , user_role , user_name)
+            VALUES ('${userEmailParameter}','${hashedPasswordParameter}','${phoneNumberparameter}','${userCountryParameter}','admin','${userNameParameter}')
+        `;
+        yield (0, database_1.executeQuery)(registerUser, []);
     }),
     registerAsUser: (user_email, hashedPassword, user_phone_number, user_country, user_name) => __awaiter(void 0, void 0, void 0, function* () {
-        const registerUser = "INSERT INTO `news_reader_app`.`users` (`user_email`, `user_password`, `user_phone_number`, `user_country` , `user_role` , `user_name`) VALUES (?,?,?,?,'user',?)";
-        console.log('SQL Query:', registerUser);
-        console.log('Parameters:', [user_email, hashedPassword, user_phone_number, user_country, user_name]);
-        yield (0, database_1.executeQuery)(registerUser, [user_email, hashedPassword, user_phone_number, user_country, user_name]);
+        const userEmailParameter = user_email;
+        const hashedPasswordParameter = hashedPassword;
+        const phoneNumberparameter = user_phone_number;
+        const userCountryParameter = user_country;
+        const userNameParameter = user_name;
+        const registerUser = `
+            INSERT INTO users (user_email, user_password, user_phone_number, user_country , user_role , user_name) 
+            VALUES ('${userEmailParameter}','${hashedPasswordParameter}','${phoneNumberparameter}','${userCountryParameter}','user','${userNameParameter}')
+        `;
+        yield (0, database_1.executeQuery)(registerUser, []);
     }),
 };

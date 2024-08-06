@@ -12,47 +12,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const userSelect_1 = require("../Models/userSelect");
-const userInsert_1 = require("../Models/userInsert");
+const userSelect_1 = require("../Models/userModels/userSelect");
+const userInsert_1 = require("../Models/userModels/userInsert");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const utitilty_1 = require("../helpers/utitilty");
-const ENCRYPTION_KEY = 'app';
+const User_1 = require("../Constant/User");
+const Message_1 = require("../Constant/Message");
 const userLibrary = {
     userCreateCall: (user_email, user_password, user_phone_number, user_country, user_name) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const hashedPassword = yield (0, utitilty_1.hashPassword)(user_password);
-            yield userInsert_1.userSignUp.registerAsUser(user_email, hashedPassword, user_phone_number, user_country, user_name);
-            const result = { message: "Sign up success" };
+            yield userInsert_1.userInsert.registerAsUser(user_email, hashedPassword, user_phone_number, user_country, user_name);
+            const result = { message: Message_1.UserMessages.Success.userSignUpSuccess };
             return result;
         }
         catch (error) {
-            throw new Error(`Error in user create call, ${error}`);
+            throw new Error(Message_1.UserMessages.Fail.userCreateError);
         }
     }),
     adminCreateCall: (user_email, user_password, user_phone_Number, user_country, user_name) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const hashedPassword = yield (0, utitilty_1.hashPassword)(user_password);
-            yield userInsert_1.userSignUp.registerAsAdmin(user_email, hashedPassword, user_phone_Number, user_country, user_name);
-            const result = { message: "Sign up success" };
+            yield userInsert_1.userInsert.registerAsAdmin(user_email, hashedPassword, user_phone_Number, user_country, user_name);
+            const result = { message: Message_1.UserMessages.Success.userSignUpSuccess };
             return result;
         }
         catch (error) {
-            throw new Error(`Error in admin create call, ${error}`);
+            throw new Error(Message_1.UserMessages.Fail.adminCreateError);
         }
     }),
     userLoginCallAsUser: (user_email, user_password) => __awaiter(void 0, void 0, void 0, function* () {
-        const user = yield userSelect_1.getUserModel.LoginAsUser(user_email);
+        const user = yield userSelect_1.userSelect.LoginAsUser(user_email);
         if (!user) {
-            throw new Error("User is not valid");
+            throw new Error(Message_1.UserMessages.Fail.userNotValidError);
         }
         const isPasswordValid = yield bcryptjs_1.default.compare(user_password, user.user_password);
         if (!isPasswordValid) {
-            throw new Error("Password is Invalid");
+            throw new Error(Message_1.UserMessages.Fail.emailAndPasswordError);
         }
-        const token = jsonwebtoken_1.default.sign({ role: "user", email: user.user_email }, ENCRYPTION_KEY, { expiresIn: "1h" });
+        const token = jsonwebtoken_1.default.sign({ role: "user", email: user.user_email }, User_1.ENCRYPTION_KEY, { expiresIn: "1h" });
         const result = {
-            message: "Login Successfull",
+            message: Message_1.UserMessages.Success.LoginSuccessfull,
             token,
             user: {
                 email: user.user_email,
@@ -63,16 +64,16 @@ const userLibrary = {
         return result;
     }),
     userLoginCallAsAdmin: (user_email, user_password) => __awaiter(void 0, void 0, void 0, function* () {
-        const user = yield userSelect_1.getUserModel.LoginAsAdmin(user_email);
+        const user = yield userSelect_1.userSelect.LoginAsAdmin(user_email);
         if (!user) {
-            throw new Error("User Not Found");
+            throw new Error(Message_1.UserMessages.Fail.userNotFoundError);
         }
         const isPasswordValid = yield bcryptjs_1.default.compare(user_password, user.user_password);
         if (!isPasswordValid) {
-            throw new Error("Invalid Password");
+            throw new Error(Message_1.UserMessages.Fail.emailAndPasswordError);
         }
         const result = {
-            message: "Login Successfull",
+            message: Message_1.UserMessages.Success.LoginSuccessfull,
             user: {
                 email: user.user_email,
                 hashPassword: user.user_password
@@ -82,8 +83,7 @@ const userLibrary = {
     }),
     userDataCall: (user_email) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const user = yield userSelect_1.getUserModel.fetchProfile(user_email);
-            console.log("User : => ", user);
+            const user = yield userSelect_1.userSelect.fetchProfile(user_email);
             if (user) {
                 return {
                     user_email: user.user_email,
@@ -97,7 +97,7 @@ const userLibrary = {
             }
         }
         catch (error) {
-            throw new Error(`Error while fetching user data, ${error}`);
+            throw new Error(Message_1.UserMessages.Fail.fetchDataError);
         }
     }),
 };

@@ -9,24 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const newsModel_1 = require("../Models/newsModel");
+const Message_1 = require("../Constant/Message");
+const newsInsert_1 = require("../Models/newsModels/newsInsert");
+const newsSelect_1 = require("../Models/newsModels/newsSelect");
 const newsLibrary = {
     addNewsForUser: (user_id, news_content) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            yield newsModel_1.newsModel.insertNews(user_id, news_content);
-            console.log('News added successfully.');
+            yield newsInsert_1.newsInsert.insertNews(user_id, news_content);
         }
         catch (error) {
-            console.error('Error while adding news to the news library:', error);
-            throw new Error('Failed to add news. Please try again later.');
+            throw new Error(Message_1.NewsMessages.Fail.errorNewsAddMessage);
         }
     }),
     fetchingAllNews: () => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            return yield newsModel_1.newsModel.fetchAllNewsData();
+            return yield newsSelect_1.newsSelect.fetchAllNewsData();
         }
         catch (error) {
-            throw new Error("Failed to fetch news");
+            throw new Error(Message_1.NewsMessages.Fail.errorNewsFetchMessage);
         }
     })
 };

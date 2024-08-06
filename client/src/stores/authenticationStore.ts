@@ -24,7 +24,7 @@ class AuthStore {
     logout = () => {
         runInAction(() => {
             mmkvAuth.delete("authToken");
-            this.isAuthenticated.set(true);
+            this.isAuthenticated.set(false);
         })
     }
 }

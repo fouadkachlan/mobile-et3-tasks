@@ -13,11 +13,20 @@ exports.newsModel = void 0;
 const database_1 = require("../utils/database");
 exports.newsModel = {
     insertNews: (user_id, news_content) => __awaiter(void 0, void 0, void 0, function* () {
-        const insertNewsQuery = 'INSERT INTO `news_reader_app`.`news`(`news_written_by`,`date_of_news`,`news_content`) VALUES (?,CURDATE(),?)';
-        yield (0, database_1.executeQuery)(insertNewsQuery, [user_id, news_content]);
+        const userIdParameter = user_id;
+        const newsContentParameter = news_content;
+        const insertNewsQuery = `
+            INSERT INTO news(news_written_by,date_of_news,news_content)
+            VALUES (${userIdParameter},CURDATE(),'${newsContentParameter}')
+        `;
+        yield (0, database_1.executeQuery)(insertNewsQuery, []);
     }),
     fetchAllNewsData: () => __awaiter(void 0, void 0, void 0, function* () {
-        const allNewsDataQuery = "SELECT user_name,date_of_news, news_content FROM `news_reader_app`.`news` n , `news_reader_app`.`users` u WHERE u.`user_id` = n.`news_written_by`";
+        const allNewsDataQuery = `
+            SELECT user_name,date_of_news, news_content
+            FROM news n , users u 
+            WHERE u.user_id = n.news_written_by
+        `;
         const result = yield (0, database_1.executeQuery)(allNewsDataQuery, []);
         return result;
     })

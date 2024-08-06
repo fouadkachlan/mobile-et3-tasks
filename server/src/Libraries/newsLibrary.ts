@@ -1,22 +1,21 @@
-import { newsModel } from "../Models/newsModel";
-import { News } from "../Interfaces/newsProps";
+import { NewsMessages } from "../Constant/Message";
+import { News } from "../Types/newsProps";
+import { newsInsert } from "../Models/newsModels/newsInsert";
+import { newsSelect } from "../Models/newsModels/newsSelect";
 
 const newsLibrary = {
      addNewsForUser : async (user_id: number, news_content: string): Promise<void> => {
         try {
-            await newsModel.insertNews(user_id, news_content);
-            
-            console.log('News added successfully.');
+            await newsInsert.insertNews(user_id, news_content);
         } catch (error) {
-            console.error('Error while adding news to the news library:', error);
-            throw new Error('Failed to add news. Please try again later.');
+            throw new Error(NewsMessages.Fail.errorNewsAddMessage);
         }
     },
     fetchingAllNews: async (): Promise<News[]> => {
      try {
-        return await newsModel.fetchAllNewsData();
+        return await newsSelect.fetchAllNewsData();
      } catch ( error ) {
-        throw new Error("Failed to fetch news");
+        throw new Error(NewsMessages.Fail.errorNewsFetchMessage);
      }
     }
 }

@@ -9,20 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectDB = exports.executeQuery = exports.db = void 0;
+exports.connectDB = exports.executeQuery = exports.pool = exports.db = void 0;
 const mysql_1 = require("mysql");
+const Message_1 = require("../Constant/Message");
 exports.db = ({
     host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'news_reader_app',
 });
-const pool = (0, mysql_1.createPool)(exports.db);
+exports.pool = (0, mysql_1.createPool)(exports.db);
 const executeQuery = (query, params) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => {
-        pool.query(query, params, (err, rows) => {
+        exports.pool.query(query, params, (err, rows) => {
             if (err) {
-                console.log(`Error executing query: ${err}`);
+                console.log(Message_1.DatabaseStatus.Fail.queryExecutionError);
                 reject(err);
             }
             else {
@@ -34,17 +35,17 @@ const executeQuery = (query, params) => __awaiter(void 0, void 0, void 0, functi
 exports.executeQuery = executeQuery;
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        pool.getConnection((err, connection) => {
+        exports.pool.getConnection((err, connection) => {
             if (err) {
-                console.error('Unable to connect to the MySQL database:', err);
+                console.error(Message_1.DatabaseStatus.Fail.databaseConnectionError);
                 throw err;
             }
-            console.log("Connected to the MySQL database");
+            console.log(Message_1.DatabaseStatus.Success.databaseConnectionSuccess);
             connection.release();
         });
     }
     catch (error) {
-        console.error('Unable to connect to the MySQL database:', error);
+        console.error(Message_1.DatabaseStatus.Fail.databaseConnectionError);
         throw error;
     }
 });

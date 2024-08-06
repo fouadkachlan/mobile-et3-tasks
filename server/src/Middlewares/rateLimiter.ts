@@ -1,5 +1,15 @@
 import rateLimit from "express-rate-limit";
 import { Request } from "express";
+import { MiddlewareMessages } from "../Constant/Message";
+import { executeQuery, pool } from "../utils/database";
+
+
+
+
+
+
+
+
 
 const rateLimitOptions = { 
     default: {
@@ -8,7 +18,7 @@ const rateLimitOptions = {
     },
 
     routes: {
-        "/createUser": { max: 1, windowMs: 60 * 1000 } 
+        "/createUser": { max: 5, windowMs: 60 * 1000 } 
     }
 };
 
@@ -16,7 +26,7 @@ const createRateLimiter = (options: { windowMs: number; max: number }) => {
     return rateLimit({
         windowMs: options.windowMs,
         max: options.max,
-        message: "Too many requests, please try again later.",
+        message:MiddlewareMessages.RateLimiter.Fail.toManyRequests,
         keyGenerator: (req: Request) => {
             return req.ip || "unknown_IP";
         }

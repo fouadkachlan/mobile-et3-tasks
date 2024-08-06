@@ -4,38 +4,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const ENCRYPTION_KEY = "app";
-if (!ENCRYPTION_KEY) {
-    console.error("ENCRYPTION_KEY is not defined.");
+const User_1 = require("../Constant/User");
+const Message_1 = require("../Constant/Message");
+if (!User_1.ENCRYPTION_KEY) {
+    console.error(Message_1.MiddlewareMessages.GateKeeper.Fail.encryptionKeyNotDefinedError);
 }
 const gateKeeper = (roles = []) => {
     return (req, res, next) => {
         const authHeader = req.get("Authorization");
         if (!authHeader) {
-            return res.status(401).json({ message: "Authorization header missing" });
+            return res.status(401).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.authorizationHeaderMissingError });
         }
         const token = authHeader.startsWith("Bearer") ? authHeader.split(" ")[1] : authHeader;
         if (!token) {
-            return res.status(401).json({ message: "Token missing" });
+            return res.status(401).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.tokenMissingError });
         }
         try {
-            const decoded = jsonwebtoken_1.default.verify(token, ENCRYPTION_KEY);
+            const decoded = jsonwebtoken_1.default.verify(token, User_1.ENCRYPTION_KEY);
             if (roles.length && !roles.includes(decoded.role)) {
-                return res.status(403).json({ message: "Forbidden: You don't have the required role" });
+                return res.status(403).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.roleError });
             }
             req.user = decoded;
             next();
         }
         catch (error) {
             if (error instanceof jsonwebtoken_1.default.JsonWebTokenError) {
-                return res.status(401).json({ message: "Invalid token" });
+                return res.status(401).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.invalidToken });
             }
             else if (error instanceof jsonwebtoken_1.default.TokenExpiredError) {
-                return res.status(401).json({ message: "Token expired" });
+                return res.status(401).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.tokenExpired });
             }
             else {
                 console.error(error);
-                return res.status(500).json({ message: "Internal server error" });
+                return res.status(500).json({ message: Message_1.ServerStatus.Error.internalServerError });
             }
         }
     };

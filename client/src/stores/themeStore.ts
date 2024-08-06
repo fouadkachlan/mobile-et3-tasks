@@ -1,18 +1,29 @@
 import {observable, runInAction} from "mobx";
+import { darkMode, lightMode } from "../Components/colors/colors";
+import { themes } from "../Components/ThemeContext/ThemeContext";
 
 class ThemeStore {
     isDarkThemeEnabled = observable.box<boolean>(false);
+    theme = observable.box<"dark" | "light">("light");
+
 
     
-    toggoleTheme = () => {
+    toggleTheme = () => {
         runInAction(() => {
-            this.isDarkThemeEnabled.set(!this.isDarkThemeEnabled.get());
+            const currentValue = this.isDarkThemeEnabled.get();
+            this.isDarkThemeEnabled.set(!currentValue);
+            this.theme.set(!currentValue ? 'dark' : 'light')
         })
     }
-    setThemeEnabled(value : boolean) {
-        runInAction(() => {
-            this.isDarkThemeEnabled.set(value);
-        })
+    setThemeEnabled = (value : 'dark' | 'light' )  : ("dark" | "light") => {
+        return runInAction(() => {
+            this.isDarkThemeEnabled.set(this.isDarkThemeEnabled.get());
+            this.theme.set(value);
+            return this.theme.get();
+        });
+    }
+    get themeMode() {
+        return this.isDarkThemeEnabled.get() ? "dark" : "light";
     }
 }
 

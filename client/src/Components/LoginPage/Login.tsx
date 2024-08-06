@@ -1,291 +1,303 @@
-import React from 'react';
-import { TouchableOpacity , Image, Alert} from 'react-native';
+import React, { useContext } from 'react';
+import { TouchableOpacity, Image, Alert, Dimensions } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { RootStackParamList } from '../../types/navigation';
-import {useNavigation , NavigationProp} from "@react-navigation/native";
-import axios from "axios";
-import CustomButton from '../../CustomComponents/CustomButton'
-import CustomView from '../../CustomComponents/CustomView'
-import CustomText from '../../CustomComponents/CustomText'
-import CustomInput from '../../CustomComponents/CustomInput'
-import getLoginStore from '../../stores/loginStore'
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import CustomButton from '../../CustomComponents/CustomButton';
+import CustomView from '../../CustomComponents/CustomView';
+import CustomText from '../../CustomComponents/CustomText';
+import CustomInput from '../../CustomComponents/CustomInput';
+import getLoginStore from '../../stores/loginStore';
 import getThemeStore from '../../stores/themeStore';
-import { darkMode, lightMode } from '../colors/colors';
 import getAuthStore from '../../stores/authenticationStore';
-import { Dimensions } from 'react-native';
-import { setToken } from './utility/mmkvLogin';
-
+import { setToken } from '../MmkvStorage/mmkv';
+import getRequestStore from '../../stores/requestsStore';
+import getDimensionsStore from '../../stores/dimensionsStore';
+import { ThemeContext } from '../ThemeContext/ThemeContext';
+import {
+  createAccountText,
+  emailAddressText,
+  forgotPasswordMessage,
+  loginMessage,
+  signInChoice,
+  welcomingMessage,
+} from '../Constant/constants';
 
 const googleImage = require('../../../../assets/google-symbol.png');
 
-const Login : React.FC = observer(() => {
 
+
+const Login: React.FC = observer(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
- 
-  const handleLogin = async (): Promise<void> => {
+  const handleLogin = async () => {
     try {
-      const IP_ADDRESS: string = "192.168.100.126";
-      const response = await axios.post(
-        `http://${IP_ADDRESS}:3000/api/loginUser`,
-        {
-          user_email: getLoginStore().user_email.get(),
-          user_password: getLoginStore().user_password.get(),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ` 
-          }
-        }
-      );
-  
+      const response = await getRequestStore().loginRequest();
+
       const data = response.data;
-      console.log("Data message is here here here here:", data);
-  
+      console.log(data);
       if (data.message === "Login Successfull") {
         const token: string = data.token;
+        // console.log(token);
         setToken(token);
         getAuthStore().login(token);
         getLoginStore().setUserId(data.user.user_id);
-        navigation.navigate("HomeNewsScreen");
+        navigation.navigate('HomeNewsScreen', 'HomeNewsScreen');
       } else {
-        Alert.alert("Login Failed", "Invalid email or password");
+        Alert.alert('Login Failed', 'Invalid email or password');
       }
     } catch (error) {
-      console.error("Error during login", error);
-      Alert.alert("Error", "Failed to login. Please try again later.");
+      console.error('Error during login', error);
+      Alert.alert('Error', 'Failed to login. Please try again later.');
     }
-  }
-  
-  const theme = getThemeStore().isDarkThemeEnabled.get() ? darkMode : lightMode;
-  const windowHeight = Dimensions.get("window").height;
+  };
+
+  const { theme } = useContext(ThemeContext);
+
   return (
-
-    <CustomView style={{
-      display: 'flex',
-      justifyContent:'center',
-      backgroundColor: theme.backGroundColor,
-      height: windowHeight
-      }} >
-        <CustomText 
-            style={{
-              color : theme.fontColor
-            }}
-            fontSize={50}
-            fontWeight={'bold'}
-        >Login</CustomText>
-
-        <CustomText
-          style={{color : theme.fontColor}}
-          fontSize={20}
-          fontWeight={'400'}
-        >
-          Welcome Back to the app
-        </CustomText>
-        <CustomText
-          style={{
-            color:theme.fontColor,
-            marginTop: 90
-          }}
-          fontSize={20}
-          fontWeight={'500'}
-        >
-          Email Address
-        </CustomText>
-
-      <CustomInput 
+    <CustomView
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        backgroundColor: theme.backGroundColor,
+      }}
+    >
+      <CustomText
         style={{
-          borderColor: theme.fontColor
+          color: theme.fontColor,
+          textAlign: 'center',
+          marginBottom: getDimensionsStore().windowHeight * 0.02,
+        }}
+        fontSize={50}
+        fontWeight={'bold'}
+      >
+        {loginMessage}
+      </CustomText>
+
+      <CustomText
+        style={{
+          color: theme.fontColor,
+          textAlign: 'center',
+          marginBottom: getDimensionsStore().windowHeight * 0.05,
+        }}
+        fontSize={20}
+        fontWeight={'400'}
+      >
+        {welcomingMessage}
+      </CustomText>
+
+      <CustomText
+        style={{
+          color: theme.fontColor,
+          marginHorizontal: getDimensionsStore().windowWidth * 0.1,
+          marginTop: getDimensionsStore().windowHeight * 0.05,
+        }}
+        fontSize={20}
+        fontWeight={'500'}
+      >
+        {emailAddressText}
+      </CustomText>
+
+      <CustomInput
+        style={{
+          borderColor: theme.fontColor,
+          marginHorizontal: getDimensionsStore().windowWidth  * 0.1,
+          marginVertical: getDimensionsStore().windowHeight * 0.01,
+          borderRadius: 10,
+          borderWidth: 2,
+          padding: 10,
         }}
         height={50}
-        margin={12}
-        marginRight={30}
-        borderRadius={10}
-        borderWidth={2}
-        padding={10}
         value={getLoginStore().user_email.get()}
         onChangeText={getLoginStore().setEmail}
-        placeholder="hello@example.com" 
-        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
-        keyboardType="email-address"  
+        placeholder="hello@example.com"
+        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? 'white' : 'black'}
+        keyboardType="email-address"
         secureTextEntry={false}
+      />
 
-        />
-         <CustomText
-          style={{
-            color : theme.fontColor,
-             marginTop: 5}}
-          fontSize={20}
-          fontWeight={'500'}
-        >
-          Password
-        </CustomText>
+      <CustomText
+        style={{
+          color: theme.fontColor,
+          marginHorizontal: getDimensionsStore().windowWidth  * 0.1,
+          marginTop: getDimensionsStore().windowHeight * 0.02,
+        }}
+        fontSize={20}
+        fontWeight={'500'}
+      >
+        Password
+      </CustomText>
 
-        <CustomView style={{
-          display: 'flex',
+      <CustomView
+        style={{
           justifyContent: 'center',
           alignItems: 'flex-end',
-          marginRight : 15
-        }} >
-        <TouchableOpacity onPress={()=>navigation.navigate("ForgotPassword")} >
-                <CustomText 
-                    style={{
-                      color : theme.fontColor
-                    }}
-                    fontSize={16}
-                    fontWeight='500'
-                 >Forgot Password ?</CustomText>
-            </TouchableOpacity>
-        </CustomView>
+          marginRight: getDimensionsStore().windowWidth  * 0.1,
+        }}
+      >
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword', 'ForgotPassword')}>
+          <CustomText
+            style={{
+              color: theme.fontColor,
+            }}
+            fontSize={16}
+            fontWeight="500"
+          >
+            {forgotPasswordMessage.forgotPasswordMessage}?
+          </CustomText>
+        </TouchableOpacity>
+      </CustomView>
 
-
-      <CustomInput 
+      <CustomInput
         style={{
-          borderColor : theme.fontColor,
-          marginBottom:30
+          borderColor: theme.fontColor,
+          marginHorizontal: getDimensionsStore().windowWidth  * 0.1,
+          marginVertical: getDimensionsStore().windowHeight * 0.01,
+          borderRadius: 10,
+          borderWidth: 2,
+          padding: 10,
+          marginBottom: getDimensionsStore().windowHeight * 0.05,
         }}
         height={50}
-        margin={12}
-        marginRight={30}
-        borderRadius={10}
-        borderWidth={2}
-        padding={10}
-        placeholder="*********" 
-        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
         value={getLoginStore().user_password.get()}
         onChangeText={getLoginStore().setPassword}
+        placeholder="*********"
+        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? 'white' : 'black'}
         keyboardType="default"
         secureTextEntry={true}
-        />
-       
-        <CustomView 
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+      />
 
-            marginRight:10
+      <CustomView
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: getDimensionsStore().windowHeight * 0.05,
+        }}
+      >
+        <CustomButton
+          onPress={handleLogin}
+          style={{
+            backgroundColor: theme.borderColor,
+            borderRadius: 30,
           }}
+          height={60}
+          width={getDimensionsStore().windowWidth  * 0.85}
         >
-            <CustomButton onPress={handleLogin}
-                style={{
-                  backgroundColor: theme.borderColor,
-                  marginBottom: 5,
-                  borderRadius: 30
-                }}
-                height={60}
-                width={350}
-                
-            >
-                <CustomView 
-                    style={{display:'flex' , justifyContent:'center' , alignContent:'center'}}
-                >
-                    <CustomText
-                        style={{
-                          color: 'black',
-                          marginTop:20,
-                          marginLeft:140
-                        }}
-                        fontSize={20}
-                        fontWeight='300'
-                    >Login</CustomText>
-                </CustomView>
-            </CustomButton>
-          </CustomView>
-          <CustomView
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
+          <CustomView style={{
+            display : 'flex' ,
+            justifyContent: 'center',
+            alignItems: 'center'
+            }}>
             <CustomText
               style={{
-                color : theme.fontColor,
-                paddingTop:5,
-                paddingBottom:20,
-                marginRight:25
+                color: 'black',
+                textAlign: 'center',
+                marginTop:20,
+                marginLeft: getDimensionsStore().windowWidth * 0.3333
+
+
               }}
-              fontSize={15}
-              fontWeight='600'
+              fontSize={20}
+              fontWeight="300"
             >
-            _______ Or sign in with _______
+              {loginMessage}
             </CustomText>
           </CustomView>
+        </CustomButton>
+      </CustomView>
 
-
-          <CustomView 
+      <CustomView
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CustomText
           style={{
-            display: 'flex',
+            color: theme.fontColor,
+            marginBottom: getDimensionsStore().windowHeight * 0.02,
+          }}
+          fontSize={15}
+          fontWeight="600"
+        >
+          {signInChoice}
+        </CustomText>
+      </CustomView>
+
+      <CustomView
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CustomButton
+          onPress={() => {
+            Alert.alert('Google Sign In not activated right now!');
+          }}
+          style={{
+            backgroundColor: 'grey',
+            borderRadius: 30,
+          }}
+          height={60}
+          width={getDimensionsStore().windowWidth  * 0.85}
+        >
+          <CustomView style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingLeft : getDimensionsStore().windowWidth * 0.03
+            }}>
+            <Image
+              style={{
+                height: 40,
+                width: 40,
+                marginRight: getDimensionsStore().windowWidth  * 0.05,
+                marginTop: getDimensionsStore().windowWidth * 0.01
+              }}
+              source={googleImage}
+            />
+            <CustomText
+              style={{
+                color: 'white',
+                // marginLeft: '10%',
+                // marginTop : '15%'
+                marginLeft: getDimensionsStore().windowWidth * 0.1,
+                marginTop: getDimensionsStore().windowWidth * 0.040
+                
+              }}
+              fontSize={17}
+              fontWeight="300"
+            >
+              Continue With Google
+            </CustomText>
+          </CustomView>
+        </CustomButton>
+      </CustomView>
+
+      <TouchableOpacity onPress={() => navigation.navigate('CreateAccount', 'CreateAccount')}>
+        <CustomView
+          style={{
             justifyContent: 'center',
             alignItems: 'center',
-            paddingBottom:0,
-            marginRight:10
+            marginTop: getDimensionsStore().windowHeight * 0.05,
           }}
         >
-            <CustomButton onPress={()=>{Alert.alert("Google Sign In not activated right now!")}}
-                style={{ 
-                  backgroundColor: 'grey',
-                  marginBottom: 40 ,
-                  borderRadius: 30,
-                  marginLeft: 8 
-                }}
-                height={60}
-                width={350}
-                
-            >
-                <CustomView 
-                    style={{
-                      display:'flex',
-                      flexDirection: 'row',
-                      justifyContent:'center' ,
-                      alignItems:'center'
-                    }}
-                >
-                  <CustomView 
-                    style={{display : 'flex' , justifyContent: 'center' , alignContent:"center"}}
-                  >
-                    <Image style={{
-                          height: 40 ,
-                          width: 40 ,
-                          overflow:'visible' ,
-                          marginTop:9 ,
-                          marginLeft: 50
-                          }} source={googleImage} />
-                      <CustomText
-                          style={{
-                            color: 'white' ,
-                            marginLeft: 120,
-                            marginTop: -30
-                          }}
-                          fontSize={17}
-                          fontWeight='300'
-                      >Continue With Google</CustomText>
-                  </CustomView>
-                </CustomView>
-            </CustomButton>
-          </CustomView>
-          <TouchableOpacity onPress={()=>navigation.navigate("CreateAccount")} >
-                <CustomView style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginBottom: '20%'
-                }}>
-                  <CustomText 
-                    style={{
-                      color:theme.fontColor
-                    }}
-                    fontSize={16}
-                    fontWeight='500'
-                 >Create an account</CustomText>
-                </CustomView>
-            </TouchableOpacity>
+          <CustomText
+            style={{
+              color: theme.fontColor,
+              paddingBottom: getDimensionsStore().windowWidth * 0.015
+            }}
+            fontSize={16}
+            fontWeight="500"
+          >
+            {createAccountText.createAccountMessage}
+          </CustomText>
+        </CustomView>
+      </TouchableOpacity>
     </CustomView>
-  )
-})
-  
+  );
+});
 
-export default Login
-
-
+export default Login;

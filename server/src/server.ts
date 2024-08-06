@@ -2,6 +2,11 @@ import express , {Request , Response , NextFunction} from "express";
 import bodyParser from "body-parser";
 import { connectDB } from "./utils/database";
 import userRoutes from './Controllers/index'
+import { DatabaseStatus, ServerStatus } from "./Constant/Message";
+
+
+
+
 const cors = require('cors');
 const app = express();
 const PORT =  3000;
@@ -12,8 +17,8 @@ app.use('/api',userRoutes)
 
 connectDB().then(() => {
     app.listen(PORT , () => {
-        console.log(`Server is listening on port : ${PORT}`)
+        console.log(`${ServerStatus.Success.serverListening}:${PORT}`)
     });
 }).catch((error) => {
-    console.error("Unable to connect to the database." , error);
+    console.error(DatabaseStatus.Fail.databaseConnectionError);
 });

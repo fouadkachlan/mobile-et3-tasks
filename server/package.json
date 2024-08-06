@@ -28,6 +28,7 @@
     "express-rate-limit": "^7.3.1",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
+    "rate-limiter-flexible": "^5.0.3",
     "react-native-mmkv": "^2.12.2"
   }
 }

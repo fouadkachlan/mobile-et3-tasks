@@ -1,9 +1,8 @@
-import {userSignUp} from "./userInsert";
-import {newsModel} from './newsModel';
-import { userUpdateModels } from "./userUpdate";
-import { getUserModel } from "./userSelect";
+import {userInsert} from "./userModels/userInsert";
+import { userUpdateModels } from "./userModels/userUpdate";
+import {userSelect} from "./userModels/userSelect";
 export const userModels = {
-    insert : userSignUp,
+    insert : userInsert,
     update: userUpdateModels,
-    select : getUserModel
+    select : userSelect
 }

@@ -1,121 +1,144 @@
-import {  Image, ActivityIndicator , TouchableOpacity, Alert } from 'react-native'
-import {useNavigation , NavigationProp} from "@react-navigation/native";
+import React, { useContext, useEffect } from 'react';
+import { Image, ActivityIndicator, TouchableOpacity, Alert, Dimensions } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
 import CustomButton from '../../CustomComponents/CustomButton';
 import CustomText from '../../CustomComponents/CustomText';
 import CustomView from '../../CustomComponents/CustomView';
 import { RootStackParamList } from '../../types/navigation';
 import getThemeStore from '../../stores/themeStore';
-import { darkMode, lightMode } from '../colors/colors';
-import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
-import { mmkv } from '../SettingsPage/Settings';
+import { mmkv } from '../MmkvStorage/mmkv';
+import { ThemeContext } from '../ThemeContext/ThemeContext';
+import { createAccountText, firstWelcoming, introducingNewsReaderApp, loginMessage } from '../Constant/constants';
+import getDimensionsStore from '../../stores/dimensionsStore';
 
 const welcomingImage = require("../../../../assets/welcome.png");
 
 
+const WelcomingScreen: React.FC = observer(() => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { theme } = useContext(ThemeContext);
 
+  useEffect(() => {
+    try {
+      const storedTheme = mmkv.getBoolean('themeEnabled');
+      console.log('Retrieved storedTheme:', storedTheme);
+      if (storedTheme !== undefined) {
+        getThemeStore().setThemeEnabled(storedTheme ? "dark" : "light");
+      } else {
+        console.log('No stored theme found, defaulting to false');
+      }
+    } catch (error) {
+      console.error('Error retrieving themeEnabled from MMKV:', error);
+      Alert.alert('Error', 'Failed to retrieve theme setting.');
+    }
+  }, []);
 
-const WelcomingScreen : React.FC= observer(() => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const theme = getThemeStore().isDarkThemeEnabled.get() ? darkMode : lightMode ;
-    useEffect(() => {
-        try {
-          const storedTheme = mmkv.getBoolean('themeEnabled');
-          console.log('Retrieved storedTheme:', storedTheme);
-          if (storedTheme !== undefined) {
-            getThemeStore().setThemeEnabled(storedTheme);
-          } else {
-            console.log('No stored theme found, defaulting to false');
-          }
-        } catch (error) {
-          console.error('Error retrieving themeEnabled from MMKV:', error);
-          Alert.alert('Error', 'Failed to retrieve theme setting.');
-        }
-      }, []);
- 
   return (
     <CustomView
-    
-        style={{ 
-            display : 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: theme.backGroundColor,
-            height: "100%"
-        }}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.backGroundColor,
+      }}
     >
-        <Image style={{
-            width: 400,
-            height: 250,
-            borderRadius: 950
-            }} 
-            source={welcomingImage} />
-        <CustomView style={{
-            display: 'flex',
-            alignItems: 'center',
+      <Image
+        style={{
+          width: getDimensionsStore().windowWidth * 0.8,
+          height: getDimensionsStore().windowHeight  * 0.3,
+          borderRadius: (getDimensionsStore().windowWidth * 0.8) / 2,
+        }}
+        source={welcomingImage}
+      />
+      <CustomView
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: getDimensionsStore().windowWidth * 0.05,
+        }}
+      >
+        <CustomText
+          style={{
+            color: theme.fontColor,
+            marginVertical: getDimensionsStore().windowHeight  * 0.02,
+          }}
+          fontSize={getDimensionsStore().windowWidth * 0.08}
+          fontWeight='bold'
+        >
+          {firstWelcoming}
+        </CustomText>
+        <CustomText
+          style={{
+            paddingTop: getDimensionsStore().windowHeight  * 0.03,
+            color: theme.fontColor,
+          }}
+          fontSize={getDimensionsStore().windowWidth * 0.04}
+          fontWeight='400'
+        >
+          {introducingNewsReaderApp}
+        </CustomText>
+        <ActivityIndicator
+          style={{
+            marginTop: getDimensionsStore().windowHeight  * 0.02,
+          }}
+          size={getDimensionsStore().windowWidth * 0.15}
+          color={theme.navigationColor}
+        />
+<CustomView
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: getDimensionsStore().windowHeight * 0.05,
+        }}
+      >
+        <CustomButton
+          onPress={() => navigation.navigate("Login" , "Login")}
+          style={{
+            backgroundColor: theme.borderColor,
+            borderRadius: 30,
+          }}
+          height={60}
+          width={getDimensionsStore().windowWidth  * 0.85}
+        >
+          <CustomView style={{
+            display : 'flex' ,
             justifyContent: 'center',
+            alignItems: 'center'
             }}>
             <CustomText
-                style={{
-                    color:theme.fontColor
-                }}
-                fontSize={30}
-                fontWeight='bold'
-            >Welcome to the news reader app</CustomText>
-            <CustomText
-                style={{
-                    paddingTop: 30,
-                    color: theme.fontColor
-                }}
-                fontSize={15}
-                fontWeight='400'
-            >We're excited to introduce you our news paper reader app.</CustomText>
-            <ActivityIndicator
-            style={{
-                marginTop: 20
-            }}
-                size={100}
-                color="#77E4C8"
-            ></ActivityIndicator>
-            <CustomButton onPress={() => navigation.navigate("Login")}
-                style={{
-                     backgroundColor: theme.borderColor,
-                     marginTop: 30 , 
-                     borderRadius: 30,
-                     width: 300
+              style={{
+                color: 'black',
+                textAlign: 'center',
+                marginTop:20,
+                marginLeft: getDimensionsStore().windowWidth * 0.3333
 
-                    }}
-                height={60}
-                width={400}
-                
+
+              }}
+              fontSize={20}
+              fontWeight="300"
             >
-                <CustomView 
-                    style={{
-                        display:'flex' ,
-                        justifyContent:'center' ,
-                         alignItems:'center',
-                        }}
-                >
-                    <CustomText
-                        style={{color: 'black' , marginTop:13, marginLeft:125}}
-                        fontSize={20}
-                        fontWeight='300'
-                    >Login</CustomText>
-                </CustomView>
-            </CustomButton>
-            <TouchableOpacity onPress={()=>navigation.navigate("CreateAccount")}>
-                <CustomText 
-                    style={{
-                        color:theme.fontColor,
-                        paddingTop:30
-                    }}
-                    fontSize={16}
-                    fontWeight='500'
-                 >Create an account</CustomText>
-            </TouchableOpacity>
-        </CustomView>
+              {loginMessage}
+            </CustomText>
+          </CustomView>
+        </CustomButton>
+      </CustomView>
+        <TouchableOpacity onPress={() => navigation.navigate("CreateAccount", "CreateAccount")}>
+          <CustomText
+            style={{
+              color: theme.fontColor,
+              paddingTop: getDimensionsStore().windowHeight * 0.03,
+            }}
+            fontSize={getDimensionsStore().windowWidth * 0.04}
+            fontWeight='500'
+          >
+            {createAccountText.createAccountMessage}
+          </CustomText>
+        </TouchableOpacity>
+      </CustomView>
     </CustomView>
-  )
-})
+  );
+});
 
-export default WelcomingScreen
+export default WelcomingScreen;

@@ -13,8 +13,12 @@ exports.getUserModel = void 0;
 const database_1 = require("../utils/database");
 exports.getUserModel = {
     LoginAsUser: (user_email) => __awaiter(void 0, void 0, void 0, function* () {
-        const userLoginQuery = "SELECT * FROM `news_reader_app`.`users` WHERE user_email=?";
-        const result = yield (0, database_1.executeQuery)(userLoginQuery, [user_email]);
+        const userEmailParameter = user_email;
+        const userLoginQuery = `
+            SELECT * FROM users
+            WHERE user_email='${userEmailParameter}'
+        `;
+        const result = yield (0, database_1.executeQuery)(userLoginQuery, []);
         if (result.length === 0) {
             return null;
         }
@@ -25,8 +29,13 @@ exports.getUserModel = {
         };
     }),
     LoginAsAdmin: (user_email) => __awaiter(void 0, void 0, void 0, function* () {
-        const userLoginQuery = "SELECT * FROM `news_reader_app`.`users` WHERE user_email=?";
-        const result = yield (0, database_1.executeQuery)(userLoginQuery, [user_email]);
+        const userEmailParameter = user_email;
+        const userLoginQuery = `
+            SELECT *
+            FROM users
+            WHERE user_email='${userEmailParameter}'
+        `;
+        const result = yield (0, database_1.executeQuery)(userLoginQuery, []);
         if (result.length === 0) {
             return null;
         }
@@ -37,8 +46,13 @@ exports.getUserModel = {
         };
     }),
     fetchProfile: (user_email) => __awaiter(void 0, void 0, void 0, function* () {
-        const userLoginQuery = "SELECT * FROM `news_reader_app`.`users` WHERE user_email=?";
-        const result = yield (0, database_1.executeQuery)(userLoginQuery, [user_email]);
+        const userEmailParameter = user_email;
+        const userLoginQuery = `
+            SELECT *
+            FROM users
+            WHERE user_email='${userEmailParameter}'
+        `;
+        const result = yield (0, database_1.executeQuery)(userLoginQuery, []);
         console.log(userLoginQuery, result);
         if (result.length === 0) {
             return null;
