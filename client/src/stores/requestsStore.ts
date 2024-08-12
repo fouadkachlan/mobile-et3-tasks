@@ -3,13 +3,15 @@ import { IP_ADDRESS, PORT } from "../Components/Constant/constants";
 import getLoginStore from "./loginStore";
 import getNewsStore from "./newsStore";
 import { NewsItem } from "../types/NewsItem";
+import { getToken } from "../Components/MmkvStorage/mmkv";
+import { getUserCredentials } from "./storeUtils";
 
 class RequestStore {
     
 
     async addNewsRequest() {
         await axios.post(`http://${IP_ADDRESS}:${PORT}/api/addNews`, {
-            user_id: getLoginStore().user_id.get(),
+            user_id: getUserCredentials().id,
             news_content : getNewsStore().news.get()
         });
     };
@@ -23,8 +25,8 @@ class RequestStore {
          await axios.post(
             `http://${IP_ADDRESS}:${PORT}/api/loginUser`,
             {
-              user_email: getLoginStore().user_email.get(),
-              user_password: getLoginStore().user_password.get(),
+              user_email: getUserCredentials().email,
+              user_password: getUserCredentials().password
             },
             {
               headers: {
@@ -32,26 +34,27 @@ class RequestStore {
               }
             }
           );
+          // console.log("Response " ,response)
           return response;
     }
 
     async profileFetchRequest() {
         const response = await axios.post(`http://${IP_ADDRESS}:${PORT}/api/getUserProfileData` , {
-            user_email : getLoginStore().user_email.get(),
-            user_name : getLoginStore().user_name.get(),
-            user_phone_number : getLoginStore().user_phone_number.get(),
-            user_country : getLoginStore().user_country.get(),
+            user_email : getUserCredentials().email,
+            user_name : getUserCredentials().username,
+            user_phone_number : getUserCredentials().phone,
+            user_country : getUserCredentials().country,
         });
         return response;
     }
 
     async signInRequest() {
         const response = await axios.post(`http://${IP_ADDRESS}:${PORT}/api/createUser` , {
-            user_email : getLoginStore().user_email.get(),
-            user_name: getLoginStore().user_name.get(),
-            user_password: getLoginStore().user_password.get(),
-            user_phone_number : getLoginStore().user_phone_number.get(),
-            user_country : getLoginStore().user_country.get()
+            user_email : getUserCredentials().email,
+            user_name: getUserCredentials().username,
+            user_password: getUserCredentials().password,
+            user_phone_number : getUserCredentials().phone,
+            user_country : getUserCredentials().country
           });
         return response;
 

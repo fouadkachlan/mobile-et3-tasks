@@ -8,34 +8,28 @@ import CustomText from '../../CustomComponents/CustomText';
 import CustomInput from '../../CustomComponents/CustomInput';
 import getLoginStore from '../../stores/loginStore';
 import getThemeStore from '../../stores/themeStore';
-import getRequestStore from '../../stores/requestsStore';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { createAccountText, emailAddressText, welcomingMessage } from '../Constant/constants';
 import { RootStackParamList } from '../../types/navigation';
 import getDimensionsStore from '../../stores/dimensionsStore';
+import CreateAccountHeader from './Header/CreateAccountHeader';
 
 
 const CreateAccount: React.FC = observer(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const handleSignUp = async (): Promise<void> => {
+  const handlePress = async () : Promise<void> => {
     try {
-      const response = await getRequestStore().signInRequest();
-      const data = response.data;
-      if (data.message === "User Created Successfully") {
-        Alert.alert("Congratulations, you are now in our community");
-        navigation.navigate("Login", "Login");
-      }
+      getLoginStore().handleSignUp(navigation);
+
     } catch (error) {
-      console.error("Error during Sign Up", error);
-      Alert.alert("Error", "Failed to Sign Up. Please try again later.");
+      Alert.alert("Error", "Error While Handling Sign Up!");
     }
-  };
+  } 
 
   const { theme } = useContext(ThemeContext);
 
   return (
-    //big view
     <CustomView
       style={{
         flex: 1,
@@ -46,29 +40,9 @@ const CreateAccount: React.FC = observer(() => {
       }}
     >
       
-      <CustomText // sign up text
-        style={{
-          color: theme.fontColor,
-          marginBottom: getDimensionsStore().windowHeight  * 0.02,
-        }}
-        fontSize={getDimensionsStore().windowWidth * 0.1}
-        fontWeight={'bold'}
-      >
-        {createAccountText.signUp}
-      </CustomText>
+      <CreateAccountHeader />
 
-      <CustomText // welcome to the app text
-        style={{
-          color: theme.fontColor,
-          marginBottom: getDimensionsStore().windowHeight  * 0.02,
-        }}
-        fontSize={getDimensionsStore().windowWidth * 0.05}
-        fontWeight={'400'}
-      >
-        {welcomingMessage}
-      </CustomText>
-
-      <CustomText // Email Address
+      <CustomText
         style={{
           color: theme.fontColor,
           marginTop: getDimensionsStore().windowHeight  * 0.02,
@@ -80,7 +54,7 @@ const CreateAccount: React.FC = observer(() => {
         {emailAddressText}
       </CustomText>
 
-      <CustomInput // email Address input
+      <CustomInput
         style={{
           width: '100%',
           borderColor: theme.borderColor,
@@ -98,7 +72,7 @@ const CreateAccount: React.FC = observer(() => {
         secureTextEntry={false}
       />
 
-      <CustomText // username 
+      <CustomText 
         style={{
           color: theme.fontColor,
           marginBottom: getDimensionsStore().windowHeight  * 0.01,
@@ -109,7 +83,7 @@ const CreateAccount: React.FC = observer(() => {
         {createAccountText.username}
       </CustomText>
 
-      <CustomInput // username input
+      <CustomInput 
         style={{
           width: '100%',
           borderColor: theme.borderColor,
@@ -127,7 +101,7 @@ const CreateAccount: React.FC = observer(() => {
         secureTextEntry={false}
       />
 
-      <CustomText // password
+      <CustomText
         style={{
           color: theme.fontColor,
           marginBottom: getDimensionsStore().windowHeight  * 0.01,
@@ -138,7 +112,7 @@ const CreateAccount: React.FC = observer(() => {
         {createAccountText.password}
       </CustomText>
 
-      <CustomInput // password input 
+      <CustomInput 
         style={{
           width: '100%',
           borderColor: theme.borderColor,
@@ -164,7 +138,7 @@ const CreateAccount: React.FC = observer(() => {
           marginBottom: getDimensionsStore().windowHeight  * 0.01,
         }}
       >
-        <CustomText // country
+        <CustomText
           style={{
             color: theme.fontColor,
           }}
@@ -174,7 +148,7 @@ const CreateAccount: React.FC = observer(() => {
           {createAccountText.userCountry}
         </CustomText>
 
-        <CustomText // phone number
+        <CustomText 
           style={{
             color: theme.fontColor,
             marginRight : getDimensionsStore().windowWidth * 0.1
@@ -194,7 +168,7 @@ const CreateAccount: React.FC = observer(() => {
           marginBottom: getDimensionsStore().windowHeight  * 0.03,
         }}
       >
-        <CustomInput // country input
+        <CustomInput 
           style={{
             width: '48%',
             borderColor: theme.borderColor,
@@ -211,7 +185,7 @@ const CreateAccount: React.FC = observer(() => {
           secureTextEntry={false}
         />
 
-        <CustomInput // phone number input
+        <CustomInput 
           style={{
             width: '48%',
             borderColor: theme.borderColor,
@@ -229,7 +203,7 @@ const CreateAccount: React.FC = observer(() => {
         />
       </CustomView>
 
-      <CustomView // sign up button
+      <CustomView 
         style={{
           justifyContent: 'center',
           alignItems: 'center',
@@ -237,7 +211,7 @@ const CreateAccount: React.FC = observer(() => {
         }}
       >
         <CustomButton
-          onPress={handleSignUp}
+          onPress={handlePress}
           style={{
             backgroundColor: theme.borderColor,
             borderRadius: 30,

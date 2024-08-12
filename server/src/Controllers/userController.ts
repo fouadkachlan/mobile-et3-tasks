@@ -21,6 +21,7 @@ export const createAdmin = async (req : Request<{},{},adminCreateRequestBody> , 
     try {
         const { user_email , user_password , user_phone_number ,user_country , user_role , user_name} = req.body;
         await userLibrary.adminCreateCall(user_email , user_password , user_phone_number ,user_country , user_name);
+        
         res.status(200).json({message : UserMessages.Success.userCreateSuccess});
     } catch (error) {
         res.status(500).json({error : UserMessages.Fail.userCreateError});

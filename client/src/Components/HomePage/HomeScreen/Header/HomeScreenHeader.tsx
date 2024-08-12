@@ -21,9 +21,7 @@ const HomeScreenHeader : React.FC = () => {
                 style={{
                     display: 'flex',
                     justifyContent: 'flex-end',
-                    alignItems: 'flex-end',
-                    // marginTop: 10,
-                    // marginRight: 10
+                    alignItems: 'flex-end'
                 }}
             >
                 <CustomView

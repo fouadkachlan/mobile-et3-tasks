@@ -9,7 +9,15 @@ const Message_1 = require("../Constant/Message");
 if (!User_1.ENCRYPTION_KEY) {
     console.error(Message_1.MiddlewareMessages.GateKeeper.Fail.encryptionKeyNotDefinedError);
 }
-const gateKeeper = (roles = []) => {
+const expectedFields = {
+    "/createUser": ["user_email", "user_password", "user_phone_number", "user_country", "user_name"],
+    "/createAdmin": ["user_email", "user_password", "user_phone_number", "user_country", "user_name"],
+    "/loginUser": ["user_email", "user_password"],
+    "/getUserProfileData": ["user_email"],
+    "/addNews": ["user_id", "news_content"],
+    "/news": []
+};
+const gateKeeper = (roles = [], route) => {
     return (req, res, next) => {
         const authHeader = req.get("Authorization");
         if (!authHeader) {
@@ -19,10 +27,20 @@ const gateKeeper = (roles = []) => {
         if (!token) {
             return res.status(401).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.tokenMissingError });
         }
+        // console.log("Authentication header:" , authHeader);
+        // console.log("Token : " , token);
         try {
             const decoded = jsonwebtoken_1.default.verify(token, User_1.ENCRYPTION_KEY);
             if (roles.length && !roles.includes(decoded.role)) {
                 return res.status(403).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.roleError });
+            }
+            const expected = expectedFields[route];
+            if (expected) {
+                const receivedFields = Object.keys(req.body);
+                const hasExtraFields = receivedFields.some((field) => !expected.includes(field));
+                if (hasExtraFields) {
+                    return res.status(400).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.unexpectedFieldError });
+                }
             }
             req.user = decoded;
             next();

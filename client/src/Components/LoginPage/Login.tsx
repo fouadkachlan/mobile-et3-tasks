@@ -9,9 +9,6 @@ import CustomText from '../../CustomComponents/CustomText';
 import CustomInput from '../../CustomComponents/CustomInput';
 import getLoginStore from '../../stores/loginStore';
 import getThemeStore from '../../stores/themeStore';
-import getAuthStore from '../../stores/authenticationStore';
-import { setToken } from '../MmkvStorage/mmkv';
-import getRequestStore from '../../stores/requestsStore';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import {
@@ -29,29 +26,14 @@ const googleImage = require('../../../../assets/google-symbol.png');
 
 const Login: React.FC = observer(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
-  const handleLogin = async () => {
+  const handlePress = async () : Promise<void> => {
     try {
-      const response = await getRequestStore().loginRequest();
+      getLoginStore().handleLogin(navigation);
 
-      const data = response.data;
-      console.log(data);
-      if (data.message === "Login Successfull") {
-        const token: string = data.token;
-        // console.log(token);
-        setToken(token);
-        getAuthStore().login(token);
-        getLoginStore().setUserId(data.user.user_id);
-        navigation.navigate('HomeNewsScreen', 'HomeNewsScreen');
-      } else {
-        Alert.alert('Login Failed', 'Invalid email or password');
-      }
-    } catch (error) {
-      console.error('Error during login', error);
-      Alert.alert('Error', 'Failed to login. Please try again later.');
+    } catch ( error ) {
+      Alert.alert("Error" , "Error while Logging In")
     }
-  };
-
+  }
   const { theme } = useContext(ThemeContext);
 
   return (
@@ -177,7 +159,7 @@ const Login: React.FC = observer(() => {
         }}
       >
         <CustomButton
-          onPress={handleLogin}
+          onPress={handlePress}
           style={{
             backgroundColor: theme.borderColor,
             borderRadius: 30,

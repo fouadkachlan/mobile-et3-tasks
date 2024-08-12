@@ -37,7 +37,6 @@ const userLibrary = {
             throw new Error (UserMessages.Fail.emailAndPasswordError);
         }
         const token = jwt.sign({role : "user" , email: user.user_email} ,ENCRYPTION_KEY,{ expiresIn: "1h"});
-
         const result = {
             message : UserMessages.Success.LoginSuccessfull,
             token,
@@ -47,6 +46,7 @@ const userLibrary = {
                 user_id: user.user_id
             }
         }
+        console.log(result.token)
         return result;
     },
     userLoginCallAsAdmin : async (user_email : string , user_password : string) : Promise<{message : string ; user : {email : string , hashPassword : string}} | null> => {

@@ -4,7 +4,8 @@ import CustomView from '../../../../CustomComponents/CustomView'
 import getNewsStore from '../../../../stores/newsStore'
 import NewsForm from '../../NewsForm/NewsForm'
 import { NewsItem } from '../../../../types/NewsItem'
-const HomeScreenNewsList : React.FC = () => {
+import { observer } from 'mobx-react-lite'
+const HomeScreenNewsList : React.FC = observer(() => {
   return (
     <CustomView style={{
       display: 'flex',
@@ -17,6 +18,6 @@ const HomeScreenNewsList : React.FC = () => {
             ))}
     </CustomView>
   )
-}
+})
 
 export default HomeScreenNewsList

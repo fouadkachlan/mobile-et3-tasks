@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserMessages = exports.DatabaseStatus = exports.ServerStatus = exports.MiddlewareMessages = exports.NewsMessages = void 0;
+exports.UserMessages = exports.RateLimitStatus = exports.DatabaseStatus = exports.ServerStatus = exports.MiddlewareMessages = exports.NewsMessages = void 0;
 exports.NewsMessages = {
     Fail: {
         errorNewsAddMessage: "Error while adding news.",
@@ -19,7 +19,8 @@ exports.MiddlewareMessages = {
             tokenMissingError: "Token is missing",
             invalidToken: "Token is Invalid",
             tokenExpired: "Token is Expired",
-            roleError: "Forbidden: You don't have the required role"
+            roleError: "Forbidden: You don't have the required role",
+            unexpectedFieldError: "Unexpected Field Error!"
         },
         Success: {}
     },
@@ -45,6 +46,16 @@ exports.DatabaseStatus = {
     },
     Success: {
         databaseConnectionSuccess: "Connected to the MySQL database Successfully"
+    }
+};
+exports.RateLimitStatus = {
+    Fail: {
+        RateLimitLibraryFail: "Failure in User Library, and An Exception is Thrown!",
+        RateLimitControllerFail: "Error While getting Rate Limit!"
+    },
+    Success: {
+        RateLimitLibrarySuccess: "Success In User Library",
+        RateLimitControllerSuccess: "Success In Getting Rate Limit"
     }
 };
 exports.UserMessages = {

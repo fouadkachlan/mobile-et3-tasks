@@ -1,5 +1,11 @@
 import {  observable, runInAction } from "mobx";
-
+import getRequestStore from "./requestsStore";
+import getAuthStore from "./authenticationStore";
+import { Alert } from "react-native";
+import Navigation from "../Components/Navigation/Navigation";
+import { setToken } from "../Components/MmkvStorage/mmkv";
+import { NavigationProp } from "@react-navigation/native";
+import { RootStackParamList } from "../types/navigation";
  class LoginStore 
 {
     user_email = observable.box<string>('');
@@ -56,6 +62,41 @@ import {  observable, runInAction } from "mobx";
             this.user_country.set(user_country);
         })
     }
+    
+    handleLogin = async (navigation : NavigationProp<RootStackParamList>) : Promise<void>=> {
+        try {
+          const response = await getRequestStore().loginRequest();
+    
+          const data = response.data;
+          console.log("Data in handlelogin",data);
+          if (data.message === "Login Successfull") {
+            const token: string = data.token;
+            setToken(token);
+            getAuthStore().login(token);
+            getLoginStore().setUserId(data.user.user_id);
+            navigation.navigate('HomeNewsScreen', 'HomeNewsScreen');
+          } else {
+            Alert.alert('Login Failed', 'Invalid email or password');
+          }
+        } catch (error) {
+          console.error('Error during login', error);
+          Alert.alert('Error', 'Failed to login. Please try again later.');
+        }
+    };
+     handleSignUp = async (navigation : NavigationProp<RootStackParamList>): Promise<void> => {
+        try {
+          const response = await getRequestStore().signInRequest();
+          const data = response.data;
+          if (data.message === "User Created Successfully") {
+            Alert.alert("Congratulations, you are now in our community");
+            navigation.navigate("Login", "Login");
+          }
+        } catch (error) {
+          console.error("Error during Sign Up", error);
+          Alert.alert("Error", "Failed to Sign Up. Please try again later.");
+        }
+      };
+    
 }
 
 const loginStore = new LoginStore();

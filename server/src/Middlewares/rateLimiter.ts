@@ -1,37 +1,36 @@
-import rateLimit from "express-rate-limit";
-import { Request } from "express";
+import { NextFunction, Request, Response } from "express";
 import { MiddlewareMessages } from "../Constant/Message";
-import { executeQuery, pool } from "../utils/database";
+import { rateLimitSelect } from "../Models/rateLimitModels/rateLimitSelect";
+import { rateLimitInsert } from "../Models/rateLimitModels/rateLimitInsert";
+import { RateLimit } from "../Types/RateLimit/RateLimitType";
 
+const rateLimitMiddleware = (option: { windowMs: number; max: number; limitType: string }) => async (req: Request, res: Response, next: NextFunction) => {
+    const ip_Address : string = req.ip;
+    const { windowMs, max, limitType } = option;
 
-
-
-
-
-
-
-
-const rateLimitOptions = { 
-    default: {
-        max: 3,
-        windowMs: 60  * 1000,
-    },
-
-    routes: {
-        "/createUser": { max: 5, windowMs: 60 * 1000 } 
+    try {
+        const rateLimit : RateLimit | null = await rateLimitSelect.getRateLimit(ip_Address, limitType);
+        if (rateLimit && rateLimit.current_count >= max) {
+            console.log(MiddlewareMessages.RateLimiter.Fail.toManyRequests);
+            res.status(429).send(MiddlewareMessages.RateLimiter.Fail.toManyRequests);
+            return;
+        }
+        await rateLimitInsert.updateRateLimit(ip_Address, limitType, Math.floor(windowMs / 1000), max);
+        next();
+    } catch (error) {
+        console.log("Error in rate limit middleware", error);
+        res.status(500).send("Internal Server Error");
     }
 };
 
-const createRateLimiter = (options: { windowMs: number; max: number }) => {
-    return rateLimit({
-        windowMs: options.windowMs,
-        max: options.max,
-        message:MiddlewareMessages.RateLimiter.Fail.toManyRequests,
-        keyGenerator: (req: Request) => {
-            return req.ip || "unknown_IP";
-        }
-    });
-};
+export const loginUserRateLimiter = rateLimitMiddleware({
+    windowMs: 60 * 1000,
+    max: 5,
+    limitType: "Login Rate Limit"
+});
 
-export const userSignUpRateLimiter = createRateLimiter(rateLimitOptions.routes["/createUser"]);
-export const defaultRateLimiter = createRateLimiter(rateLimitOptions.default);
+export const defaultRateLimiter = rateLimitMiddleware({
+    windowMs: 60 * 1000,
+    max: 10,
+    limitType: "Default Rate Limit"
+})

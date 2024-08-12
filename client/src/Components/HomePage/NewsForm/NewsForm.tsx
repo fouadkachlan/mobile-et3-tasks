@@ -6,6 +6,7 @@ import CustomText from '../../../CustomComponents/CustomText';
 import getThemeStore from '../../../stores/themeStore';
 import { newsWrittenAt, newsWrittenBy } from '../../Constant/constants';
 import { ThemeContext } from '../../ThemeContext/ThemeContext';
+import getDimensionsStore from '../../../stores/dimensionsStore';
 
 const NewsForm : React.FC<NewsFormProps> = observer(({newsItem}) => {
   const {theme} = useContext(ThemeContext)
@@ -14,12 +15,15 @@ const NewsForm : React.FC<NewsFormProps> = observer(({newsItem}) => {
     <CustomView
     style={{
         display: "flex",
+        justifyContent: 'space-between',
         borderColor: theme.borderColor,
         borderWidth: 2,
         borderRadius:10,
         borderBottomLeftRadius: 20,
         borderTopRightRadius: 20,
         padding: '5%',
+        width: getDimensionsStore().windowWidth / 1.1,
+        marginBottom: getDimensionsStore().windowWidth * 0.05
     }}>
       
       <CustomView style ={{

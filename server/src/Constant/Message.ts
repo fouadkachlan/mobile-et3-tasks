@@ -18,7 +18,8 @@ export const MiddlewareMessages = {
             tokenMissingError : "Token is missing",
             invalidToken : "Token is Invalid",
             tokenExpired : "Token is Expired",
-            roleError : "Forbidden: You don't have the required role"
+            roleError : "Forbidden: You don't have the required role",
+            unexpectedFieldError : "Unexpected Field Error!"
         },
         Success : {
 
@@ -51,6 +52,19 @@ export const DatabaseStatus = {
     Success : {
         databaseConnectionSuccess : "Connected to the MySQL database Successfully"
        
+    }
+}
+
+export const RateLimitStatus = {
+    Fail : {
+        RateLimitLibraryFail : "Failure in User Library, and An Exception is Thrown!",
+        RateLimitControllerFail : "Error While getting Rate Limit!"
+
+    }, 
+    Success : {
+        RateLimitLibrarySuccess : "Success In User Library",
+        RateLimitControllerSuccess : "Success In Getting Rate Limit"
+
     }
 }
 
