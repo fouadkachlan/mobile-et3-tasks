@@ -19,11 +19,7 @@ import {
   signInChoice,
   welcomingMessage,
 } from '../Constant/constants';
-
 const googleImage = require('../../../../assets/google-symbol.png');
-
-
-
 const Login: React.FC = observer(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const handlePress = async () : Promise<void> => {
@@ -243,8 +239,6 @@ const Login: React.FC = observer(() => {
             <CustomText
               style={{
                 color: 'white',
-                // marginLeft: '10%',
-                // marginTop : '15%'
                 marginLeft: getDimensionsStore().windowWidth * 0.1,
                 marginTop: getDimensionsStore().windowWidth * 0.040
                 

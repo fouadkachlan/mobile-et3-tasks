@@ -3,7 +3,6 @@ import {NewsFormProps} from '../../../types/NewsFormProps';
 import { observer } from 'mobx-react-lite';
 import CustomView from '../../../CustomComponents/CustomView';
 import CustomText from '../../../CustomComponents/CustomText';
-import getThemeStore from '../../../stores/themeStore';
 import { newsWrittenAt, newsWrittenBy } from '../../Constant/constants';
 import { ThemeContext } from '../../ThemeContext/ThemeContext';
 import getDimensionsStore from '../../../stores/dimensionsStore';

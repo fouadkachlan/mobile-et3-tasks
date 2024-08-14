@@ -5,7 +5,6 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../types/navigation';
 import { observer } from 'mobx-react-lite';
 import getLoginStore from '../../stores/loginStore';
-import getThemeStore from '../../stores/themeStore';
 import getAuthStore from '../../stores/authenticationStore';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import getDimensionsStore from '../../stores/dimensionsStore';

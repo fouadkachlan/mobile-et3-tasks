@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React, { useContext } from 'react'
 import CustomInput from '../../../../CustomComponents/CustomInput'
 import CustomView from '../../../../CustomComponents/CustomView'

@@ -1,4 +1,4 @@
-import { View, Text, Alert } from 'react-native'
+import { Alert } from 'react-native'
 import React, { useContext } from 'react'
 import CustomView from '../../../../CustomComponents/CustomView'
 import CustomButton from '../../../../CustomComponents/CustomButton'

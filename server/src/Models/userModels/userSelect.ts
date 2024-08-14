@@ -1,4 +1,4 @@
-import { connectDB, executeQuery, pool } from "../../utils/database";
+import { executeQuery, pool } from "../../utils/database";
 import {User} from "../../Types/userProps";
 import { userFetchDataProps } from "../../Types/userProps";
 

@@ -19,20 +19,7 @@ const WelcomingScreen: React.FC = observer(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { theme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    try {
-      const storedTheme = mmkv.getBoolean('themeEnabled');
-      console.log('Retrieved storedTheme:', storedTheme);
-      if (storedTheme !== undefined) {
-        getThemeStore().setThemeEnabled(storedTheme ? "dark" : "light");
-      } else {
-        console.log('No stored theme found, defaulting to false');
-      }
-    } catch (error) {
-      console.error('Error retrieving themeEnabled from MMKV:', error);
-      Alert.alert('Error', 'Failed to retrieve theme setting.');
-    }
-  }, []);
+  
 
   return (
     <CustomView

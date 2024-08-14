@@ -1,6 +1,4 @@
 import { observable, runInAction } from "mobx";
-import React from "react";
-
 class RefreshStore
 {
     refresh = observable.box<boolean>(false);

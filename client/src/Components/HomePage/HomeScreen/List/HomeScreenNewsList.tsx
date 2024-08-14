@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import CustomView from '../../../../CustomComponents/CustomView'
 import getNewsStore from '../../../../stores/newsStore'

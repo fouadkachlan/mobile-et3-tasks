@@ -55,7 +55,8 @@ const Settings: React.FC = observer(() => {
         }}
       >
         <CustomText style={{
-            marginTop: 50,
+            marginTop: getDimensionsStore().windowWidth * 0.1,
+            marginLeft: 10,
             color: theme.fontColor
             }}
             fontSize={20}

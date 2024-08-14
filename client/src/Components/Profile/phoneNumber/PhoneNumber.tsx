@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React, { useContext } from 'react'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import getLoginStore from '../../../stores/loginStore'

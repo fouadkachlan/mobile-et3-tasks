@@ -9,7 +9,7 @@ import CustomInput from '../../CustomComponents/CustomInput';
 import getLoginStore from '../../stores/loginStore';
 import getThemeStore from '../../stores/themeStore';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
-import { createAccountText, emailAddressText, welcomingMessage } from '../Constant/constants';
+import { createAccountText, emailAddressText } from '../Constant/constants';
 import { RootStackParamList } from '../../types/navigation';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import CreateAccountHeader from './Header/CreateAccountHeader';

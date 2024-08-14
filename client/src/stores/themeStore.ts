@@ -1,5 +1,4 @@
 import {observable, runInAction} from "mobx";
-import { themes } from "../Components/ThemeContext/ThemeContext";
 
 class ThemeStore {
     isDarkThemeEnabled = observable.box<boolean>(false);
