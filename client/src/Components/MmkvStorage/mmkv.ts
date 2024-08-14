@@ -11,7 +11,7 @@ export const setToken = (token: string) => {
   storage.set('token', token);
 };
 
-export const getToken = () => {
+export const getToken = () : string | undefined => {
   return storage.getString('token');
 };
 

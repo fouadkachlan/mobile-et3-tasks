@@ -12,8 +12,7 @@ const expectedFields : {[route : string] : string[]} = {
     "/createAdmin" : ["user_email" , "user_password" , "user_phone_number" ,"user_country" , "user_name"],
     "/loginUser" : ["user_email","user_password"],
     "/getUserProfileData" : ["user_email"],
-    "/addNews" : ["user_id","news_content"],
-    "/news" : []
+    "/addNews" : ["user_id","news_content"]
 }
 const gateKeeper = (roles: string[] = [] , route : string) => {
     return (req: Request, res: Response, next: NextFunction) => {
@@ -23,23 +22,21 @@ const gateKeeper = (roles: string[] = [] , route : string) => {
             return res.status(401).json({ message: MiddlewareMessages.GateKeeper.Fail.authorizationHeaderMissingError });
         }
 
-        const token = authHeader.startsWith("Bearer") ? authHeader.split(" ")[1] : authHeader;
-        
+        const token = authHeader.startsWith("Bearer") ? authHeader.slice(7).trim() : authHeader;
+        console.log("Token in gatekeeper:" , token);
         if (!token) {
             return res.status(401).json({ message: MiddlewareMessages.GateKeeper.Fail.tokenMissingError});
         }
-        // console.log("Authentication header:" , authHeader);
-        // console.log("Token : " , token);
+  
+     
         
 
         try {
             const decoded : JwtPayload = jwt.verify(token, ENCRYPTION_KEY ) ;
-
             if (roles.length && !roles.includes(decoded.role)) {
                 return res.status(403).json({ message: MiddlewareMessages.GateKeeper.Fail.roleError });
             }
             const expected = expectedFields[route];
-
             if (expected)
             {
                 const receivedFields = Object.keys(req.body);
@@ -49,7 +46,6 @@ const gateKeeper = (roles: string[] = [] , route : string) => {
                     return res.status(400).json({message : MiddlewareMessages.GateKeeper.Fail.unexpectedFieldError})
                 }
             }
-
             req.user = decoded;
             next();
         } catch (error) {

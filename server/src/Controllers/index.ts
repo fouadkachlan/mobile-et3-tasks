@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authenticateLoginAsAdmin, createAdmin, createUser } from './userController';
+import { createAdmin, createUser } from './userController';
 import { authenticateLoginAsUser } from './userController';
 import { userProfileData } from './userController';
 import { addNews, getAllNews } from './newsController';
@@ -7,13 +7,13 @@ import { defaultRateLimiter, loginUserRateLimiter } from '../Middlewares/rateLim
 import gateKeeper from '../Middlewares/gatekeeper';
 
 
-const router = Router();
-router.post('/createUser', defaultRateLimiter ,createUser );//gateKeeper(["user"] , "/createUser")
-router.post('/createAdmin' , defaultRateLimiter ,createAdmin)//, gateKeeper(["user"],"/createAdmin")
-router.post('/loginUser', loginUserRateLimiter  ,authenticateLoginAsUser);//gateKeeper(["user"] , "/loginUser"),
-router.post('/getUserProfileData' , defaultRateLimiter  ,userProfileData); //, gateKeeper(["user"] , "/getUserProfileData")
-router.post('/addNews' , defaultRateLimiter,addNews);//,gateKeeper(["user"] , "/addNews")
-router.post('/news',defaultRateLimiter, getAllNews );//gateKeeper(["user"] , "/news"),
+const router : Router = Router();
+router.post('/createUser',gateKeeper(["user"] , "/createUser") ,defaultRateLimiter ,createUser );
+router.post('/createAdmin',  gateKeeper(["user"],"/createAdmin") ,defaultRateLimiter ,createAdmin);
+router.post('/loginUser', loginUserRateLimiter  ,authenticateLoginAsUser);
+router.post('/getUserProfileData', gateKeeper(["user"] , "/getUserProfileData") , defaultRateLimiter  ,userProfileData); 
+router.post('/addNews',gateKeeper(["user"] , "/addNews"), defaultRateLimiter,addNews);
+router.post('/news',defaultRateLimiter, getAllNews );
 
 export default router;
 

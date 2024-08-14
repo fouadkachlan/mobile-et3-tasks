@@ -25,12 +25,12 @@ const rateLimitMiddleware = (option: { windowMs: number; max: number; limitType:
 
 export const loginUserRateLimiter = rateLimitMiddleware({
     windowMs: 60 * 1000,
-    max: 5,
+    max: 50,
     limitType: "Login Rate Limit"
 });
 
 export const defaultRateLimiter = rateLimitMiddleware({
     windowMs: 60 * 1000,
-    max: 10,
+    max: 100,
     limitType: "Default Rate Limit"
 })

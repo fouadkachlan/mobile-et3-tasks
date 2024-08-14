@@ -10,7 +10,7 @@ const index_1 = __importDefault(require("./Controllers/index"));
 const Message_1 = require("./Constant/Message");
 const cors = require('cors');
 const app = (0, express_1.default)();
-const PORT = 3000;
+const PORT = 3001;
 app.use(cors());
 app.use(body_parser_1.default.json());
 app.use('/api', index_1.default);

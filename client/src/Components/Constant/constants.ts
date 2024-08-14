@@ -1,5 +1,5 @@
 export const IP_ADDRESS : string = "192.168.100.126";
-export const PORT : string = "3000";
+export const PORT : string = "3001";
 export const newsWrittenBy : string = "News Written By:";
 export const newsWrittenAt : string = "News Written At:";
 export const addNewsText : string = "Add News"

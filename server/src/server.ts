@@ -9,7 +9,7 @@ import { DatabaseStatus, ServerStatus } from "./Constant/Message";
 
 const cors = require('cors');
 const app = express();
-const PORT =  3000;
+const PORT =  3001;
 app.use(cors());
 app.use(bodyParser.json());
 

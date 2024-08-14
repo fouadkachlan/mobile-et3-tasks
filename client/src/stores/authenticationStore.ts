@@ -2,7 +2,7 @@ import {observable, runInAction} from "mobx";
 import {MMKV} from "react-native-mmkv";
  
 
-const mmkvAuth = new MMKV();
+export const mmkvAuth = new MMKV();
 
 class AuthStore {
     isAuthenticated = observable.box<boolean>(false);
@@ -11,6 +11,7 @@ class AuthStore {
         runInAction(() => {
             const token = mmkvAuth.getString("authToken");
             if (token) {
+                this.token.set(token)
                 this.isAuthenticated.set(true);
             }
         })
@@ -18,6 +19,7 @@ class AuthStore {
     login = (token : string) => {
         runInAction(() => {
             mmkvAuth.set("authToken", token);
+            this.token.set(token);
             this.isAuthenticated.set(true);
         })
     };

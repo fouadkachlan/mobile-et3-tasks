@@ -3,7 +3,7 @@ import getRequestStore from "./requestsStore";
 import getAuthStore from "./authenticationStore";
 import { Alert } from "react-native";
 import Navigation from "../Components/Navigation/Navigation";
-import { setToken } from "../Components/MmkvStorage/mmkv";
+import { getToken, setToken } from "../Components/MmkvStorage/mmkv";
 import { NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/navigation";
  class LoginStore 
@@ -68,11 +68,13 @@ import { RootStackParamList } from "../types/navigation";
           const response = await getRequestStore().loginRequest();
     
           const data = response.data;
-          console.log("Data in handlelogin",data);
           if (data.message === "Login Successfull") {
             const token: string = data.token;
-            setToken(token);
+            console.log("Setting Up JWT token" , token)
+            // getAuthStore().setAuthToken(token)
+            // setToken(token);
             getAuthStore().login(token);
+            console.log("Token in authStore:" , getAuthStore().token.get())
             getLoginStore().setUserId(data.user.user_id);
             navigation.navigate('HomeNewsScreen', 'HomeNewsScreen');
           } else {

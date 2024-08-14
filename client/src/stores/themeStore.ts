@@ -1,5 +1,4 @@
 import {observable, runInAction} from "mobx";
-import { darkMode, lightMode } from "../Components/colors/colors";
 import { themes } from "../Components/ThemeContext/ThemeContext";
 
 class ThemeStore {

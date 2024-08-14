@@ -1,10 +1,10 @@
-import { Image } from 'react-native';
+import { Image, RefreshControl } from 'react-native';
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import CustomText from '../../CustomComponents/CustomText';
 import CustomView from '../../CustomComponents/CustomView';
 import getLoginStore from '../../stores/loginStore';
-import getThemeStore from '../../stores/themeStore';
+import getRefreshStore from '../../stores/refreshStore';
 import getRequestStore from '../../stores/requestsStore';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { userProfileText } from '../Constant/constants';
@@ -13,7 +13,6 @@ import Username from './Username/Username';
 import Email from './UserEmail/Email';
 import PhoneNumber from './phoneNumber/PhoneNumber';
 import Country from './country/Country';
-
 const userImage = require("../../../../assets/userImage.png");
 
 
@@ -31,17 +30,24 @@ const UserProfile: React.FC = observer(() => {
   React.useEffect(() => {
     handleProfileFetch();
   }, []);
-
+  const onRefresh = React.useCallback(() => {
+    getRefreshStore().setRefreshToTrue();
+    setTimeout(() => {
+    getRefreshStore().setRefreshToFalse();
+    }, 2000)
+  } , [])
   const { theme } = useContext(ThemeContext);
 
   return (
-    <CustomView
+      <CustomView
       style={{
         flex: 1,
         justifyContent: 'center',
         backgroundColor: theme.backGroundColor,
       }}
-    >
+    >    
+    <RefreshControl refreshing={getRefreshStore().refresh.get()} onRefresh={onRefresh}>
+
       <CustomView
         style={{
           justifyContent: 'center',
@@ -83,7 +89,9 @@ const UserProfile: React.FC = observer(() => {
         <PhoneNumber />
 
         <Country />
-    </CustomView>
+      </RefreshControl>
+      </CustomView>
+
   );
 });
 

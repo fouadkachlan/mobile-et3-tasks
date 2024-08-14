@@ -14,8 +14,7 @@ const expectedFields = {
     "/createAdmin": ["user_email", "user_password", "user_phone_number", "user_country", "user_name"],
     "/loginUser": ["user_email", "user_password"],
     "/getUserProfileData": ["user_email"],
-    "/addNews": ["user_id", "news_content"],
-    "/news": []
+    "/addNews": ["user_id", "news_content"]
 };
 const gateKeeper = (roles = [], route) => {
     return (req, res, next) => {
@@ -23,12 +22,11 @@ const gateKeeper = (roles = [], route) => {
         if (!authHeader) {
             return res.status(401).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.authorizationHeaderMissingError });
         }
-        const token = authHeader.startsWith("Bearer") ? authHeader.split(" ")[1] : authHeader;
+        const token = authHeader.startsWith("Bearer") ? authHeader.slice(7).trim() : authHeader;
+        console.log("Token in gatekeeper:", token);
         if (!token) {
             return res.status(401).json({ message: Message_1.MiddlewareMessages.GateKeeper.Fail.tokenMissingError });
         }
-        // console.log("Authentication header:" , authHeader);
-        // console.log("Token : " , token);
         try {
             const decoded = jsonwebtoken_1.default.verify(token, User_1.ENCRYPTION_KEY);
             if (roles.length && !roles.includes(decoded.role)) {

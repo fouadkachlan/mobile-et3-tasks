@@ -61,7 +61,7 @@ const userLibrary = {
                 user_id: user.user_id
             }
         };
-        console.log(result.token);
+        // console.log(result.token)
         return result;
     }),
     userLoginCallAsAdmin: (user_email, user_password) => __awaiter(void 0, void 0, void 0, function* () {
