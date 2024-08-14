@@ -6,7 +6,6 @@ import { MiddlewareMessages, ServerStatus } from "../Constant/Message";
 if (!ENCRYPTION_KEY) {
     console.error(MiddlewareMessages.GateKeeper.Fail.encryptionKeyNotDefinedError);
 }
-
 const expectedFields : {[route : string] : string[]} = {
     "/createUser" : ["user_email" , "user_password" , "user_phone_number" ,"user_country" , "user_name"],
     "/createAdmin" : ["user_email" , "user_password" , "user_phone_number" ,"user_country" , "user_name"],
@@ -17,20 +16,14 @@ const expectedFields : {[route : string] : string[]} = {
 const gateKeeper = (roles: string[] = [] , route : string) => {
     return (req: Request, res: Response, next: NextFunction) => {
         const authHeader = req.get("Authorization");
-
         if (!authHeader) {
             return res.status(401).json({ message: MiddlewareMessages.GateKeeper.Fail.authorizationHeaderMissingError });
         }
-
         const token = authHeader.startsWith("Bearer") ? authHeader.slice(7).trim() : authHeader;
         console.log("Token in gatekeeper:" , token);
         if (!token) {
             return res.status(401).json({ message: MiddlewareMessages.GateKeeper.Fail.tokenMissingError});
         }
-  
-     
-        
-
         try {
             const decoded : JwtPayload = jwt.verify(token, ENCRYPTION_KEY ) ;
             if (roles.length && !roles.includes(decoded.role)) {

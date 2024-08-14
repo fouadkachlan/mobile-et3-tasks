@@ -10,7 +10,7 @@ import UserProfile from './client/src/Components/Profile/UserProfile'
 import HomeNewsScreen from './client/src/Components/HomePage/HomeScreen/HomeNewsScreen'
 import AddNewsPopUp from './client/src/Components/HomePage/NewsPopUp/AddNewsPopUp'
 import { observer } from 'mobx-react-lite'
-import getAuthStore from './client/src/stores/authenticationStore'
+import getAuthStore, { mmkvAuth } from './client/src/stores/authenticationStore'
 import { ThemeProvider } from './client/src/Components/ThemeContext/ThemeProvider'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { RefreshControl } from 'react-native'
@@ -18,12 +18,13 @@ import { RefreshControl } from 'react-native'
 
 
 const App : React.FC =  observer(()=> {
-  const Stack = createNativeStackNavigator();  
+  const Stack = createNativeStackNavigator();
+  const storedToken : string | undefined = mmkvAuth.getString('authToken');
   return (
         <ThemeProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName= "Welcoming">
-            <Stack.Screen name="Welcoming" component={WelcomingScreen} />
+            <Stack.Navigator initialRouteName={storedToken ? "HomeNewsScreen" : "Welcoming"} >
+              <Stack.Screen name="Welcoming" component={WelcomingScreen} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="CreateAccount" component={CreateAccount} />
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

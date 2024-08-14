@@ -7,7 +7,6 @@ import { RateLimit } from "../Types/RateLimit/RateLimitType";
 const rateLimitMiddleware = (option: { windowMs: number; max: number; limitType: string }) => async (req: Request, res: Response, next: NextFunction) => {
     const ip_Address : string = req.ip;
     const { windowMs, max, limitType } = option;
-
     try {
         const rateLimit : RateLimit | null = await rateLimitSelect.getRateLimit(ip_Address, limitType);
         if (rateLimit && rateLimit.current_count >= max) {
@@ -22,13 +21,11 @@ const rateLimitMiddleware = (option: { windowMs: number; max: number; limitType:
         res.status(500).send("Internal Server Error");
     }
 };
-
 export const loginUserRateLimiter = rateLimitMiddleware({
     windowMs: 60 * 1000,
     max: 50,
     limitType: "Login Rate Limit"
 });
-
 export const defaultRateLimiter = rateLimitMiddleware({
     windowMs: 60 * 1000,
     max: 100,

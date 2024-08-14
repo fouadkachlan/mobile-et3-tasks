@@ -46,7 +46,6 @@ const userLibrary = {
                 user_id: user.user_id
             }
         }
-        // console.log(result.token)
         return result;
     },
     userLoginCallAsAdmin : async (user_email : string , user_password : string) : Promise<{message : string ; user : {email : string , hashPassword : string}} | null> => {

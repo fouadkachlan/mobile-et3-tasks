@@ -3,13 +3,14 @@ import bodyParser from "body-parser";
 import { connectDB } from "./utils/database";
 import userRoutes from './Controllers/index'
 import { DatabaseStatus, ServerStatus } from "./Constant/Message";
+import { port } from "./Constant/User";
 
 
 
 
 const cors = require('cors');
 const app = express();
-const PORT =  3001;
+const PORT =  port;
 app.use(cors());
 app.use(bodyParser.json());
 
