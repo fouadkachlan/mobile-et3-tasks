@@ -19,6 +19,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const utitilty_1 = require("../helpers/utitilty");
 const User_1 = require("../Constant/User");
 const Message_1 = require("../Constant/Message");
+const Models_1 = require("../Models");
 const userLibrary = {
     userCreateCall: (user_email, user_password, user_phone_number, user_country, user_name) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -100,5 +101,37 @@ const userLibrary = {
             throw new Error(Message_1.UserMessages.Fail.fetchDataError);
         }
     }),
+    userUpdateUserNameCall: (user_name, user_id) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield Models_1.userModels.update.userUpdateUsernameModels(user_name, user_id);
+        }
+        catch (error) {
+            throw new Error(Message_1.UserMessages.Fail.UpdateError);
+        }
+    }),
+    userUpdateEmailCall: (user_email, user_id) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield Models_1.userModels.update.userUpdateEmailModels(user_email, user_id);
+        }
+        catch (error) {
+            throw new Error(Message_1.UserMessages.Fail.UpdateError);
+        }
+    }),
+    userUpdateNumberCall: (user_phone_number, user_id) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield Models_1.userModels.update.userUpdateNumberModels(user_phone_number, user_id);
+        }
+        catch (error) {
+            throw new Error(Message_1.UserMessages.Fail.UpdateError);
+        }
+    }),
+    userUpdateCountryCall: (user_country, user_id) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield Models_1.userModels.update.userUpdateCountryModels(user_country, user_id);
+        }
+        catch (error) {
+            throw new Error(Message_1.UserMessages.Fail.UpdateError);
+        }
+    })
 };
 exports.default = userLibrary;

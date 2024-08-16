@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { hashPassword } from "../helpers/utitilty";
 import { ENCRYPTION_KEY } from "../Constant/User";
 import { UserMessages } from "../Constant/Message";
+import { userModels } from "../Models";
 
 const userLibrary = {
     userCreateCall : async (user_email : string , user_password : string, user_phone_number : string ,user_country : string , user_name : string) : Promise<{message : string}> => {
@@ -86,6 +87,42 @@ const userLibrary = {
         }
 
     },
+    userUpdateUserNameCall : async (user_name : string , user_id : number) : Promise<void> => {
+        try {
+            await userModels.update.userUpdateUsernameModels(user_name , user_id);
+        } 
+        catch ( error )
+        {
+            throw new Error (UserMessages.Fail.UpdateError);
+        }
+    },
+    userUpdateEmailCall : async (user_email : string , user_id : number) : Promise<void> => {
+        try {
+            await userModels.update.userUpdateEmailModels(user_email , user_id);
+        } 
+        catch ( error )
+        {
+            throw new Error (UserMessages.Fail.UpdateError);
+        }
+    },
+    userUpdateNumberCall : async (user_phone_number : string , user_id : number) : Promise<void> => {
+        try {
+            await userModels.update.userUpdateNumberModels(user_phone_number , user_id);
+        } 
+        catch ( error )
+        {
+            throw new Error (UserMessages.Fail.UpdateError);
+        }
+    },
+    userUpdateCountryCall: async (user_country : string , user_id : number) : Promise<void> => {
+        try {
+            await userModels.update.userUpdateCountryModels(user_country , user_id);
+        } 
+        catch ( error )
+        {
+            throw new Error (UserMessages.Fail.UpdateError);
+        }
+    }
   
 };
 

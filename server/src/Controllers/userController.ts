@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import userLibrary from '../Libraries/userLibrary';
 import { ServerStatus, UserMessages } from '../Constant/Message';
-import { adminCreateRequestBody, adminLoginRequestBody, fetchUserdataRequestBody, userCreateRequestBody, userLoginRequestBody } from '../Types/UsersRequests/userRequestsTypes';
+import { adminCreateRequestBody, adminLoginRequestBody, changeProfileDataBody, fetchUserdataRequestBody, userCreateRequestBody, userLoginRequestBody } from '../Types/UsersRequests/userRequestsTypes';
 
 
 
@@ -76,5 +76,47 @@ export const userProfileData = async (req : Request<{},{},fetchUserdataRequestBo
         }
     } catch ( error ) {
         res.status(500).json({message : UserMessages.Fail.fetchDataError});
+    }
+}
+
+
+export const changeProfileUserName = async ( req : Request<{},{},changeProfileDataBody> , res : Response ) : Promise<void> => {
+    try {
+        const {user_name , user_id} : changeProfileDataBody = req.body;
+        await userLibrary.userUpdateUserNameCall(user_name, user_id);
+        res.status(200).json({message : UserMessages.Success.UpdateSuccessfull})
+
+    } catch ( error ) {
+        res.status(500).json({message : ServerStatus.Error.internalServerError})
+    }
+}
+export const changeProfileEmail = async ( req : Request<{},{},changeProfileDataBody> , res : Response ) : Promise<void> => {
+    try {
+        const {user_email , user_id} : changeProfileDataBody = req.body;
+        await userLibrary.userUpdateEmailCall(user_email, user_id);
+        res.status(200).json({message : UserMessages.Success.UpdateSuccessfull})
+
+    } catch ( error ) {
+        res.status(500).json({message : ServerStatus.Error.internalServerError})
+    }
+}
+export const changeProfileNumber = async ( req : Request<{},{},changeProfileDataBody> , res : Response ) : Promise<void> => {
+    try {
+        const {user_phone_number, user_id} : changeProfileDataBody = req.body;
+        await userLibrary.userUpdateNumberCall(user_phone_number, user_id);
+        res.status(200).json({message : UserMessages.Success.UpdateSuccessfull})
+
+    } catch ( error ) {
+        res.status(500).json({message : ServerStatus.Error.internalServerError})
+    }
+}
+export const changeProfileCountry = async ( req : Request<{},{},changeProfileDataBody> , res : Response ) : Promise<void> => {
+    try {
+        const {user_country, user_id} : changeProfileDataBody = req.body;
+        await userLibrary.userUpdateCountryCall(user_country, user_id);
+        res.status(200).json({message : UserMessages.Success.UpdateSuccessfull})
+
+    } catch ( error ) {
+        res.status(500).json({message : ServerStatus.Error.internalServerError})
     }
 }

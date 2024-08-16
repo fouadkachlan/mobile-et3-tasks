@@ -1,4 +1,4 @@
-export const IP_ADDRESS : string = "192.168.100.126";
+export const IP_ADDRESS : string = "192.168.1.108";
 export const PORT : string = "3001";
 export const newsWrittenBy : string = "News Written By:";
 export const newsWrittenAt : string = "News Written At:";
@@ -12,9 +12,24 @@ export const forgotPasswordMessage  = {
 } 
 export const settingsText = {
     settingTitle : "Settings",
-    changeThemeText : "Change Theme"
+    changeThemeText : "Change Theme",
+    changeProfile: "Change Profile",
+    changeUsernameText: "Change User Name",
+    changeEmail : "Change Email Address",
+    changeNumber : "Change Phone Number",
+    changeCountry: "Change User Country"
 }
-
+export const changeProfile = {
+    Fail : {
+        changeCountry : "Error While Submitting the Country change",
+        changeEmail : "Error While Submitting the Email change",
+        changeNumber : "Error While Submitting the Number change",
+        changeUserName : "Error While Submitting the username change"
+    },
+    Success : {
+        
+    }
+}
 export const loginMessage : string = "Login";
 export const signInChoice : string = "_______ Or sign in with _______";
 export const welcomingMessage : string = "Welcome  to the app";

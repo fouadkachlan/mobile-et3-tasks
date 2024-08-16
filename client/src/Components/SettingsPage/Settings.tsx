@@ -8,6 +8,8 @@ import { mmkv } from '../MmkvStorage/mmkv';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { settingsText } from '../Constant/constants';
 import getDimensionsStore from '../../stores/dimensionsStore';
+import ChangeProfile from './ChangeProfile/Button/ChangeProfileButton';
+import ChangeProfileButton from './ChangeProfile/Button/ChangeProfileButton';
 
 
 const Settings: React.FC = observer(() => {
@@ -25,7 +27,10 @@ const Settings: React.FC = observer(() => {
   return (
     <CustomView style={{
         backgroundColor: theme.backGroundColor,
-        height: '100%'
+        height: '100%',
+        gap: getDimensionsStore().windowWidth * 0.155,
+        display: 'flex',
+        justifyContent: 'center',
         }}>
       <CustomView
         style={{
@@ -52,6 +57,8 @@ const Settings: React.FC = observer(() => {
           flexDirection: 'row',
           borderWidth: 2,
           borderColor: theme.borderColor,
+          borderRadius : getDimensionsStore().windowWidth * 0.1,
+          margin: getDimensionsStore().windowWidth * 0.025
         }}
       >
         <CustomText style={{
@@ -68,8 +75,9 @@ const Settings: React.FC = observer(() => {
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            width: getDimensionsStore().windowWidth,
+            width: getDimensionsStore().windowWidth * 0.8,
             marginTop: 40,
+
           }}
         >
           <Switch
@@ -79,7 +87,9 @@ const Settings: React.FC = observer(() => {
             value={getThemeStore().isDarkThemeEnabled.get()}
           />
         </CustomView>
+        
       </CustomView>
+      <ChangeProfileButton />
     </CustomView>
   );
 })

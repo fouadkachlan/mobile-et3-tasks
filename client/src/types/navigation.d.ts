@@ -8,6 +8,11 @@ export type RootStackParamList = {
     Settings: "Settings";
     Logout: "Logout";
     AddNewsPopUp: "AddNewsPopUp";
+    ChangeProfile: "ChangeProfile";
+    Changeusername : "Changeusername";
+    ChangeEmailAddress : "ChangeEmailAddress";
+    ChangePhoneNumber : "ChangePhoneNumber";
+    ChangeCountry : "ChangeCountry";
 }
 
 

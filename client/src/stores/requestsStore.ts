@@ -57,7 +57,32 @@ class RequestStore {
         return response;
 
     }
+    async changeUsernameRequest() {
+      await axios.post(`http://${IP_ADDRESS}:${PORT}/api/updateUserName` , {
+        user_name : getUserCredentials().username,
+        user_id: getUserCredentials().id
+      })
+    }
+    async changeNumberRequest() {
+      await axios.post(`http://${IP_ADDRESS}:${PORT}/api/updateNumber` , {
+        user_phone_number : getUserCredentials().phone,
+        user_id: getUserCredentials().id
+      })
+    }
+    async changeEmailRequest() {
+      await axios.post(`http://${IP_ADDRESS}:${PORT}/api/updateEmail` , {
+        user_email : getUserCredentials().email,
+        user_id: getUserCredentials().id
+      })
+    }
+    async changeCountryRequest() {
+      await axios.post(`http://${IP_ADDRESS}:${PORT}/api/updateCountry` , {
+        user_country : getUserCredentials().country,
+        user_id: getUserCredentials().id
+      })
+    }
 }
+
 
 
 

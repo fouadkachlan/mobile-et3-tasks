@@ -15,6 +15,11 @@ import { ThemeProvider } from './client/src/Components/ThemeContext/ThemeProvide
 import { mmkv } from './client/src/Components/MmkvStorage/mmkv'
 import getThemeStore from './client/src/stores/themeStore'
 import { Alert } from 'react-native'
+import ChangeProfile from './client/src/Components/SettingsPage/ChangeProfile/ChangeProfile'
+import ChangeUsername from './client/src/Components/SettingsPage/ChangeProfile/ChangeUserName/ChangeUsername'
+import ChangeEmail from './client/src/Components/SettingsPage/ChangeProfile/ChangeEmail/ChangeEmail'
+import ChangeCountry from './client/src/Components/SettingsPage/ChangeProfile/ChangeCountry/ChangeCountry'
+import ChangeNumber from './client/src/Components/SettingsPage/ChangeProfile/ChangePhoneNumber/ChangeNumber'
 
 
 const App : React.FC =  observer(()=> {
@@ -45,7 +50,15 @@ const App : React.FC =  observer(()=> {
               <Stack.Screen name="HomeNewsScreen" component={HomeNewsScreen} />
               <Stack.Screen name="Settings" component={Settings} />
               <Stack.Screen name="userProfile" component={UserProfile} />
-              <Stack.Screen name="AddNewsPopUp" component={AddNewsPopUp} />              
+              <Stack.Screen name="AddNewsPopUp" component={AddNewsPopUp} />
+              <Stack.Screen name="ChangeProfile" component={ChangeProfile} /> 
+              <Stack.Screen name="Changeusername" component={ChangeUsername} />
+              <Stack.Screen name="ChangeEmailAddress" component={ChangeEmail} />
+              <Stack.Screen name="ChangeCountry" component={ChangeCountry} />
+              <Stack.Screen name="ChangePhoneNumber" component={ChangeNumber} />
+
+
+
             </Stack.Navigator>
          </NavigationContainer>
         </ThemeProvider>

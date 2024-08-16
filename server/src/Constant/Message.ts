@@ -76,12 +76,14 @@ export const UserMessages = {
         adminCreateError : "Error while creating admin.",
         userNotValidError: "User is not valid.",
         userNotFoundError : "User not found ou data unavailable",
-        fetchDataError : "Failed to fetch Data"
+        fetchDataError : "Failed to fetch Data",
+        UpdateError : "Error While Updating"
     },
     Success : {
         userCreateSuccess : "User Created Successfully",
         userSignUpSuccess : "User Signed Up Successfully",
-        LoginSuccessfull : "Login Successfull"
+        LoginSuccessfull : "Login Successfull",
+        UpdateSuccessfull: "User Updated Successfully!"
 
     }
 }

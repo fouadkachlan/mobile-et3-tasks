@@ -29,3 +29,11 @@ export type adminLoginRequestBody = {
 export type fetchUserdataRequestBody = {
     user_email : string;
 }
+
+export type changeProfileDataBody = {
+    user_name : string;
+    user_email : string;
+    user_phone_number : string;
+    user_country : string;
+    user_id : number;
+}

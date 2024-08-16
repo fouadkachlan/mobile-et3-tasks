@@ -94,6 +94,41 @@ import { RootStackParamList } from "../types/navigation";
           Alert.alert("Error", "Failed to Sign Up. Please try again later.");
         }
       };
+
+      handleUsernameChange = async () : Promise<void> => {
+        try {
+            await getRequestStore().changeUsernameRequest();
+            Alert.alert("Success" , "UserName has been successfully Updated")
+        } catch ( error ) {
+            Alert.alert ("Username change error" , `${error}`);
+        }
+      };
+      handleNumberChange = async () : Promise<void> => {
+        try {
+            await getRequestStore().changeNumberRequest();
+            Alert.alert("Success" , "Phone Number has been successfully Updated")
+        } catch ( error ) {
+            Alert.alert ("Number change error" , `${error}`);
+        }
+      }
+      handleEmailChange = async () : Promise<void> => {
+        try {
+            await getRequestStore().changeEmailRequest();
+            Alert.alert("Success" , "Email has been successfully Updated")
+        } catch ( error ) {
+            Alert.alert ("Email change error" , `${error}`);
+        }
+      }
+      handleCountryChange = async () : Promise<void> => {
+        try {
+            await getRequestStore().changeCountryRequest();
+            Alert.alert("Success" , "Country has been successfully Updated")
+        } catch ( error ) {
+            Alert.alert ("Country change error" , `${error}`);
+        }
+      }
+      
+    
     
 }
 

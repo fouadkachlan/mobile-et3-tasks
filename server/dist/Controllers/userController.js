@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userProfileData = exports.authenticateLoginAsAdmin = exports.authenticateLoginAsUser = exports.createAdmin = exports.createUser = void 0;
+exports.changeProfileCountry = exports.changeProfileNumber = exports.changeProfileEmail = exports.changeProfileUserName = exports.userProfileData = exports.authenticateLoginAsAdmin = exports.authenticateLoginAsUser = exports.createAdmin = exports.createUser = void 0;
 const userLibrary_1 = __importDefault(require("../Libraries/userLibrary"));
 const Message_1 = require("../Constant/Message");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -89,3 +89,47 @@ const userProfileData = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.userProfileData = userProfileData;
+const changeProfileUserName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { user_name, user_id } = req.body;
+        yield userLibrary_1.default.userUpdateUserNameCall(user_name, user_id);
+        res.status(200).json({ message: Message_1.UserMessages.Success.UpdateSuccessfull });
+    }
+    catch (error) {
+        res.status(500).json({ message: Message_1.ServerStatus.Error.internalServerError });
+    }
+});
+exports.changeProfileUserName = changeProfileUserName;
+const changeProfileEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { user_email, user_id } = req.body;
+        yield userLibrary_1.default.userUpdateEmailCall(user_email, user_id);
+        res.status(200).json({ message: Message_1.UserMessages.Success.UpdateSuccessfull });
+    }
+    catch (error) {
+        res.status(500).json({ message: Message_1.ServerStatus.Error.internalServerError });
+    }
+});
+exports.changeProfileEmail = changeProfileEmail;
+const changeProfileNumber = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { user_phone_number, user_id } = req.body;
+        yield userLibrary_1.default.userUpdateNumberCall(user_phone_number, user_id);
+        res.status(200).json({ message: Message_1.UserMessages.Success.UpdateSuccessfull });
+    }
+    catch (error) {
+        res.status(500).json({ message: Message_1.ServerStatus.Error.internalServerError });
+    }
+});
+exports.changeProfileNumber = changeProfileNumber;
+const changeProfileCountry = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { user_country, user_id } = req.body;
+        yield userLibrary_1.default.userUpdateCountryCall(user_country, user_id);
+        res.status(200).json({ message: Message_1.UserMessages.Success.UpdateSuccessfull });
+    }
+    catch (error) {
+        res.status(500).json({ message: Message_1.ServerStatus.Error.internalServerError });
+    }
+});
+exports.changeProfileCountry = changeProfileCountry;

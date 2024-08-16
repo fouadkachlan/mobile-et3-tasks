@@ -35,7 +35,7 @@ const HomeNewsScreen : React.FC = observer(() => {
             backgroundColor: theme.backGroundColor,
             display: 'flex',
             width: getDimensionsStore().windowWidth,
-            height: getDimensionsStore().windowHeight
+            height: getDimensionsStore().windowHeight 
           }}>
           <HomeScreenHeader />
           <HomeScreenNewsList />
