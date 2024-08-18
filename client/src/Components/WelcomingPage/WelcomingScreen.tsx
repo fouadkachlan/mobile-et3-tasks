@@ -1,22 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Image, ActivityIndicator, TouchableOpacity, Alert, Dimensions } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import CustomButton from '../../CustomComponents/CustomButton';
 import CustomText from '../../CustomComponents/CustomText';
 import CustomView from '../../CustomComponents/CustomView';
-import { RootStackParamList } from '../../types/navigation';
-import getThemeStore from '../../stores/themeStore';
-import { mmkv } from '../MmkvStorage/mmkv';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { createAccountText, firstWelcoming, introducingNewsReaderApp, loginMessage } from '../Constant/constants';
 import getDimensionsStore from '../../stores/dimensionsStore';
+import getNavigationStore from '../../stores/navigationStore';
 
 const welcomingImage = require("../../../../assets/welcome.png");
 
 
 const WelcomingScreen: React.FC = observer(() => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { theme } = useContext(ThemeContext);
 
   
@@ -81,7 +77,7 @@ const WelcomingScreen: React.FC = observer(() => {
         }}
       >
         <CustomButton
-          onPress={() => navigation.navigate("Login" , "Login")}
+          onPress={() => getNavigationStore().navigateToLogin()}
           style={{
             backgroundColor: theme.borderColor,
             borderRadius: 30,
@@ -111,7 +107,7 @@ const WelcomingScreen: React.FC = observer(() => {
           </CustomView>
         </CustomButton>
       </CustomView>
-        <TouchableOpacity onPress={() => navigation.navigate("CreateAccount", "CreateAccount")}>
+        <TouchableOpacity onPress={() => getNavigationStore().navigateToCreateAccount()}>
           <CustomText
             style={{
               color: theme.fontColor,

@@ -10,17 +10,15 @@ import getLoginStore from '../../stores/loginStore';
 import getThemeStore from '../../stores/themeStore';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { createAccountText, emailAddressText } from '../Constant/constants';
-import { RootStackParamList } from '../../types/navigation';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import CreateAccountHeader from './Header/CreateAccountHeader';
 
 
 const CreateAccount: React.FC = observer(() => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handlePress = async () : Promise<void> => {
     try {
-      getLoginStore().handleSignUp(navigation);
+      getLoginStore().handleSignUp();
 
     } catch (error) {
       Alert.alert("Error", "Error While Handling Sign Up!");

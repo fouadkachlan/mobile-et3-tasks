@@ -5,14 +5,12 @@ import CustomText from '../../../../CustomComponents/CustomText'
 import CustomView from '../../../../CustomComponents/CustomView'
 import { settingsText } from '../../../Constant/constants'
 import { ThemeContext } from '../../../ThemeContext/ThemeContext'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../../../types/navigation'
+import getNavigationStore from '../../../../stores/navigationStore'
 
 const ChangeEmailButton = () => {
     const {theme} = useContext(ThemeContext)
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
-    <TouchableOpacity  onPress={() => navigation.navigate("ChangeEmailAddress" , "ChangeEmailAddress") }>
+    <TouchableOpacity  onPress={() => getNavigationStore().navigateToChangeEmail()}>
         <CustomView
         style={{
           display: 'flex',

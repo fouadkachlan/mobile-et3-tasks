@@ -52,10 +52,12 @@ const userLibrary = {
         if (!isPasswordValid) {
             throw new Error(Message_1.UserMessages.Fail.emailAndPasswordError);
         }
-        const token = jsonwebtoken_1.default.sign({ role: "user", email: user.user_email }, User_1.ENCRYPTION_KEY, { expiresIn: "1h" });
+        const accessToken = jsonwebtoken_1.default.sign({ role: "user", email: user.user_email }, User_1.ENCRYPTION_KEY, { expiresIn: "1h" });
+        // const refreshToken : string = jwt.sign({role: "user", email : user.user_email}, REFRESH_ENCRYPTION_KEY, {expiresIn: "7d"})
         const result = {
             message: Message_1.UserMessages.Success.LoginSuccessfull,
-            token,
+            accessToken,
+            // refreshToken,
             user: {
                 email: user.user_email,
                 hashPassword: user.user_password,

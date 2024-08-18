@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import Settings from './client/src/Components/SettingsPage/Settings'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import WelcomingScreen from './client/src/Components/WelcomingPage/WelcomingScreen'
 import Login from './client/src/Components/LoginPage/Login'
@@ -20,10 +20,12 @@ import ChangeUsername from './client/src/Components/SettingsPage/ChangeProfile/C
 import ChangeEmail from './client/src/Components/SettingsPage/ChangeProfile/ChangeEmail/ChangeEmail'
 import ChangeCountry from './client/src/Components/SettingsPage/ChangeProfile/ChangeCountry/ChangeCountry'
 import ChangeNumber from './client/src/Components/SettingsPage/ChangeProfile/ChangePhoneNumber/ChangeNumber'
-
+import getNavigationStore from './client/src/stores/navigationStore'
+import { RootStackParamList } from './client/src/types/navigation'
 
 const App : React.FC =  observer(()=> {
   const Stack = createNativeStackNavigator();
+  const navigationRef = useRef<NavigationContainerRef<RootStackParamList> | null>(null);
   const storedToken : string | undefined = mmkvAuth.getString('authToken');
   useEffect(() => {
     try {
@@ -39,9 +41,12 @@ const App : React.FC =  observer(()=> {
       Alert.alert('Error', 'Failed to retrieve theme setting.');
     }
   }, []);
+  useEffect(() => {
+    getNavigationStore().setNavigationRef(navigationRef.current)
+  })
   return (
         <ThemeProvider>
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             <Stack.Navigator initialRouteName={storedToken ? "HomeNewsScreen" : "Welcoming"} >
               <Stack.Screen name="Welcoming" component={WelcomingScreen} />
               <Stack.Screen name="Login" component={Login} />
@@ -56,9 +61,6 @@ const App : React.FC =  observer(()=> {
               <Stack.Screen name="ChangeEmailAddress" component={ChangeEmail} />
               <Stack.Screen name="ChangeCountry" component={ChangeCountry} />
               <Stack.Screen name="ChangePhoneNumber" component={ChangeNumber} />
-
-
-
             </Stack.Navigator>
          </NavigationContainer>
         </ThemeProvider>

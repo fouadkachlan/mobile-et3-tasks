@@ -5,14 +5,12 @@ import getNewsStore from '../../../../stores/newsStore'
 import CustomText from '../../../../CustomComponents/CustomText'
 import CustomView from '../../../../CustomComponents/CustomView'
 import getThemeStore from '../../../../stores/themeStore';
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../../../types/navigation'
 import { ThemeContext } from '../../../ThemeContext/ThemeContext'
 import { addNewsText, newsNumberText } from '../../../Constant/constants'
+import getNavigationStore from '../../../../stores/navigationStore'
 
 
 const HomeScreenHeader : React.FC = () => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const {theme} = useContext(ThemeContext);
   return (
   <CustomView style={{}}>
@@ -43,7 +41,7 @@ const HomeScreenHeader : React.FC = () => {
                            {newsNumberText} {getNewsStore().newsCount.get()}
                         </CustomText>
                     </CustomView>
-                <TouchableOpacity onPress={()=>navigation.navigate("AddNewsPopUp" , "AddNewsPopUp")}>
+                <TouchableOpacity onPress={()=>getNavigationStore().navigateToAddPopUp()}>
 
                     
                     <CustomView

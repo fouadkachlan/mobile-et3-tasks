@@ -8,7 +8,7 @@ import { adminCreateRequestBody, adminLoginRequestBody, changeProfileDataBody, f
 
 export const createUser = async (req : Request<{},{},userCreateRequestBody> , res : Response) : Promise<void> => {
     try {
-        const { user_email , user_password , user_phone_number ,user_country , user_role , user_name } = req.body;
+        const { user_email , user_password , user_phone_number ,user_country , user_name }  : userCreateRequestBody= req.body;
         await userLibrary.userCreateCall(user_email , user_password , user_phone_number ,user_country , user_name);
         res.status(200).json({message : UserMessages.Success.userCreateSuccess});
     } catch (error) {
@@ -19,7 +19,7 @@ export const createUser = async (req : Request<{},{},userCreateRequestBody> , re
 
 export const createAdmin = async (req : Request<{},{},adminCreateRequestBody> , res : Response) : Promise<void> => {
     try {
-        const { user_email , user_password , user_phone_number ,user_country , user_role , user_name} = req.body;
+        const { user_email , user_password , user_phone_number ,user_country , user_name} : adminCreateRequestBody = req.body;
         await userLibrary.adminCreateCall(user_email , user_password , user_phone_number ,user_country , user_name);
         
         res.status(200).json({message : UserMessages.Success.userCreateSuccess});
@@ -31,7 +31,7 @@ export const createAdmin = async (req : Request<{},{},adminCreateRequestBody> , 
 
 export const authenticateLoginAsUser = async (req: Request<{},{},userLoginRequestBody> , res : Response) : Promise<void>=> {
     try {
-        const {user_email , user_password} = req.body;
+        const {user_email , user_password} : userLoginRequestBody = req.body;
         const result = await userLibrary.userLoginCallAsUser(user_email , user_password);
         if ( result ) {
             res.status(200).json(result);
@@ -46,7 +46,7 @@ export const authenticateLoginAsUser = async (req: Request<{},{},userLoginReques
 
 export const authenticateLoginAsAdmin = async (req: Request<{},{},adminLoginRequestBody> , res : Response) : Promise<void>=> {
     try {
-        const {user_email , user_password} = req.body;
+        const {user_email , user_password} : adminLoginRequestBody = req.body;
         const result = await userLibrary.userLoginCallAsAdmin(user_email , user_password);
         if ( result ) {
             res.status(200).json(result);
@@ -62,7 +62,7 @@ export const authenticateLoginAsAdmin = async (req: Request<{},{},adminLoginRequ
 
 export const userProfileData = async (req : Request<{},{},fetchUserdataRequestBody> , res : Response) : Promise<void> => {
     try {
-        const {user_email} = req.body;
+        const {user_email} : fetchUserdataRequestBody = req.body;
 
         if (!user_email) {
             res.status(400).json({message : UserMessages.Fail.emailIsRequiredError});
@@ -82,7 +82,7 @@ export const userProfileData = async (req : Request<{},{},fetchUserdataRequestBo
 
 export const changeProfileUserName = async ( req : Request<{},{},changeProfileDataBody> , res : Response ) : Promise<void> => {
     try {
-        const {user_name , user_id} : changeProfileDataBody = req.body;
+        const {user_name , user_id}  : changeProfileDataBody = req.body;
         await userLibrary.userUpdateUserNameCall(user_name, user_id);
         res.status(200).json({message : UserMessages.Success.UpdateSuccessfull})
 

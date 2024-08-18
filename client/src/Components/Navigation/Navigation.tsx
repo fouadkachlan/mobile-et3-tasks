@@ -1,13 +1,12 @@
 import { Image, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 import CustomView from '../../CustomComponents/CustomView';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../types/navigation';
 import { observer } from 'mobx-react-lite';
 import getLoginStore from '../../stores/loginStore';
 import getAuthStore from '../../stores/authenticationStore';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import getDimensionsStore from '../../stores/dimensionsStore';
+import getNavigationStore from '../../stores/navigationStore';
 
 const userImage = require("../../../../assets/userImage.png");
 const settingImage = require("../../../../assets/settings.png");
@@ -15,11 +14,10 @@ const logoutImage = require("../../../../assets/logout.png");
 
 
 const Navigation: React.FC = observer(() => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const handleLogout = () => {
     getLoginStore().resetCredentials();
     getAuthStore().logout();
-    navigation.navigate("Login", "Login");
+    getNavigationStore().navigateToLogin();
   };
   const { theme } = useContext(ThemeContext);
 
@@ -40,7 +38,7 @@ const Navigation: React.FC = observer(() => {
           width: '100%',
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("userProfile", "userProfile")}>
+        <TouchableOpacity onPress={() => getNavigationStore().navigateToUserProfile()}>
           <Image
             style={{
               height: getDimensionsStore().windowWidth * 0.1,
@@ -51,7 +49,7 @@ const Navigation: React.FC = observer(() => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Settings", "Settings")}>
+        <TouchableOpacity onPress={() => getNavigationStore().navigateToSettings()}>
           <Image
             style={{
               height: getDimensionsStore().windowWidth * 0.1,

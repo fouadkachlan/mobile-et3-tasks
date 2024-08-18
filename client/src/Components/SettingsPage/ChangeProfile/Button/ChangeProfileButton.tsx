@@ -5,14 +5,12 @@ import getDimensionsStore from '../../../../stores/dimensionsStore'
 import { settingsText } from '../../../Constant/constants'
 import { ThemeContext } from '../../../ThemeContext/ThemeContext'
 import { TouchableOpacity } from 'react-native'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../../../types/navigation'
+import getNavigationStore from '../../../../stores/navigationStore'
 
 const ChangeProfileButton = () => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>()
     const {theme} = useContext(ThemeContext);
     const handleProfileChange = () => {
-        navigation.navigate("ChangeProfile" , "ChangeProfile")
+        getNavigationStore().navigateToChangeProfile()
     }
   return (
     <TouchableOpacity onPress={handleProfileChange}>

@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import { TouchableOpacity, Image, Alert, Dimensions } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { RootStackParamList } from '../../types/navigation';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 import CustomButton from '../../CustomComponents/CustomButton';
 import CustomView from '../../CustomComponents/CustomView';
 import CustomText from '../../CustomComponents/CustomText';
@@ -19,12 +17,12 @@ import {
   signInChoice,
   welcomingMessage,
 } from '../Constant/constants';
+import getNavigationStore from '../../stores/navigationStore';
 const googleImage = require('../../../../assets/google-symbol.png');
 const Login: React.FC = observer(() => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const handlePress = async () : Promise<void> => {
     try {
-      getLoginStore().handleLogin(navigation);
+      getLoginStore().handleLogin();
 
     } catch ( error ) {
       Alert.alert("Error" , "Error while Logging In")
@@ -114,7 +112,7 @@ const Login: React.FC = observer(() => {
           marginRight: getDimensionsStore().windowWidth  * 0.1,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword', 'ForgotPassword')}>
+        <TouchableOpacity onPress={() => getNavigationStore().navigateToForgotPassword()}>
           <CustomText
             style={{
               color: theme.fontColor,
@@ -252,7 +250,7 @@ const Login: React.FC = observer(() => {
         </CustomButton>
       </CustomView>
 
-      <TouchableOpacity onPress={() => navigation.navigate('CreateAccount', 'CreateAccount')}>
+      <TouchableOpacity onPress={() => getNavigationStore().navigateToCreateAccount()}>
         <CustomView
           style={{
             justifyContent: 'center',

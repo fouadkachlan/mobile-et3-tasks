@@ -4,6 +4,7 @@ import getAuthStore from "./authenticationStore";
 import { Alert } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/navigation";
+import getNavigationStore from "./navigationStore";
  class LoginStore 
 {
     user_email = observable.box<string>('');
@@ -61,19 +62,19 @@ import { RootStackParamList } from "../types/navigation";
         })
     }
     
-    handleLogin = async (navigation : NavigationProp<RootStackParamList>) : Promise<void>=> {
+    handleLogin = async () : Promise<void>=> {
         try {
           const response = await getRequestStore().loginRequest();
     
           const data = response.data;
           if (data.message === "Login Successfull") {
-            const token: string = data.token;
+            const token: string = data.accessToken;
             console.log("Setting Up JWT token" , token)
             getAuthStore().login(token);
             console.log("Token in authStore:" , getAuthStore().token.get())
             getLoginStore().setUserId(data.user.user_id);
-            navigation.navigate('HomeNewsScreen', 'HomeNewsScreen');
-          } else {
+            getNavigationStore().navigateToHomeScreen()
+        } else {
             Alert.alert('Login Failed', 'Invalid email or password');
           }
         } catch (error) {
@@ -81,14 +82,14 @@ import { RootStackParamList } from "../types/navigation";
           Alert.alert('Error', 'Failed to login. Please try again later.');
         }
     };
-     handleSignUp = async (navigation : NavigationProp<RootStackParamList>): Promise<void> => {
+     handleSignUp = async (): Promise<void> => {
         try {
           const response = await getRequestStore().signInRequest();
           const data = response.data;
           if (data.message === "User Created Successfully") {
             Alert.alert("Congratulations, you are now in our community");
-            navigation.navigate("Login", "Login");
-          }
+            getNavigationStore().navigateToLogin()
+        }
         } catch (error) {
           console.error("Error during Sign Up", error);
           Alert.alert("Error", "Failed to Sign Up. Please try again later.");

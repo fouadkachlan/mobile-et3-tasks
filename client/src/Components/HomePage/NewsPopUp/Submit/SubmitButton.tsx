@@ -7,14 +7,12 @@ import { submitText } from '../../../Constant/constants'
 import CustomText from '../../../../CustomComponents/CustomText'
 import getNewsStore from '../../../../stores/newsStore';
 import getLoginStore from '../../../../stores/loginStore'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../../../types/navigation'
 import {NewsItem} from "../../../../types/NewsItem"
 import getRequestStore from '../../../../stores/requestsStore'
 import { observer } from 'mobx-react-lite'
+import getNavigationStore from '../../../../stores/navigationStore'
 
 const SubmitButton = observer(() => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const {theme} = useContext(ThemeContext);
     const handleSubmit = async () => {
         if (getNewsStore().news.get()) {
@@ -27,7 +25,7 @@ const SubmitButton = observer(() => {
                 }
                 getNewsStore().addNews(newsItem);
                 Alert.alert('Success', 'News added successfully');
-                navigation.goBack();
+                getNavigationStore().goBack();
             } catch ( error ) {
                 console.log("Error in handling add news!" , error)
             }      

@@ -3,7 +3,7 @@ import {userInsert} from "../Models/userModels/userInsert";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { hashPassword } from "../helpers/utitilty";
-import { ENCRYPTION_KEY } from "../Constant/User";
+import { ENCRYPTION_KEY, REFRESH_ENCRYPTION_KEY } from "../Constant/User";
 import { UserMessages } from "../Constant/Message";
 import { userModels } from "../Models";
 
@@ -28,7 +28,7 @@ const userLibrary = {
             throw new Error(UserMessages.Fail.adminCreateError)
         }
     },
-    userLoginCallAsUser : async (user_email : string , user_password : string) : Promise<{message : string ;token : string ; user : {email : string , hashPassword : string , user_id : number }} | null> => {
+    userLoginCallAsUser : async (user_email : string , user_password : string) : Promise<{message : string ;accessToken : string ; user : {email : string , hashPassword : string , user_id : number }} | null> => {
         const user = await userSelect.LoginAsUser(user_email);
         if (!user) {
             throw new Error (UserMessages.Fail.userNotValidError);
@@ -37,10 +37,12 @@ const userLibrary = {
         if (!isPasswordValid) {
             throw new Error (UserMessages.Fail.emailAndPasswordError);
         }
-        const token : string = jwt.sign({role : "user" , email: user.user_email} ,ENCRYPTION_KEY,{ expiresIn: "1h"});
+        const accessToken : string = jwt.sign({role : "user" , email: user.user_email} , ENCRYPTION_KEY,{ expiresIn: "1h"});
+        // const refreshToken : string = jwt.sign({role: "user", email : user.user_email}, REFRESH_ENCRYPTION_KEY, {expiresIn: "7d"})
         const result = {
             message : UserMessages.Success.LoginSuccessfull,
-            token,
+            accessToken,
+            // refreshToken,
             user : {
                 email: user.user_email,
                 hashPassword: user.user_password,

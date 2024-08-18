@@ -17,7 +17,7 @@ const userLibrary_1 = __importDefault(require("../Libraries/userLibrary"));
 const Message_1 = require("../Constant/Message");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user_email, user_password, user_phone_number, user_country, user_role, user_name } = req.body;
+        const { user_email, user_password, user_phone_number, user_country, user_name } = req.body;
         yield userLibrary_1.default.userCreateCall(user_email, user_password, user_phone_number, user_country, user_name);
         res.status(200).json({ message: Message_1.UserMessages.Success.userCreateSuccess });
     }
@@ -28,7 +28,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createUser = createUser;
 const createAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user_email, user_password, user_phone_number, user_country, user_role, user_name } = req.body;
+        const { user_email, user_password, user_phone_number, user_country, user_name } = req.body;
         yield userLibrary_1.default.adminCreateCall(user_email, user_password, user_phone_number, user_country, user_name);
         res.status(200).json({ message: Message_1.UserMessages.Success.userCreateSuccess });
     }

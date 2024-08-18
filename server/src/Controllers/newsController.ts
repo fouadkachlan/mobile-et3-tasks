@@ -7,7 +7,7 @@ import { AddNewsRequestBody } from '../Types/NewsRequests/newsRequestsTypes';
 
 export const addNews = async (req: Request<{},{},AddNewsRequestBody>, res: Response): Promise<void> => {
     try {
-        const {user_id , news_content} = req.body;
+        const {user_id , news_content} : AddNewsRequestBody= req.body;
         await newsLibrary.addNewsForUser(user_id , news_content);
         res.status(200).json({ message: NewsMessages.Success.successNewsAddMessage });
     } catch (error) {

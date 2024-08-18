@@ -8,7 +8,6 @@ import { mmkv } from '../MmkvStorage/mmkv';
 import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { settingsText } from '../Constant/constants';
 import getDimensionsStore from '../../stores/dimensionsStore';
-import ChangeProfile from './ChangeProfile/Button/ChangeProfileButton';
 import ChangeProfileButton from './ChangeProfile/Button/ChangeProfileButton';
 
 

@@ -7,13 +7,13 @@ import { settingsText } from '../../../Constant/constants'
 import { ThemeContext } from '../../../ThemeContext/ThemeContext'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../../../../types/navigation'
+import getNavigationStore from '../../../../stores/navigationStore'
 
 const ChangeCountryButton = () => {
     const {theme} = useContext(ThemeContext);
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("ChangeCountry" , "ChangeCountry")}>
+    <TouchableOpacity onPress={() => getNavigationStore().navigateToChangeCountry()}>
         <CustomView
         style={{
           display: 'flex',
