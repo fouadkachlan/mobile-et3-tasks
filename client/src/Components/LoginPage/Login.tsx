@@ -13,6 +13,7 @@ import {
   createAccountText,
   emailAddressText,
   forgotPasswordMessage,
+  googleText,
   loginMessage,
   signInChoice,
   welcomingMessage,
@@ -102,7 +103,7 @@ const Login: React.FC = observer(() => {
         fontSize={20}
         fontWeight={'500'}
       >
-        Password
+        {createAccountText.password}
       </CustomText>
 
       <CustomView
@@ -210,7 +211,7 @@ const Login: React.FC = observer(() => {
       >
         <CustomButton
           onPress={() => {
-            Alert.alert('Google Sign In not activated right now!');
+            Alert.alert(googleText.Fail.googleNotActivated);
           }}
           style={{
             backgroundColor: 'grey',

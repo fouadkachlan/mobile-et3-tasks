@@ -35,7 +35,14 @@ export const signInChoice : string = "_______ Or sign in with _______";
 export const welcomingMessage : string = "Welcome  to the app";
 export const firstWelcoming : string = "Welcome to the news reader app";
 export const introducingNewsReaderApp : string = "We're excited to introduce you our news paper reader app.";
+export const googleText = {
+    Success : {
 
+    },
+    Fail : {
+        googleNotActivated : 'Google Sign In not activated right now!'
+    }
+}
 export const createAccountText = {
     username : "Username",
     emailAddress : "Email Address",
