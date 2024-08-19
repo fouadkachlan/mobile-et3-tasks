@@ -6,13 +6,15 @@ import { ThemeContext } from '../../../../ThemeContext/ThemeContext'
 import { changeProfile, submitText } from '../../../../Constant/constants'
 import getLoginStore from '../../../../../stores/loginStore'
 import { Alert } from 'react-native'
+import getNavigationStore from '../../../../../stores/navigationStore'
 submitText
 const SubmitChangeEmailButton = () => {
     const {theme} = useContext(ThemeContext);
     const handleChangeEmail = async () : Promise<void> => {
         try 
         {
-             getLoginStore().handleEmailChange();
+            getLoginStore().handleEmailChange();
+            getNavigationStore().navigateToUserProfile();
         } catch ( error ) {
             console.error(changeProfile.Fail.changeEmail);
             Alert.alert(changeProfile.Fail.changeEmail);

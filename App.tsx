@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { ErrorInfo, useCallback, useEffect, useRef } from 'react'
 import Settings from './client/src/Components/SettingsPage/Settings'
 import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'

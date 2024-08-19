@@ -12,7 +12,7 @@ const HomeScreenNewsList : React.FC = observer(() => {
       padding : '5%',
       flexDirection: 'column',
       margin: 'auto',
-      height: getDimensionsStore().windowHeight * 0.9
+      height: getDimensionsStore().windowHeight * 1.1
     }}>
         {getNewsStore().newsList.get().map((newsItem : NewsItem , index : number ) => (
                 <NewsForm key={index} newsItem={newsItem} />

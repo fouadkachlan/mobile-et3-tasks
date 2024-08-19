@@ -6,6 +6,7 @@ import { ThemeContext } from '../../../../ThemeContext/ThemeContext'
 import { changeProfile, submitText } from '../../../../Constant/constants'
 import getLoginStore from '../../../../../stores/loginStore'
 import { Alert } from 'react-native'
+import getNavigationStore from '../../../../../stores/navigationStore'
 submitText
 const ChangeCountrySubmitButton = () => {
     const {theme} = useContext(ThemeContext);
@@ -13,6 +14,7 @@ const ChangeCountrySubmitButton = () => {
         try 
         {
              getLoginStore().handleCountryChange();
+             getNavigationStore().navigateToUserProfile();
         } catch ( error ) {
             console.error(changeProfile.Fail);
             Alert.alert(changeProfile.Fail.toString());

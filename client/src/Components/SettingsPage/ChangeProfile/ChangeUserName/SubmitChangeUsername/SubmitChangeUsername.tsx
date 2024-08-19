@@ -7,6 +7,7 @@ import { ThemeContext } from '../../../../ThemeContext/ThemeContext'
 import { changeProfile, submitText } from '../../../../Constant/constants'
 import axios from 'axios'
 import getLoginStore from '../../../../../stores/loginStore'
+import getNavigationStore from '../../../../../stores/navigationStore'
 submitText
 const SubmitChangeUsername = () => {
     const {theme} = useContext(ThemeContext);
@@ -14,6 +15,7 @@ const SubmitChangeUsername = () => {
         try 
         {
             getLoginStore().handleUsernameChange();
+            getNavigationStore().navigateToUserProfile();
         } catch ( error ) {
             console.error(changeProfile.Fail.changeUserName);
             Alert.alert(changeProfile.Fail.changeUserName);
