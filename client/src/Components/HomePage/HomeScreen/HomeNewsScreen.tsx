@@ -5,30 +5,24 @@ import getRequestStore from '../../../stores/requestsStore';
 import getDimensionsStore from '../../../stores/dimensionsStore';
 import HomeScreenHeader from './Header/HomeScreenHeader';
 import HomeScreenNewsList from './List/HomeScreenNewsList';
-import { ThemeContext } from '../../ThemeContext/ThemeContext';
 import getRefreshStore from '../../../stores/refreshStore';
+import { useTheme } from '../../ThemeContext/ThemeContext';
+import getNewsStore from '../../../stores/newsStore';
 
 
 const HomeNewsScreen : React.FC = observer(() => {
 
-    const newsInformations = async() : Promise<void> => {
-        try
-        {
-          await getRequestStore().fetchNewsRequest()      
-        } catch ( error ) {
-          console.error("Failed Fetching News Information" , error);
-        }
-      }
+    
       useEffect(() =>{
-        newsInformations();
+        getNewsStore().newsInformations();
       },[])
       const onRefresh = React.useCallback(() => {
         getRefreshStore().setRefreshToTrue();
         setTimeout(() => {
         getRefreshStore().setRefreshToFalse();
-        }, 2000)
+        }, 2000) // clear timeout
       } , [])
-      const {theme} = useContext(ThemeContext);
+      const {theme} = useTheme();
   return (
     <RefreshControl refreshing={getRefreshStore().refresh.get()} onRefresh={onRefresh}>
         <ScrollView style={{

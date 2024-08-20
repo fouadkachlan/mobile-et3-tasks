@@ -5,13 +5,13 @@ import CustomText from '../../../../CustomComponents/CustomText';
 import CustomInput from '../../../../CustomComponents/CustomInput';
 import getLoginStore from '../../../../stores/loginStore';
 import getThemeStore from '../../../../stores/themeStore';
-import { ThemeContext } from '../../../ThemeContext/ThemeContext';
+import {  useTheme } from '../../../ThemeContext/ThemeContext';
 import { settingsText } from '../../../Constant/constants';
 import getDimensionsStore from '../../../../stores/dimensionsStore';
 import SubmitChangeUsername from './SubmitChangeUsername/SubmitChangeUsername';
 
 const ChangeUsername: React.FC = observer(() => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme()
 
   return (
     <CustomView

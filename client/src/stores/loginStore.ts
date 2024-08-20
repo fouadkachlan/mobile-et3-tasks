@@ -5,6 +5,7 @@ import { Alert } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../types/navigation";
 import getNavigationStore from "./navigationStore";
+import { changeProfile } from "../Components/Constant/constants";
  class LoginStore 
 {
     user_email = observable.box<string>('');
@@ -95,7 +96,14 @@ import getNavigationStore from "./navigationStore";
           Alert.alert("Error", "Failed to Sign Up. Please try again later.");
         }
       };
-
+       handleLoginPress = async () : Promise<void> => {
+        try {
+          this.handleLogin();
+    
+        } catch ( error ) {
+          Alert.alert("Error" , "Error while Logging In")
+        }
+      }
       handleUsernameChange = async () : Promise<void> => {
         try {
             await getRequestStore().changeUsernameRequest();
@@ -128,11 +136,70 @@ import getNavigationStore from "./navigationStore";
             Alert.alert ("Country change error" , `${error}`);
         }
       }
-      
-    
+       handleNavigationLogout = () => {
+        getLoginStore().resetCredentials();
+        getAuthStore().logout();
+        getNavigationStore().navigateToLogin();
+      };
+       handleProfileFetch = async (): Promise<void> => {
+        try {
+          await getRequestStore().profileFetchRequest();
+          const data = (await getRequestStore().profileFetchRequest()).data;
+          this.setProfileData(data.user_email, data.user_name, data.user_phone_number, data.user_country);
+        } catch (error) {
+          console.error("Error fetching profile,", error);
+        }
+      };
+       handleChangeCountry = async () : Promise<void> => {
+        try 
+        {
+             this.handleCountryChange();
+             getNavigationStore().navigateToUserProfile();
+        } catch ( error ) {
+            console.error(changeProfile.Fail);
+            Alert.alert(changeProfile.Fail.toString());
+        }
+    }
+     handleChangeEmail = async () : Promise<void> => {
+        try 
+        {
+            this.handleEmailChange();
+            getNavigationStore().navigateToUserProfile();
+        } catch ( error ) {
+            console.error(changeProfile.Fail.changeEmail);
+            Alert.alert(changeProfile.Fail.changeEmail);
+        }
+        }
+         handleChangeNumber = async () : Promise<void> => {
+            try 
+            {
+                 this.handleNumberChange();
+                 getNavigationStore().navigateToUserProfile();
+            } catch ( error ) {
+                console.error(changeProfile.Fail.changeNumber);
+                Alert.alert("Error While Changing Number");
+            }
+        }
+         handleChangeUsername = async () : Promise<void> => {
+            try 
+            {
+                this.handleUsernameChange();
+                getNavigationStore().navigateToUserProfile();
+            } catch ( error ) {
+                console.error(changeProfile.Fail.changeUserName);
+                Alert.alert(changeProfile.Fail.changeUserName);
+            }
+        }
+         handleCreateAccountPress = async () : Promise<void> => {
+            try {
+              this.handleSignUp();
+        
+            } catch (error) {
+              Alert.alert("Error", "Error While Handling Sign Up!");
+            }
+          } 
     
 }
-
 const loginStore = new LoginStore();
 export const getLoginStore = () => loginStore;
 export default getLoginStore;

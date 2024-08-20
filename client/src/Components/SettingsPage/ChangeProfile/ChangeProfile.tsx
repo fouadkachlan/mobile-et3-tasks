@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import CustomView from '../../../CustomComponents/CustomView'
 import getDimensionsStore from '../../../stores/dimensionsStore'
-import { ThemeContext } from '../../ThemeContext/ThemeContext'
+import {  useTheme } from '../../ThemeContext/ThemeContext'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../../../types/navigation'
 import ChangeUserNameButton from './Button/ChangeUserNameButton'
@@ -12,11 +12,7 @@ import CustomText from '../../../CustomComponents/CustomText'
 import { settingsText } from '../../Constant/constants'
 
 const ChangeProfile = () => {
-    const {theme} = useContext(ThemeContext);
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>()
-    const handleProfileChange = () => {
-        navigation.navigate("ChangeProfile" , "ChangeProfile")
-    }
+    const {theme} = useTheme();
   return (
     <CustomView style={{
         flex: 1,

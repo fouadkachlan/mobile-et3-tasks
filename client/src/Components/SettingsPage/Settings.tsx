@@ -5,23 +5,15 @@ import CustomText from '../../CustomComponents/CustomText';
 import getThemeStore from '../../stores/themeStore';
 import { observer } from 'mobx-react-lite';
 import { mmkv } from '../MmkvStorage/mmkv';
-import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { settingsText } from '../Constant/constants';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import ChangeProfileButton from './ChangeProfile/Button/ChangeProfileButton';
+import { useTheme } from '../ThemeContext/ThemeContext';
 
 
 const Settings: React.FC = observer(() => {
-  const {theme } = useContext(ThemeContext);
-  const toggleSwitch = () => {    
-    const currentValue = getThemeStore().isDarkThemeEnabled.get();
-    const newValue = !currentValue;
-    getThemeStore().toggleTheme()
-    console.log('Toggling switch:', newValue);
-    getThemeStore().setThemeEnabled(newValue ? 'dark' : 'light');
-    mmkv.set('themeEnabled', newValue);
-    console.log('Stored themeEnabled:', mmkv.getBoolean('themeEnabled'));
-};
+  const {theme } = useTheme();
+
  
   return (
     <CustomView style={{
@@ -82,7 +74,7 @@ const Settings: React.FC = observer(() => {
           <Switch
             trackColor={{ false: '#767577', true: '#81b0ff' }}
             thumbColor={getThemeStore().isDarkThemeEnabled.get() ? '#FFFFFF' : '#f4f3f4'}
-            onValueChange={toggleSwitch}
+            onValueChange={getThemeStore().toggleSettingsSwitch}
             value={getThemeStore().isDarkThemeEnabled.get()}
           />
         </CustomView>

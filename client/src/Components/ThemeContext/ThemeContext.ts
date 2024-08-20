@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 export const themes  = {
     dark : {
@@ -25,3 +25,9 @@ export const ThemeContext = createContext({
     theme: themes.light,
     toggleTheme : () => {}
 });
+
+
+export const useTheme = () => {
+    const context = useContext(ThemeContext);
+    return context;
+}

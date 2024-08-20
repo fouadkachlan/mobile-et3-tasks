@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import CustomInput from '../../../../CustomComponents/CustomInput'
 import CustomView from '../../../../CustomComponents/CustomView'
-import { ThemeContext } from '../../../ThemeContext/ThemeContext'
+import { useTheme } from '../../../ThemeContext/ThemeContext'
 import getNewsStore from '../../../../stores/newsStore'
 import getThemeStore from '../../../../stores/themeStore'
 import { observer } from 'mobx-react-lite'
 
 
 const NewsPopUpInput = observer(() => {
-    const {theme} = useContext(ThemeContext);
+    const {theme} = useTheme()
   return (
     <CustomView style={{
         display: 'flex'

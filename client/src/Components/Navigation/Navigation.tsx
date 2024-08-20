@@ -4,22 +4,17 @@ import CustomView from '../../CustomComponents/CustomView';
 import { observer } from 'mobx-react-lite';
 import getLoginStore from '../../stores/loginStore';
 import getAuthStore from '../../stores/authenticationStore';
-import { ThemeContext } from '../ThemeContext/ThemeContext';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import getNavigationStore from '../../stores/navigationStore';
-
+import { useTheme } from '../ThemeContext/ThemeContext';
 const userImage = require("../../../../assets/userImage.png");
 const settingImage = require("../../../../assets/settings.png");
 const logoutImage = require("../../../../assets/logout.png");
 
 
 const Navigation: React.FC = observer(() => {
-  const handleLogout = () => {
-    getLoginStore().resetCredentials();
-    getAuthStore().logout();
-    getNavigationStore().navigateToLogin();
-  };
-  const { theme } = useContext(ThemeContext);
+ 
+  const { theme } = useTheme();
 
   return (
     <CustomView
@@ -60,7 +55,7 @@ const Navigation: React.FC = observer(() => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleLogout}>
+        <TouchableOpacity onPress={getLoginStore().handleNavigationLogout}>
           <Image
             style={{
               height: getDimensionsStore().windowWidth * 0.1,

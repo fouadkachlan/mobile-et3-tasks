@@ -5,13 +5,13 @@ import getNewsStore from '../../../../stores/newsStore'
 import CustomText from '../../../../CustomComponents/CustomText'
 import CustomView from '../../../../CustomComponents/CustomView'
 import getThemeStore from '../../../../stores/themeStore';
-import { ThemeContext } from '../../../ThemeContext/ThemeContext'
 import { addNewsText, newsNumberText } from '../../../Constant/constants'
 import getNavigationStore from '../../../../stores/navigationStore'
+import { useTheme } from '../../../ThemeContext/ThemeContext'
 
 
 const HomeScreenHeader : React.FC = () => {
-    const {theme} = useContext(ThemeContext);
+    const {theme} = useTheme();
   return (
   <CustomView style={{}}>
         <Navigation />

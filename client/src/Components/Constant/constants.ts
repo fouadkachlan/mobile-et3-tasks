@@ -1,4 +1,4 @@
-export const IP_ADDRESS : string = "192.168.100.126";
+export const IP_ADDRESS : string = "192.168.1.108";
 export const PORT : string = "3001";
 export const newsWrittenBy : string = "News Written By:";
 export const newsWrittenAt : string = "News Written At:";
@@ -11,7 +11,10 @@ export const forgotPasswordMessage  = {
     forgotPasswordMessage : "Forgot Password"
 } 
 export const settingsText = {
-    settingTitle : "Settings",
+    settingTitle : "Settings", // check it  , // I18n file
+    //arabic : "hi",
+    //English : "English",
+    //French : "French"
     changeThemeText : "Change Theme",
     changeProfile: "Change Profile",
     changeUsernameText: "Change User Name",

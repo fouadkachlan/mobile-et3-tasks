@@ -1,5 +1,9 @@
 import {computed, observable , runInAction} from "mobx";
 import { NewsItem } from "../types/NewsItem";
+import getRequestStore from "./requestsStore";
+import getLoginStore from "./loginStore";
+import { Alert } from "react-native";
+import getNavigationStore from "./navigationStore";
 
 class NewsStore 
 {
@@ -29,11 +33,47 @@ class NewsStore
         runInAction(() => {
             let updatednewLIst: NewsItem[] = this.newsList.get();
             updatednewLIst.push(news)
-        
             this.newsList.set(updatednewLIst);
             this.incrementNewsCountByOne();
             this.news.set('');
         })
+    }
+     newsInformations = async() : Promise<void> => {
+        try
+        {
+          await getRequestStore().fetchNewsRequest()      
+        } catch ( error ) {
+          console.error("Failed Fetching News Information" , error);
+        }
+      }
+       handleSubmit = async () => {
+        if (getNewsStore().news.get()) {
+            try {
+                await this.handleAddNews();
+                const newsItem: NewsItem = {
+                    user_name: getLoginStore().user_name.get(),
+                    date_of_news: getNewsStore().date.get(),
+                    news_content: getNewsStore().news.get()
+                }
+                this.addNews(newsItem);
+                Alert.alert('Success', 'News added successfully');
+                getNavigationStore().goBack();
+            } catch ( error ) {
+                console.log("Error in handling add news!" , error)
+            }      
+        } else {
+            Alert.alert('Error' , 'Please Enter the news');
+        }        
+    }
+     handleAddNews = async () : Promise<void> => {
+        try {
+            if( getLoginStore().user_id.get() !== -1)
+            {
+              await getRequestStore().addNewsRequest();
+            }
+        } catch ( error ) {
+            console.error("Error while adding News" , error);
+        }
     }
     setNewsList(newsArray : NewsItem[] ) {
         runInAction(()=> {

@@ -33,7 +33,7 @@ const rateLimitMiddleware = (option) => (req, res, next) => __awaiter(void 0, vo
 });
 exports.loginUserRateLimiter = rateLimitMiddleware({
     windowMs: 60 * 1000,
-    max: 50,
+    max: 5,
     limitType: "Login Rate Limit"
 });
 exports.defaultRateLimiter = rateLimitMiddleware({

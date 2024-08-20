@@ -3,29 +3,20 @@ import React, { useContext } from 'react'
 import CustomView from '../../../../../CustomComponents/CustomView'
 import CustomText from '../../../../../CustomComponents/CustomText'
 import CustomButton from '../../../../../CustomComponents/CustomButton'
-import { ThemeContext } from '../../../../ThemeContext/ThemeContext'
 import { changeProfile, submitText } from '../../../../Constant/constants'
 import axios from 'axios'
 import getLoginStore from '../../../../../stores/loginStore'
 import getNavigationStore from '../../../../../stores/navigationStore'
+import { useTheme } from '../../../../ThemeContext/ThemeContext'
 submitText
 const SubmitChangeUsername = () => {
-    const {theme} = useContext(ThemeContext);
-    const handleChangeUsername = async () : Promise<void> => {
-        try 
-        {
-            getLoginStore().handleUsernameChange();
-            getNavigationStore().navigateToUserProfile();
-        } catch ( error ) {
-            console.error(changeProfile.Fail.changeUserName);
-            Alert.alert(changeProfile.Fail.changeUserName);
-        }
-    }
+    const {theme} = useTheme()
+    
   return (
     <CustomView 
           style={{}}
         >
-            <CustomButton onPress={handleChangeUsername}
+            <CustomButton onPress={getLoginStore().handleChangeUsername}
                 style={{
                   backgroundColor: theme.borderColor,
                   marginBottom :'30%' ,

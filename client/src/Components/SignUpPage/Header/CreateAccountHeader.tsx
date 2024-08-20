@@ -3,11 +3,11 @@ import CustomView from '../../../CustomComponents/CustomView'
 import CustomText from '../../../CustomComponents/CustomText'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import { createAccountText, welcomingMessage } from '../../Constant/constants'
-import { ThemeContext } from '../../ThemeContext/ThemeContext'
 import { observer } from 'mobx-react-lite'
+import { useTheme } from '../../ThemeContext/ThemeContext'
 
 const CreateAccountHeader = observer(() => {
-    const {theme} = useContext(ThemeContext)
+    const {theme} = useTheme();
   return (
     <CustomView style = {{}}>
         <CustomText 

@@ -4,11 +4,11 @@ import getDimensionsStore from '../../../../stores/dimensionsStore'
 import CustomText from '../../../../CustomComponents/CustomText'
 import CustomView from '../../../../CustomComponents/CustomView'
 import { settingsText } from '../../../Constant/constants'
-import { ThemeContext } from '../../../ThemeContext/ThemeContext'
+import { useTheme } from '../../../ThemeContext/ThemeContext'
 import getNavigationStore from '../../../../stores/navigationStore'
 
 const ChangeEmailButton = () => {
-    const {theme} = useContext(ThemeContext)
+    const {theme} = useTheme()
   return (
     <TouchableOpacity  onPress={() => getNavigationStore().navigateToChangeEmail()}>
         <CustomView

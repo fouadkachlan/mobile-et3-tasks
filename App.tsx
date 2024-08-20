@@ -26,7 +26,6 @@ import { RootStackParamList } from './client/src/types/navigation'
 const App : React.FC =  observer(()=> {
   const Stack = createNativeStackNavigator();
   const navigationRef = useRef<NavigationContainerRef<RootStackParamList> | null>(null);
-  const storedToken : string | undefined = mmkvAuth.getString('authToken');
   useEffect(() => {
     try {
       const storedTheme = mmkv.getBoolean('themeEnabled');
@@ -47,7 +46,7 @@ const App : React.FC =  observer(()=> {
   return (
         <ThemeProvider>
           <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator initialRouteName={storedToken ? "HomeNewsScreen" : "Welcoming"} >
+            <Stack.Navigator initialRouteName={"Welcoming"} >
               <Stack.Screen name="Welcoming" component={WelcomingScreen} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="CreateAccount" component={CreateAccount} />

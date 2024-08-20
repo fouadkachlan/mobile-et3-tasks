@@ -6,12 +6,12 @@ import getDimensionsStore from '../../../../stores/dimensionsStore'
 import { settingsText } from '../../../Constant/constants'
 import getLoginStore from '../../../../stores/loginStore'
 import { observer } from 'mobx-react-lite'
-import { ThemeContext } from '../../../ThemeContext/ThemeContext'
+import { useTheme } from '../../../ThemeContext/ThemeContext'
 import SubmitChangeNumber from './SubmitChangeNumberButton/SubmitChangeNumber'
 
 
 const ChangeNumber = observer(() => {
-    const {theme} = useContext(ThemeContext)
+    const {theme} = useTheme()
     return (
         <CustomView
       style={{

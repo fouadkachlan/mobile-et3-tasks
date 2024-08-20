@@ -6,29 +6,21 @@ import CustomView from '../../CustomComponents/CustomView';
 import getLoginStore from '../../stores/loginStore';
 import getRefreshStore from '../../stores/refreshStore';
 import getRequestStore from '../../stores/requestsStore';
-import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { userProfileText } from '../Constant/constants';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import Username from './Username/Username';
 import Email from './UserEmail/Email';
 import PhoneNumber from './phoneNumber/PhoneNumber';
 import Country from './country/Country';
+import { useTheme } from '../ThemeContext/ThemeContext';
 const userImage = require("../../../../assets/userImage.png");
 
 
 const UserProfile: React.FC = observer(() => {
-  const handleProfileFetch = async (): Promise<void> => {
-    try {
-      await getRequestStore().profileFetchRequest();
-      const data = (await getRequestStore().profileFetchRequest()).data;
-      getLoginStore().setProfileData(data.user_email, data.user_name, data.user_phone_number, data.user_country);
-    } catch (error) {
-      console.error("Error fetching profile,", error);
-    }
-  };
+ 
 
   React.useEffect(() => {
-    handleProfileFetch();
+    getLoginStore().handleProfileFetch();
   }, []);
   const onRefresh = React.useCallback(() => {
     getRefreshStore().setRefreshToTrue();
@@ -36,7 +28,7 @@ const UserProfile: React.FC = observer(() => {
     getRefreshStore().setRefreshToFalse();
     }, 2000)
   } , [])
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
 
   return (
       <CustomView

@@ -4,17 +4,17 @@ import { observer } from 'mobx-react-lite';
 import CustomButton from '../../CustomComponents/CustomButton';
 import CustomText from '../../CustomComponents/CustomText';
 import CustomView from '../../CustomComponents/CustomView';
-import { ThemeContext } from '../ThemeContext/ThemeContext';
 import { createAccountText, firstWelcoming, introducingNewsReaderApp, loginMessage } from '../Constant/constants';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import getNavigationStore from '../../stores/navigationStore';
+import { useTheme } from '../ThemeContext/ThemeContext';
 
 const welcomingImage = require("../../../../assets/welcome.png");
 
 
 const WelcomingScreen: React.FC = observer(() => {
-  const { theme } = useContext(ThemeContext);
-
+  
+  const {theme} = useTheme();
   
 
   return (
@@ -64,11 +64,12 @@ const WelcomingScreen: React.FC = observer(() => {
         <ActivityIndicator
           style={{
             marginTop: getDimensionsStore().windowHeight  * 0.02,
+            marginBottom: getDimensionsStore().windowHeight * 0.02
           }}
           size={getDimensionsStore().windowWidth * 0.15}
           color={theme.navigationColor}
         />
-<CustomView
+      <CustomView
         style={{
           display: 'flex',
           justifyContent: 'center',

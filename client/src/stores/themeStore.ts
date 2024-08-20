@@ -1,4 +1,5 @@
 import {observable, runInAction} from "mobx";
+import { mmkv } from "../Components/MmkvStorage/mmkv";
 
 class ThemeStore {
     isDarkThemeEnabled = observable.box<boolean>(false);
@@ -23,6 +24,15 @@ class ThemeStore {
     get themeMode() {
         return this.isDarkThemeEnabled.get() ? "dark" : "light";
     }
+    toggleSettingsSwitch = () => {    
+        const currentValue = getThemeStore().isDarkThemeEnabled.get();
+        const newValue = !currentValue;
+        getThemeStore().toggleTheme()
+        console.log('Toggling switch:', newValue);
+        getThemeStore().setThemeEnabled(newValue ? 'dark' : 'light');
+        mmkv.set('themeEnabled', newValue);
+        console.log('Stored themeEnabled:', mmkv.getBoolean('themeEnabled'));
+    };
 }
 
 const themeStore = new ThemeStore();

@@ -4,13 +4,13 @@ import getDimensionsStore from '../../../../stores/dimensionsStore'
 import CustomText from '../../../../CustomComponents/CustomText'
 import CustomView from '../../../../CustomComponents/CustomView'
 import { settingsText } from '../../../Constant/constants'
-import { ThemeContext } from '../../../ThemeContext/ThemeContext'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../../../../types/navigation'
 import getNavigationStore from '../../../../stores/navigationStore'
+import { useTheme } from '../../../ThemeContext/ThemeContext'
 
 const ChangeCountryButton = () => {
-    const {theme} = useContext(ThemeContext);
+    const {theme} = useTheme();
 
   return (
     <TouchableOpacity onPress={() => getNavigationStore().navigateToChangeCountry()}>

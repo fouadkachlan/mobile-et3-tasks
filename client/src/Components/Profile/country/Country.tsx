@@ -5,10 +5,10 @@ import CustomText from '../../../CustomComponents/CustomText'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import { userProfileText } from '../../Constant/constants'
 import getLoginStore from '../../../stores/loginStore'
-import { ThemeContext } from '../../ThemeContext/ThemeContext'
+import { useTheme } from '../../ThemeContext/ThemeContext'
 
 const Country = observer(() => {
-    const {theme} = useContext(ThemeContext);
+    const {theme} = useTheme();
     return (
         <CustomView
         style={{

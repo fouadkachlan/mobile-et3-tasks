@@ -5,14 +5,14 @@ import CustomText from '../../../CustomComponents/CustomText'
 import CustomInput from '../../../CustomComponents/CustomInput'
 import getLoginStore from '../../../stores/loginStore'
 import getThemeStore from '../../../stores/themeStore'
-import { ThemeContext } from '../../ThemeContext/ThemeContext'
 import { emailAddressText, forgotPasswordMessage } from '../../Constant/constants'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import SubmitForgotButton from './SubmitButton/SubmitForgotButton'
+import { useTheme } from '../../ThemeContext/ThemeContext'
 
 
 const ForgotPassword : React.FC = observer(() => {
-  const {theme} = useContext(ThemeContext);
+  const {theme} = useTheme();
   return (
     <CustomView style={{
         display: 'flex',

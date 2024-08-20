@@ -2,11 +2,11 @@ import React, { useContext } from 'react'
 import CustomButton from '../../../../CustomComponents/CustomButton'
 import CustomView from '../../../../CustomComponents/CustomView'
 import CustomText from '../../../../CustomComponents/CustomText'
-import { ThemeContext } from '../../../ThemeContext/ThemeContext'
 import { submitText } from '../../../Constant/constants'
+import { useTheme } from '../../../ThemeContext/ThemeContext'
 
 const SubmitForgotButton = () => {
-    const {theme} = useContext(ThemeContext);
+  const {theme} = useTheme();
   return (
     <CustomView 
           style={{

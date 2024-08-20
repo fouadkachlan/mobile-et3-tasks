@@ -2,29 +2,20 @@ import React, { useContext } from 'react'
 import CustomView from '../../../../../CustomComponents/CustomView'
 import CustomText from '../../../../../CustomComponents/CustomText'
 import CustomButton from '../../../../../CustomComponents/CustomButton'
-import { ThemeContext } from '../../../../ThemeContext/ThemeContext'
 import { changeProfile, submitText } from '../../../../Constant/constants'
 import getLoginStore from '../../../../../stores/loginStore'
 import { Alert } from 'react-native'
 import getNavigationStore from '../../../../../stores/navigationStore'
+import { useTheme } from '../../../../ThemeContext/ThemeContext'
 submitText
 const SubmitChangeEmailButton = () => {
-    const {theme} = useContext(ThemeContext);
-    const handleChangeEmail = async () : Promise<void> => {
-        try 
-        {
-            getLoginStore().handleEmailChange();
-            getNavigationStore().navigateToUserProfile();
-        } catch ( error ) {
-            console.error(changeProfile.Fail.changeEmail);
-            Alert.alert(changeProfile.Fail.changeEmail);
-        }
-        }
+    const {theme} = useTheme()
+    
   return (
     <CustomView 
           style={{}}
         >
-            <CustomButton onPress={handleChangeEmail}
+            <CustomButton onPress={getLoginStore().handleChangeEmail}
                 style={{
                   backgroundColor: theme.borderColor,
                   marginBottom :'30%' ,

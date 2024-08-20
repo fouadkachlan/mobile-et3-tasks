@@ -3,12 +3,12 @@ import CustomView from '../../../../CustomComponents/CustomView'
 import CustomText from '../../../../CustomComponents/CustomText'
 import getDimensionsStore from '../../../../stores/dimensionsStore'
 import { settingsText } from '../../../Constant/constants'
-import { ThemeContext } from '../../../ThemeContext/ThemeContext'
+import {useTheme } from '../../../ThemeContext/ThemeContext'
 import { TouchableOpacity } from 'react-native'
 import getNavigationStore from '../../../../stores/navigationStore'
 
 const ChangeProfileButton = () => {
-    const {theme} = useContext(ThemeContext);
+    const {theme} = useTheme();
     const handleProfileChange = () => {
         getNavigationStore().navigateToChangeProfile()
     }
