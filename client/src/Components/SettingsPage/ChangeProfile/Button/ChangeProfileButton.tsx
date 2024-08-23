@@ -21,16 +21,14 @@ const ChangeProfileButton = () => {
           display: 'flex',
           height: getDimensionsStore().windowHeight * 0.15,
           justifyContent: 'center',
-          flexDirection: 'row',
+          alignItems: 'center',
           borderWidth: 2,
           borderColor: theme.fontColor,
           borderRadius : getDimensionsStore().windowWidth * 0.1,
-          margin: getDimensionsStore().windowWidth * 0.025
+          margin: getDimensionsStore().windowWidth * 0.05
         }}
       >
         <CustomText style={{
-            marginTop: getDimensionsStore().windowWidth * 0.1,
-            marginLeft: 10,
             color: theme.fontColor
             }}
             fontSize={20}

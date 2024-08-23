@@ -39,6 +39,8 @@ const Login: React.FC = observer(() => {
           style={{
             color: theme.fontColor,
             marginBottom: getDimensionsStore().windowHeight * 0.02,
+            marginTop: getDimensionsStore().windowHeight * 0.02,
+
           }}
           fontSize={15}
           fontWeight="600"

@@ -27,7 +27,7 @@ const WelcomingLoginButton : React.FC = observer(() => {
           }} 
           height={getDimensionsStore().windowHeight * 0.1}
           width={getDimensionsStore().windowWidth * 0.9}>
-            <CustomText style={{}} fontSize={20} fontWeight='bold'>
+            <CustomText style={{}} fontSize={getDimensionsStore().windowWidth * 0.06} fontWeight='bold'>
               {t("login")}
             </CustomText>
         </CustomButton>

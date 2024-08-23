@@ -8,6 +8,7 @@ import getThemeStore from '../../../../stores/themeStore';
 import getNavigationStore from '../../../../stores/navigationStore'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
 import { useTranslation } from 'react-i18next'
+import getDimensionsStore from '../../../../stores/dimensionsStore'
 
 
 const HomeScreenHeader : React.FC = () => {
@@ -34,7 +35,8 @@ const HomeScreenHeader : React.FC = () => {
                     >
                         <CustomText
                             style={{
-                                color: theme.fontColor
+                                color: theme.fontColor,
+                                maxWidth: getDimensionsStore().windowWidth * 0.9
                             }}
                             fontSize={25}
                             fontWeight='500'
@@ -51,7 +53,7 @@ const HomeScreenHeader : React.FC = () => {
                             justifyContent:'center',
                             alignItems:'center', 
                             height:50,
-                            width: 'auto',
+                            width: getDimensionsStore().windowWidth * 0.7,
                             borderRadius: 10,
                             backgroundColor: getThemeStore().isDarkThemeEnabled.get() ? "white"  :'#77E4C8',
                             margin: '5%'

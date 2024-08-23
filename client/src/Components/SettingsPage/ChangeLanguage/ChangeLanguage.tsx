@@ -71,7 +71,9 @@ const ChangeLanguage : React.FC = observer(() => {
          padding: 10,
          borderRadius : getDimensionsStore().windowWidth * 0.1,
          height: getDimensionsStore().windowHeight * 0.15,
-         width: getDimensionsStore().windowWidth * 0.95
+         width: getDimensionsStore().windowWidth * 0.90,
+         margin: getDimensionsStore().windowWidth * 0.05
+
       }} onPress={() => getLanguageStore().setIsLanguageModalVisibleToTrue()}>
         <CustomView style={{
           display:'flex',

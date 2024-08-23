@@ -10,6 +10,7 @@ import ChangeProfileButton from './ChangeProfile/Button/ChangeProfileButton';
 import { useTheme } from '../ThemeContext/ThemeContext';
 import ChangeLanguage from './ChangeLanguage/ChangeLanguage';
 import { useTranslation } from 'react-i18next';
+import ChangeTheme from './changeTheme/ChangeTheme';
 
 
 const Settings: React.FC = observer(() => {
@@ -26,10 +27,10 @@ const Settings: React.FC = observer(() => {
         display: 'flex',
         justifyContent: 'center',
         }}>
-      <CustomView
+          <CustomView
         style={{
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           alignItems: 'center',
         }}
       >
@@ -42,47 +43,7 @@ const Settings: React.FC = observer(() => {
           {t("settings-title")}
         </CustomText>
       </CustomView>
-      <CustomView
-        style={{
-          display: 'flex',
-          height: getDimensionsStore().windowHeight * 0.15,
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          flexDirection: 'row',
-          borderWidth: 2,
-          borderColor: theme.fontColor,
-          borderRadius : getDimensionsStore().windowWidth * 0.1,
-          margin: getDimensionsStore().windowWidth * 0.025
-        }}
-      >
-        <CustomText style={{
-            marginTop: getDimensionsStore().windowWidth * 0.1,
-            marginLeft: 10,
-            color: theme.fontColor
-            }}
-            fontSize={20}
-            fontWeight="300">
-          {t("change-theme")}
-        </CustomText>
-        <CustomView
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            width: getDimensionsStore().windowWidth * 0.6,
-            marginTop: 40,
-
-          }}
-        >
-          <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={getThemeStore().isDarkThemeEnabled.get() ? '#FFFFFF' : '#f4f3f4'}
-            onValueChange={getThemeStore().toggleSettingsSwitch}
-            value={getThemeStore().isDarkThemeEnabled.get()}
-          />
-        </CustomView>
-        
-      </CustomView>
+      <ChangeTheme />
       <ChangeProfileButton />
       <ChangeLanguage />
     </CustomView>

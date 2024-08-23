@@ -14,7 +14,7 @@ import CreateAccountHeader from './Header/CreateAccountHeader';
 import { useTheme } from '../ThemeContext/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import CreateAccountEmailInput from './createAccountEmailInput/CreateAccountEmailInput';
-import CreateAccountUsernameInput from './CreateAccountUsernameInput/CreateAccountUsernameInput';
+import CreateAccountUsernameInput from './createAccountUsernameInput/CreateAccountUsernameInput';
 import CreateAccountPasswordInput from './createAccountPasswordInput/CreateAccountPasswordInput';
 import CreateAccountNumberAndCountryInput from './createAccountNumberAndCountryInput/CreateAccountNumberAndCountryInput';
 import SignUpButton from './SignUpButton/SignUpButton';

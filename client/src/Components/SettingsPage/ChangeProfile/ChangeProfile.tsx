@@ -20,10 +20,9 @@ const ChangeProfile = () => {
         height: getDimensionsStore().windowHeight ,
         width: getDimensionsStore().windowWidth ,
         backgroundColor: theme.backGroundColor,
-    }}>
+      }}>
         <CustomText style={{
             color: theme.fontColor,
-            marginBottom: getDimensionsStore().windowWidth * 0.1
         }} fontSize={30} fontWeight='bold'>
            {t("change-profile")}
         </CustomText>

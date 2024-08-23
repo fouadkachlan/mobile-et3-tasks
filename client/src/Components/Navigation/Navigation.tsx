@@ -21,6 +21,8 @@ const Navigation: React.FC = observer(() => {
       style={{
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
+        margin : 10
       }}
     >
       <CustomView
@@ -30,7 +32,9 @@ const Navigation: React.FC = observer(() => {
           justifyContent: 'space-around',
           alignItems: 'center',
           paddingVertical: 10,
-          width: '100%',
+          width: '90%',
+          borderRadius: getDimensionsStore().windowWidth * 0.5
+
         }}
       >
         <TouchableOpacity onPress={() => getNavigationStore().navigateToUserProfile()}>
