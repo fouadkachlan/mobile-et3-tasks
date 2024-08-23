@@ -22,12 +22,17 @@
     "submit": "Soumettre",
     "login" : "Connecter",
     "welcome-to-the-app":"Bienvenue sur l'application",
-    "forgot-pass": "mot de passe oublié",
+    "forgot-pass": "Mot de passe oublié",
     "or-sign-in" : "_______ ou connectez-vous _______",
     "continue-with-google" : "Continuer avec Google",
     "create-account" : "créer un compte",
     "welcoming-screen": "Bienvenue sur l'application de lecture de nouvelles",
-    "welcoming-introduced-text" : "Nous sommes ravis de vous présenter notre application de lecture de journaux"
+    "welcoming-introduced-text" : "Nous sommes ravis de vous présenter notre application de lecture de journaux",
+    "ForgotUserMessage" :"Tapez votre email pour pouvoir vous envoyer un lien pour réinitialiser votre mot de passe",
+    "google-choice-not-activated" : "Le choix de connexion Google n'est pas activé pour le moment",
+    "error" : "Erreur"
+
+
 
 
 

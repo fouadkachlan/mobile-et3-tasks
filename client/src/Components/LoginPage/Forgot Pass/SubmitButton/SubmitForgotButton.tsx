@@ -1,50 +1,38 @@
-import React, { useContext } from 'react'
-import CustomButton from '../../../../CustomComponents/CustomButton'
+import React from 'react'
 import CustomView from '../../../../CustomComponents/CustomView'
+import CustomButton from '../../../../CustomComponents/CustomButton'
+import getDimensionsStore from '../../../../stores/dimensionsStore'
+import getLoginStore from '../../../../stores/loginStore'
 import CustomText from '../../../../CustomComponents/CustomText'
-import { submitText } from '../../../Constant/constants'
+import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
-const SubmitForgotButton = () => {
-  const {theme} = useTheme();
+const SubmitForgotButton : React.FC = observer(() => {
+    const {theme} = useTheme();
+    const {t} = useTranslation()
   return (
-    <CustomView 
-          style={{
-            paddingBottom:0,
-            marginLeft:5
-          }}
-        >
-            <CustomButton 
-                style={{
-                  backgroundColor: theme.borderColor,
-                  marginBottom :'30%' ,
-                  borderRadius: 30
-                }}
-                height={60}
-                width={350}
-                
-            >
-                <CustomView 
-                    style={{
-                      display:'flex',
-                      justifyContent:'center',
-                      alignItems:'center'
-                    }}
-                >
-                    <CustomText
-                        style={{
-                          
-                          color: theme.backGroundColor,
-                          marginTop:15,
-                          marginLeft:135
-                        }}
-                        fontSize={20}
-                        fontWeight='300'
-                    >{submitText}</CustomText>
-                </CustomView>
-            </CustomButton>
-          </CustomView>
+    <CustomView style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: getDimensionsStore().windowHeight * 1.3
+
+    }}>
+        <CustomButton  style={{
+          backgroundColor: theme.borderColor,
+          borderRadius: getDimensionsStore().windowWidth * 0.3,
+          justifyContent: 'center',
+          alignItems: 'center'
+          }} 
+          height={getDimensionsStore().windowHeight * 0.1}
+          width={getDimensionsStore().windowWidth * 0.9}>
+            <CustomText style={{}} fontSize={15} fontWeight='bold'>
+              {t("submit")}
+            </CustomText>
+        </CustomButton>
+    </CustomView>
   )
-}
+})
 
 export default SubmitForgotButton

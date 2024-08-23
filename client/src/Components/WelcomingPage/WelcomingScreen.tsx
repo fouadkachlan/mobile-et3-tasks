@@ -9,6 +9,7 @@ import getDimensionsStore from '../../stores/dimensionsStore';
 import getNavigationStore from '../../stores/navigationStore';
 import { useTheme } from '../ThemeContext/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import WelcomingLoginButton from './LoginButton/WelcomingLoginButton';
 
 const welcomingImage = require("../../../../assets/welcome.png");
 
@@ -62,53 +63,7 @@ const WelcomingScreen: React.FC = observer(() => {
         >
           {t("welcoming-introduced-text")}
         </CustomText>
-        <ActivityIndicator
-          style={{
-            marginTop: getDimensionsStore().windowHeight  * 0.02,
-            marginBottom: getDimensionsStore().windowHeight * 0.02
-          }}
-          size={getDimensionsStore().windowWidth * 0.15}
-          color={theme.navigationColor}
-        />
-      <CustomView
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: getDimensionsStore().windowHeight * 0.05,
-        }}
-      >
-        <CustomButton
-          onPress={() => getNavigationStore().navigateToLogin()}
-          style={{
-            backgroundColor: theme.borderColor,
-            borderRadius: 30,
-          }}
-          height={60}
-          width={getDimensionsStore().windowWidth  * 0.85}
-        >
-          <CustomView style={{
-            display : 'flex' ,
-            justifyContent: 'center',
-            alignItems: 'center'
-            }}>
-            <CustomText
-              style={{
-                color: 'black',
-                textAlign: 'center',
-                marginTop:20,
-                marginLeft: getDimensionsStore().windowWidth * 0.3333
-
-
-              }}
-              fontSize={20}
-              fontWeight="300"
-            >
-              {t("login")}
-            </CustomText>
-          </CustomView>
-        </CustomButton>
-      </CustomView>
+        <WelcomingLoginButton />
         <TouchableOpacity onPress={() => getNavigationStore().navigateToCreateAccount()}>
           <CustomText
             style={{

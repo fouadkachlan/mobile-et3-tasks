@@ -26,7 +26,7 @@ const CreateAccountNumberAndCountryInput :React.FC = observer(() => {
           style={{
             color: theme.fontColor,
           }}
-          fontSize={getDimensionsStore().windowWidth * 0.05}
+          fontSize={getDimensionsStore().windowWidth * 0.04}
           fontWeight={'500'}
         >
           {t("country")}
@@ -37,7 +37,7 @@ const CreateAccountNumberAndCountryInput :React.FC = observer(() => {
             color: theme.fontColor,
             marginRight : getDimensionsStore().windowWidth * 0.1
           }}
-          fontSize={getDimensionsStore().windowWidth * 0.05}
+          fontSize={getDimensionsStore().windowWidth * 0.04}
           fontWeight={'500'}
         >
           {t("phone-number")}

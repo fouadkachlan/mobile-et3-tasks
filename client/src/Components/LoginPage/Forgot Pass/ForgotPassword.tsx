@@ -9,10 +9,12 @@ import { emailAddressText, forgotPasswordMessage } from '../../Constant/constant
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import SubmitForgotButton from './SubmitButton/SubmitForgotButton'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 
 const ForgotPassword : React.FC = observer(() => {
   const {theme} = useTheme();
+  const {t} = useTranslation();
   return (
     <CustomView style={{
         display: 'flex',
@@ -20,6 +22,7 @@ const ForgotPassword : React.FC = observer(() => {
         alignItems:'center',
         height: '100%',
         backgroundColor: theme.backGroundColor,
+        gap: getDimensionsStore().windowWidth * 0.11
        }} >
         <CustomText 
             style={{
@@ -28,31 +31,39 @@ const ForgotPassword : React.FC = observer(() => {
             }}
             fontSize={40}
             fontWeight={'bold'}
-        >{forgotPasswordMessage.forgotPasswordMessage}</CustomText>
+        >{t("forgot-pass")}</CustomText>
 
         <CustomText
           style={{color : theme.fontColor}}
           fontSize={15}
           fontWeight={'300'}
         >
-          {forgotPasswordMessage.userMessage}
+          {t("ForgotUserMessage")}
         </CustomText>
+        <CustomView style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          width: getDimensionsStore().windowWidth 
+
+        }}>
         <CustomText
           style={{
             color: theme.fontColor,
-             width: getDimensionsStore().windowWidth 
+             width: getDimensionsStore().windowWidth,
+             marginLeft: getDimensionsStore().windowWidth * 0.07
             }}
           fontSize={20}
           fontWeight={'500'}
         >
-          {emailAddressText}
+          {t("email")}
         </CustomText>
 
       <CustomInput 
         style={{
           borderColor : theme.fontColor,
           marginBottom:'50%',
-          width:350
+          width:getDimensionsStore().windowWidth * 0.9
         }}
         height={70}
         margin={20}
@@ -68,6 +79,7 @@ const ForgotPassword : React.FC = observer(() => {
         secureTextEntry={false}
 
         />
+        </CustomView>
         <SubmitForgotButton />
           
 

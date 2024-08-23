@@ -22,7 +22,7 @@ const Settings: React.FC = observer(() => {
     <CustomView style={{
         backgroundColor: theme.backGroundColor,
         height: '100%',
-        gap: getDimensionsStore().windowWidth * 0.155,
+        gap: getDimensionsStore().windowWidth * 0.15,
         display: 'flex',
         justifyContent: 'center',
         }}>
@@ -69,7 +69,7 @@ const Settings: React.FC = observer(() => {
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            width: getDimensionsStore().windowWidth * 0.8,
+            width: getDimensionsStore().windowWidth * 0.6,
             marginTop: 40,
 
           }}

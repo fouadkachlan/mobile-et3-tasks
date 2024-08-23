@@ -28,6 +28,9 @@
     "create-account" : "Create an account",
     "sign-up" : "Sign up",
     "welcoming-screen": "Welcome to the news reader app",
-    "welcoming-introduced-text" : "We're excited to introduce you our news paper reader app"
+    "welcoming-introduced-text" : "We're excited to introduce you our news paper reader app",
+    "ForgotUserMessage" : " Type your email to be able to send you a link to reset your password ",
+    "google-choice-not-activated" : "Google Sign In choice is not activated right now",
+    "error" : "Error"
 
 }

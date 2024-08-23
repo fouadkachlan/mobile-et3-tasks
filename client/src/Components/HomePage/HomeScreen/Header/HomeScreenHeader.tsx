@@ -1,11 +1,10 @@
 import {  TouchableOpacity } from 'react-native'
-import  React, { useContext }   from 'react'
+import  React from 'react'
 import Navigation from '../../../Navigation/Navigation'
 import getNewsStore from '../../../../stores/newsStore'
 import CustomText from '../../../../CustomComponents/CustomText'
 import CustomView from '../../../../CustomComponents/CustomView'
 import getThemeStore from '../../../../stores/themeStore';
-import { addNewsText, newsNumberText } from '../../../Constant/constants'
 import getNavigationStore from '../../../../stores/navigationStore'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
 import { useTranslation } from 'react-i18next'
@@ -52,7 +51,7 @@ const HomeScreenHeader : React.FC = () => {
                             justifyContent:'center',
                             alignItems:'center', 
                             height:50,
-                            width: 150,
+                            width: 'auto',
                             borderRadius: 10,
                             backgroundColor: getThemeStore().isDarkThemeEnabled.get() ? "white"  :'#77E4C8',
                             margin: '5%'

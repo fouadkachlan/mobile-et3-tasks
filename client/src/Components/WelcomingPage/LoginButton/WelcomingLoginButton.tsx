@@ -1,16 +1,14 @@
-import {Alert } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import CustomView from '../../../CustomComponents/CustomView'
 import CustomButton from '../../../CustomComponents/CustomButton'
 import getDimensionsStore from '../../../stores/dimensionsStore'
-import getLoginStore from '../../../stores/loginStore'
-import { loginMessage } from '../../Constant/constants'
 import CustomText from '../../../CustomComponents/CustomText'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../ThemeContext/ThemeContext'
 import { useTranslation } from 'react-i18next'
+import getNavigationStore from '../../../stores/navigationStore'
 
-const LoginButton : React.FC = observer(() => {
+const WelcomingLoginButton : React.FC = observer(() => {
     const {theme} = useTheme();
     const {t} = useTranslation()
   return (
@@ -18,9 +16,10 @@ const LoginButton : React.FC = observer(() => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      padding: getDimensionsStore().windowWidth * 0.1
 
     }}>
-        <CustomButton onPress={getLoginStore().handleLoginPress} style={{
+        <CustomButton onPress={() =>getNavigationStore().navigateToLogin()} style={{
           backgroundColor: theme.borderColor,
           borderRadius: getDimensionsStore().windowWidth * 0.3,
           justifyContent: 'center',
@@ -28,7 +27,7 @@ const LoginButton : React.FC = observer(() => {
           }} 
           height={getDimensionsStore().windowHeight * 0.1}
           width={getDimensionsStore().windowWidth * 0.9}>
-            <CustomText style={{}} fontSize={15} fontWeight='bold'>
+            <CustomText style={{}} fontSize={20} fontWeight='bold'>
               {t("login")}
             </CustomText>
         </CustomButton>
@@ -36,5 +35,5 @@ const LoginButton : React.FC = observer(() => {
   )
 })
 
-export default LoginButton
+export default WelcomingLoginButton
 

@@ -6,61 +6,45 @@ import CustomText from '../../../CustomComponents/CustomText'
 import { googleText } from '../../Constant/constants'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import { useTranslation } from 'react-i18next'
+import { useTheme } from '../../ThemeContext/ThemeContext'
 const googleImage = require('../../../../../assets/google-symbol.png');
 
 const GoogleChoice = () => {
   const {t} = useTranslation()
+  const {theme} = useTheme()
   return (
-    <CustomView style={{}}>
-         <CustomView
-        style={{
+    <CustomView style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+         <CustomButton onPress={() => Alert.alert(t("error"),t("google-choice-not-activated"))} 
+         style={{
+          backgroundColor: "#808080",
+          borderRadius: getDimensionsStore().windowWidth * 0.3,
           justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CustomButton
-          onPress={() => {
-            Alert.alert(googleText.Fail.googleNotActivated);
-          }}
-          style={{
-            backgroundColor: 'grey',
-            borderRadius: 30,
-          }}
-          height={60}
-          width={getDimensionsStore().windowWidth  * 0.85}
-        >
-          <CustomView style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingLeft : getDimensionsStore().windowWidth * 0.03
+          alignItems: 'center'
+          }} 
+          height={getDimensionsStore().windowHeight * 0.1}
+          width={getDimensionsStore().windowWidth * 0.9}>
+            <CustomView style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}>
-            <Image
-              style={{
-                height: 40,
-                width: 40,
-                marginRight: getDimensionsStore().windowWidth  * 0.05,
-                marginTop: getDimensionsStore().windowWidth * 0.01
-              }}
-              source={googleImage}
-            />
-            <CustomText
-              style={{
-                color: 'white',
-                marginLeft: getDimensionsStore().windowWidth * 0.1,
-                marginTop: getDimensionsStore().windowWidth * 0.040
-                
-              }}
-              fontSize={17}
-              fontWeight="300"
-            >
-              {t('continue-with-google')}
+            <Image style={{
+              width: getDimensionsStore().windowWidth * 0.1,
+              height: getDimensionsStore().windowWidth * 0.1
+            }}
+            source={googleImage} />
+            <CustomText style={{}} fontSize={15} fontWeight='bold'>
+              {t("continue-with-google")}
             </CustomText>
-          </CustomView>
+            </CustomView>
         </CustomButton>
-      </CustomView>
     </CustomView>
   )
 }
 
 export default GoogleChoice
+

@@ -27,7 +27,6 @@ const LoginHeader : React.FC = () => {
         style={{
           color: theme.fontColor,
           textAlign: 'center',
-          marginBottom: getDimensionsStore().windowHeight * 0.05,
         }}
         fontSize={20}
         fontWeight={'400'}

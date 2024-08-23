@@ -1,55 +1,39 @@
-import { Alert } from 'react-native'
-import React, { useContext } from 'react'
+import React from 'react'
 import CustomView from '../../../../CustomComponents/CustomView'
 import CustomButton from '../../../../CustomComponents/CustomButton'
-import { submitText } from '../../../Constant/constants'
+import getDimensionsStore from '../../../../stores/dimensionsStore'
 import CustomText from '../../../../CustomComponents/CustomText'
-import getNewsStore from '../../../../stores/newsStore';
-import getLoginStore from '../../../../stores/loginStore'
-import {NewsItem} from "../../../../types/NewsItem"
-import getRequestStore from '../../../../stores/requestsStore'
 import { observer } from 'mobx-react-lite'
-import getNavigationStore from '../../../../stores/navigationStore'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
 import { useTranslation } from 'react-i18next'
+import getNewsStore from '../../../../stores/newsStore'
 
-const SubmitButton = observer(() => {
+
+const SubmitButton : React.FC = observer(() => {
     const {theme} = useTheme();
     const {t} = useTranslation()
   return (
-    <CustomView 
-          style={{}}
-        >
-            <CustomButton onPress={getNewsStore().handleSubmit}
-                style={{ 
-                        backgroundColor: theme.borderColor,
-                        borderRadius: 30,
-                        width: 300
-                    }}
-                height={60}
-                width={400}
-                
-            >
-                <CustomView 
-                    style={{
-                            display:'flex',
-                            justifyContent:'center',
-                            alignItems:'center'
-                        }}
-                >
-                    <CustomText
-                        style={{
-                            color: 'black',
-                            marginTop:15,
-                            marginLeft:100
-                        }}
-                        fontSize={20}
-                        fontWeight='300'
-                    >{t("submit")}</CustomText>
-                </CustomView>
-            </CustomButton>
-          </CustomView>
+    <CustomView style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+    }}>
+        <CustomButton onPress={getNewsStore().handleSubmit} style={{
+          backgroundColor: theme.borderColor,
+          borderRadius: getDimensionsStore().windowWidth * 0.3,
+          justifyContent: 'center',
+          alignItems: 'center'
+          }} 
+          height={getDimensionsStore().windowHeight * 0.1}
+          width={getDimensionsStore().windowWidth * 0.9}>
+            <CustomText style={{}} fontSize={15} fontWeight='bold'>
+              {t("submit")}
+            </CustomText>
+        </CustomButton>
+    </CustomView>
   )
 })
 
 export default SubmitButton
+

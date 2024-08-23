@@ -5,6 +5,7 @@ import { Alert } from "react-native";
 import getNavigationStore from "./navigationStore";
 import { changeProfile, createAccountText, loginMessage, loginStoreText, newsMessage } from "../Components/Constant/constants";
 import { ChangeCountryUtil, ChangeEmailUtil, ChangeNumberUtil, ChangeUsernameUtil, loginHandlingUtil, profileFetchUtil, resetUserCredentialsUtil, SignInHandlingUtil } from "./storeUtils";
+import getLoadingStore from "./loadingStore";
 
  class LoginStore 
 {
@@ -143,7 +144,9 @@ import { ChangeCountryUtil, ChangeEmailUtil, ChangeNumberUtil, ChangeUsernameUti
       };
        handleProfileFetch = async (): Promise<void> => {
         try {
+            getLoadingStore().setLoadingToTrue();
           await profileFetchUtil();
+          getLoadingStore().setLoadingToFalse();
           const data = (await profileFetchUtil()).data;
           this.setProfileData(data.user_email, data.user_name, data.user_phone_number, data.user_country);
         } catch (error) {

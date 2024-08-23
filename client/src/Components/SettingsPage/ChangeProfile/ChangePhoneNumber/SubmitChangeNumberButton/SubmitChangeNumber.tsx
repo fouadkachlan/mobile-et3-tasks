@@ -1,51 +1,39 @@
+import {Alert } from 'react-native'
 import React, { useContext } from 'react'
 import CustomView from '../../../../../CustomComponents/CustomView'
-import CustomText from '../../../../../CustomComponents/CustomText'
 import CustomButton from '../../../../../CustomComponents/CustomButton'
-import { useTheme } from '../../../../ThemeContext/ThemeContext'
-import { changeProfile, submitText } from '../../../../Constant/constants'
+import getDimensionsStore from '../../../../../stores/dimensionsStore'
 import getLoginStore from '../../../../../stores/loginStore'
-import { Alert } from 'react-native'
-import getNavigationStore from '../../../../../stores/navigationStore'
-submitText
-const SubmitChangeNumber = () => {
-    const {theme} = useTheme()
-    
+import CustomText from '../../../../../CustomComponents/CustomText'
+import { observer } from 'mobx-react-lite'
+import { useTheme } from '../../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
+
+const SubmitChangeNumber : React.FC = observer(() => {
+    const {theme} = useTheme();
+    const {t} = useTranslation()
   return (
-    <CustomView 
-          style={{}}
-        >
-            <CustomButton onPress={getLoginStore().handleChangeNumber}
-                style={{
-                  backgroundColor: theme.borderColor,
-                  marginBottom :'30%' ,
-                  borderRadius: 30
-                }}
-                height={60}
-                width={350}
-                
-            >
-                <CustomView 
-                    style={{
-                      display:'flex',
-                      justifyContent:'center',
-                      alignItems:'center'
-                    }}
-                >
-                    <CustomText
-                        style={{
-                          
-                          color: theme.backGroundColor,
-                          marginTop:15,
-                          marginLeft:135
-                        }}
-                        fontSize={20}
-                        fontWeight='300'
-                    >{submitText}</CustomText>
-                </CustomView>
-            </CustomButton>
-          </CustomView>
+    <CustomView style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+    }}>
+        <CustomButton onPress={getLoginStore().handleChangeNumber} style={{
+          backgroundColor: theme.borderColor,
+          borderRadius: getDimensionsStore().windowWidth * 0.3,
+          justifyContent: 'center',
+          alignItems: 'center'
+          }} 
+          height={getDimensionsStore().windowHeight * 0.1}
+          width={getDimensionsStore().windowWidth * 0.9}>
+            <CustomText style={{}} fontSize={15} fontWeight='bold'>
+              {t("submit")}
+            </CustomText>
+        </CustomButton>
+    </CustomView>
   )
-}
+})
 
 export default SubmitChangeNumber
+
