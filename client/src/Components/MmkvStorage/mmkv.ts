@@ -29,3 +29,12 @@ export const getInitialRoute =  (key : string) => {
 export const setInitialRoute = (key : string , value : string) => {
   initialRoute.set(key , value);
 }
+
+export const languageLocalStorage = new MMKV();
+
+export const setLanguageLocalStorage = (language : string) : void => {
+  languageLocalStorage.set("languageStorage" , language)
+}
+export const getLanguageLocalStorage = () : string | undefined => {
+  return languageLocalStorage.getString("languageStorage")
+}

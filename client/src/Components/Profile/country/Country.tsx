@@ -6,9 +6,11 @@ import getDimensionsStore from '../../../stores/dimensionsStore'
 import { userProfileText } from '../../Constant/constants'
 import getLoginStore from '../../../stores/loginStore'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const Country = observer(() => {
     const {theme} = useTheme();
+    const {t} = useTranslation()
     return (
         <CustomView
         style={{
@@ -27,7 +29,7 @@ const Country = observer(() => {
           fontSize={15}
           fontWeight="300"
         >
-          {userProfileText.userCountry} {getLoginStore().user_country.get()}
+          {t("country")} {getLoginStore().user_country.get()}
         </CustomText>
       </CustomView>
     )

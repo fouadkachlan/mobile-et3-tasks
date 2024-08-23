@@ -26,8 +26,10 @@ export const MiddlewareMessages = {
         }
     },
     RateLimiter : {
+        DefaultRateLimit : "Default Rate Limit",
         Fail : {
-            toManyRequests :  "Too many requests, please try again later."
+            toManyRequests :  "Too many requests, please try again later.",
+            RateLimiterError : "Error in Rate Limiter"
         },
         Success : {
 

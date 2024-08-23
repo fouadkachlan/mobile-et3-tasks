@@ -8,10 +8,12 @@ import getThemeStore from '../../../../stores/themeStore';
 import { addNewsText, newsNumberText } from '../../../Constant/constants'
 import getNavigationStore from '../../../../stores/navigationStore'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 
 const HomeScreenHeader : React.FC = () => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
   return (
   <CustomView style={{}}>
         <Navigation />
@@ -38,7 +40,7 @@ const HomeScreenHeader : React.FC = () => {
                             fontSize={25}
                             fontWeight='500'
                         >
-                           {newsNumberText} {getNewsStore().newsCount.get()}
+                           {t("news-number")} {getNewsStore().newsCount.get()}
                         </CustomText>
                     </CustomView>
                 <TouchableOpacity onPress={()=>getNavigationStore().navigateToAddPopUp()}>
@@ -62,7 +64,7 @@ const HomeScreenHeader : React.FC = () => {
                             style={{
                                 color: 'black'
                             }}
-                        >{addNewsText}</CustomText>
+                        >{t("add-news")}</CustomText>
                     </CustomView>
                 </TouchableOpacity>
             </CustomView>

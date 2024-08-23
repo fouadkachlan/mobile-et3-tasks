@@ -2,7 +2,7 @@ import axios from "axios";
 import { IP_ADDRESS, PORT } from "../Components/Constant/constants";
 import getNewsStore from "./newsStore";
 import { NewsItem } from "../types/NewsItem";
-import { getUserCredentials } from "./storeUtils";
+import { getNewsCredentials, getUserCredentials } from "./storeUtils";
 import  { mmkvAuth } from "./authenticationStore";
 
 class RequestStore {
@@ -11,7 +11,7 @@ class RequestStore {
     async addNewsRequest() {
         await axios.post(`http://${IP_ADDRESS}:${PORT}/api/addNews`, {
             user_id: getUserCredentials().id,
-            news_content : getNewsStore().news.get()
+            news_content : getNewsCredentials().news_content
         }, {
           headers: {
             Authorization: `Bearer ${mmkvAuth.getString('authToken')}`

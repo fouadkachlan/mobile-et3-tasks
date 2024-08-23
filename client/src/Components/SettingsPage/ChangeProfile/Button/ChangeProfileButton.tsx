@@ -6,9 +6,11 @@ import { settingsText } from '../../../Constant/constants'
 import {useTheme } from '../../../ThemeContext/ThemeContext'
 import { TouchableOpacity } from 'react-native'
 import getNavigationStore from '../../../../stores/navigationStore'
+import { useTranslation } from 'react-i18next'
 
 const ChangeProfileButton = () => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
     const handleProfileChange = () => {
         getNavigationStore().navigateToChangeProfile()
     }
@@ -21,7 +23,7 @@ const ChangeProfileButton = () => {
           justifyContent: 'center',
           flexDirection: 'row',
           borderWidth: 2,
-          borderColor: theme.borderColor,
+          borderColor: theme.fontColor,
           borderRadius : getDimensionsStore().windowWidth * 0.1,
           margin: getDimensionsStore().windowWidth * 0.025
         }}
@@ -33,7 +35,7 @@ const ChangeProfileButton = () => {
             }}
             fontSize={20}
             fontWeight="300">
-          {settingsText.changeProfile}
+          {t("change-profile")}
         </CustomText>
       </CustomView>
     </TouchableOpacity>

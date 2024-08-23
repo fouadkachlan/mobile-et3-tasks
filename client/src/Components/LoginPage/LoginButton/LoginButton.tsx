@@ -8,10 +8,11 @@ import { loginMessage } from '../../Constant/constants'
 import CustomText from '../../../CustomComponents/CustomText'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const LoginButton : React.FC = observer(() => {
     const {theme} = useTheme();
-    
+    const {t} = useTranslation()
   return (
     <CustomView style={{}}>
         <CustomView
@@ -41,14 +42,14 @@ const LoginButton : React.FC = observer(() => {
                 color: 'black',
                 textAlign: 'center',
                 marginTop:20,
-                marginLeft: getDimensionsStore().windowWidth * 0.3333
+                marginLeft: getDimensionsStore().windowWidth * 0.35
 
 
               }}
               fontSize={20}
               fontWeight="300"
             >
-              {loginMessage}
+              {t("login")}
             </CustomText>
           </CustomView>
         </CustomButton>

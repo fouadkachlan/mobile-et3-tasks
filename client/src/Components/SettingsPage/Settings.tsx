@@ -4,16 +4,19 @@ import CustomView from '../../CustomComponents/CustomView';
 import CustomText from '../../CustomComponents/CustomText';
 import getThemeStore from '../../stores/themeStore';
 import { observer } from 'mobx-react-lite';
-import { mmkv } from '../MmkvStorage/mmkv';
 import { settingsText } from '../Constant/constants';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import ChangeProfileButton from './ChangeProfile/Button/ChangeProfileButton';
 import { useTheme } from '../ThemeContext/ThemeContext';
+import ChangeLanguage from './ChangeLanguage/ChangeLanguage';
+import { useTranslation } from 'react-i18next';
 
 
 const Settings: React.FC = observer(() => {
   const {theme } = useTheme();
+  const {t} = useTranslation();
 
+  
  
   return (
     <CustomView style={{
@@ -31,12 +34,12 @@ const Settings: React.FC = observer(() => {
         }}
       >
         <CustomText style={{
-            color: theme.borderColor
+            color: theme.fontColor
             }}
-            fontSize={50}
+            fontSize={25}
             fontWeight="bold"
             >
-          {settingsText.settingTitle}
+          {t("settings-title")}
         </CustomText>
       </CustomView>
       <CustomView
@@ -47,7 +50,7 @@ const Settings: React.FC = observer(() => {
           alignItems: 'flex-start',
           flexDirection: 'row',
           borderWidth: 2,
-          borderColor: theme.borderColor,
+          borderColor: theme.fontColor,
           borderRadius : getDimensionsStore().windowWidth * 0.1,
           margin: getDimensionsStore().windowWidth * 0.025
         }}
@@ -59,7 +62,7 @@ const Settings: React.FC = observer(() => {
             }}
             fontSize={20}
             fontWeight="300">
-          {settingsText.changeThemeText}
+          {t("change-theme")}
         </CustomText>
         <CustomView
           style={{
@@ -81,6 +84,7 @@ const Settings: React.FC = observer(() => {
         
       </CustomView>
       <ChangeProfileButton />
+      <ChangeLanguage />
     </CustomView>
   );
 })

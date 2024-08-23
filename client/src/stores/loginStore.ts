@@ -2,10 +2,10 @@ import {  observable, runInAction } from "mobx";
 import getRequestStore from "./requestsStore";
 import getAuthStore from "./authenticationStore";
 import { Alert } from "react-native";
-import { NavigationProp } from "@react-navigation/native";
-import { RootStackParamList } from "../types/navigation";
 import getNavigationStore from "./navigationStore";
-import { changeProfile } from "../Components/Constant/constants";
+import { changeProfile, createAccountText, loginMessage, loginStoreText, newsMessage } from "../Components/Constant/constants";
+import { ChangeCountryUtil, ChangeEmailUtil, ChangeNumberUtil, ChangeUsernameUtil, loginHandlingUtil, profileFetchUtil, resetUserCredentialsUtil, SignInHandlingUtil } from "./storeUtils";
+
  class LoginStore 
 {
     user_email = observable.box<string>('');
@@ -14,6 +14,10 @@ import { changeProfile } from "../Components/Constant/constants";
     user_phone_number = observable.box<string>('');
     user_country = observable.box<string>('');
     user_name = observable.box<string>('');
+
+
+
+
     setUserId = (user_id : number ) => {
         runInAction(() => {
             this.user_id.set(user_id);
@@ -65,35 +69,31 @@ import { changeProfile } from "../Components/Constant/constants";
     
     handleLogin = async () : Promise<void>=> {
         try {
-          const response = await getRequestStore().loginRequest();
+          const response = await loginHandlingUtil();
     
           const data = response.data;
-          if (data.message === "Login Successfull") {
+          if (data.message === loginStoreText.Success.LOGIN_SUCCSESSGULL) {
             const token: string = data.accessToken;
-            console.log("Setting Up JWT token" , token)
             getAuthStore().login(token);
-            console.log("Token in authStore:" , getAuthStore().token.get())
-            getLoginStore().setUserId(data.user.user_id);
+            this.setUserId(data.user.user_id);
             getNavigationStore().navigateToHomeScreen()
         } else {
-            Alert.alert('Login Failed', 'Invalid email or password');
+            Alert.alert(loginStoreText.Fail.ErrorMessage, loginStoreText.Fail.LoginError);
           }
         } catch (error) {
-          console.error('Error during login', error);
-          Alert.alert('Error', 'Failed to login. Please try again later.');
+          Alert.alert(loginStoreText.Fail.ErrorMessage, loginStoreText.Fail.LoginError);
         }
     };
      handleSignUp = async (): Promise<void> => {
         try {
-          const response = await getRequestStore().signInRequest();
+          const response = await SignInHandlingUtil();
           const data = response.data;
-          if (data.message === "User Created Successfully") {
-            Alert.alert("Congratulations, you are now in our community");
+          if (data.message === loginStoreText.Success.USER_CREATED_SUCCESSFULLY) {
+            Alert.alert(createAccountText.CONGRATULATIONS);
             getNavigationStore().navigateToLogin()
         }
         } catch (error) {
-          console.error("Error during Sign Up", error);
-          Alert.alert("Error", "Failed to Sign Up. Please try again later.");
+          Alert.alert(loginStoreText.Fail.ErrorMessage, loginStoreText.Fail.CreateAccountError);
         }
       };
        handleLoginPress = async () : Promise<void> => {
@@ -101,53 +101,53 @@ import { changeProfile } from "../Components/Constant/constants";
           this.handleLogin();
     
         } catch ( error ) {
-          Alert.alert("Error" , "Error while Logging In")
+          Alert.alert(loginStoreText.Fail.ErrorMessage , newsMessage.Fail.ADDNEWS)
         }
       }
       handleUsernameChange = async () : Promise<void> => {
         try {
-            await getRequestStore().changeUsernameRequest();
-            Alert.alert("Success" , "UserName has been successfully Updated")
+            await ChangeUsernameUtil();
+            Alert.alert(loginStoreText.Success.Sucess , changeProfile.Success.changeUserName)
         } catch ( error ) {
-            Alert.alert ("Username change error" , `${error}`);
+            Alert.alert (changeProfile.Fail.changeUserName , `${error}`);
         }
       };
       handleNumberChange = async () : Promise<void> => {
         try {
-            await getRequestStore().changeNumberRequest();
-            Alert.alert("Success" , "Phone Number has been successfully Updated")
+            await ChangeNumberUtil();
+            Alert.alert(loginStoreText.Success.Sucess  , changeProfile.Success.changeNumber)
         } catch ( error ) {
-            Alert.alert ("Number change error" , `${error}`);
+            Alert.alert (changeProfile.Fail.changeNumber , `${error}`);
         }
       }
       handleEmailChange = async () : Promise<void> => {
         try {
-            await getRequestStore().changeEmailRequest();
-            Alert.alert("Success" , "Email has been successfully Updated")
+            await ChangeEmailUtil();
+            Alert.alert(loginStoreText.Success.Sucess,changeProfile.Success.changeEmail)
         } catch ( error ) {
-            Alert.alert ("Email change error" , `${error}`);
+            Alert.alert (`${error}`,changeProfile.Fail.changeEmail);
         }
       }
       handleCountryChange = async () : Promise<void> => {
         try {
-            await getRequestStore().changeCountryRequest();
-            Alert.alert("Success" , "Country has been successfully Updated")
+            await ChangeCountryUtil();
+            Alert.alert(loginStoreText.Success.Sucess, changeProfile.Success.changeCountry)
         } catch ( error ) {
-            Alert.alert ("Country change error" , `${error}`);
+            Alert.alert (changeProfile.Fail.changeCountry , `${error}`);
         }
       }
        handleNavigationLogout = () => {
-        getLoginStore().resetCredentials();
+        resetUserCredentialsUtil();
         getAuthStore().logout();
         getNavigationStore().navigateToLogin();
       };
        handleProfileFetch = async (): Promise<void> => {
         try {
-          await getRequestStore().profileFetchRequest();
-          const data = (await getRequestStore().profileFetchRequest()).data;
+          await profileFetchUtil();
+          const data = (await profileFetchUtil()).data;
           this.setProfileData(data.user_email, data.user_name, data.user_phone_number, data.user_country);
         } catch (error) {
-          console.error("Error fetching profile,", error);
+            Alert.alert(loginStoreText.Fail.ProfileFetchError)
         }
       };
        handleChangeCountry = async () : Promise<void> => {
@@ -156,7 +156,6 @@ import { changeProfile } from "../Components/Constant/constants";
              this.handleCountryChange();
              getNavigationStore().navigateToUserProfile();
         } catch ( error ) {
-            console.error(changeProfile.Fail);
             Alert.alert(changeProfile.Fail.toString());
         }
     }
@@ -166,7 +165,6 @@ import { changeProfile } from "../Components/Constant/constants";
             this.handleEmailChange();
             getNavigationStore().navigateToUserProfile();
         } catch ( error ) {
-            console.error(changeProfile.Fail.changeEmail);
             Alert.alert(changeProfile.Fail.changeEmail);
         }
         }
@@ -176,8 +174,7 @@ import { changeProfile } from "../Components/Constant/constants";
                  this.handleNumberChange();
                  getNavigationStore().navigateToUserProfile();
             } catch ( error ) {
-                console.error(changeProfile.Fail.changeNumber);
-                Alert.alert("Error While Changing Number");
+                Alert.alert(changeProfile.Fail.changeNumber);
             }
         }
          handleChangeUsername = async () : Promise<void> => {
@@ -186,7 +183,6 @@ import { changeProfile } from "../Components/Constant/constants";
                 this.handleUsernameChange();
                 getNavigationStore().navigateToUserProfile();
             } catch ( error ) {
-                console.error(changeProfile.Fail.changeUserName);
                 Alert.alert(changeProfile.Fail.changeUserName);
             }
         }
@@ -195,7 +191,7 @@ import { changeProfile } from "../Components/Constant/constants";
               this.handleSignUp();
         
             } catch (error) {
-              Alert.alert("Error", "Error While Handling Sign Up!");
+              Alert.alert(loginStoreText.Fail.ErrorMessage , loginStoreText.Fail.CreateAccountError );
             }
           } 
     

@@ -12,7 +12,7 @@ import AddNewsPopUp from './client/src/Components/HomePage/NewsPopUp/AddNewsPopU
 import { observer } from 'mobx-react-lite'
 import  { mmkvAuth } from './client/src/stores/authenticationStore'
 import { ThemeProvider } from './client/src/Components/ThemeContext/ThemeProvider'
-import { mmkv } from './client/src/Components/MmkvStorage/mmkv'
+import { getLanguageLocalStorage, mmkv } from './client/src/Components/MmkvStorage/mmkv'
 import getThemeStore from './client/src/stores/themeStore'
 import { Alert } from 'react-native'
 import ChangeProfile from './client/src/Components/SettingsPage/ChangeProfile/ChangeProfile'
@@ -22,6 +22,8 @@ import ChangeCountry from './client/src/Components/SettingsPage/ChangeProfile/Ch
 import ChangeNumber from './client/src/Components/SettingsPage/ChangeProfile/ChangePhoneNumber/ChangeNumber'
 import getNavigationStore from './client/src/stores/navigationStore'
 import { RootStackParamList } from './client/src/types/navigation'
+import getLanguageStore from './client/src/stores/languageStore'
+import i18next from 'i18next'
 
 const App : React.FC =  observer(()=> {
   const Stack = createNativeStackNavigator();
@@ -35,9 +37,18 @@ const App : React.FC =  observer(()=> {
       } else {
         console.log('No stored theme found, defaulting to false');
       }
+      const retreivedLanguage : string | undefined = getLanguageLocalStorage();
+      console.log("Retreived language:",retreivedLanguage)
+      if (retreivedLanguage !== undefined)
+      {
+        getLanguageStore().setLanguage(retreivedLanguage);
+        getLanguageStore().changeLng(retreivedLanguage);
+      }else {
+        console.log("No language is found defaulting to English");
+      }
     } catch (error) {
-      console.error('Error retrieving themeEnabled from MMKV:', error);
-      Alert.alert('Error', 'Failed to retrieve theme setting.');
+      console.error(error);
+      Alert.alert(`${error}`);
     }
   }, []);
   useEffect(() => {

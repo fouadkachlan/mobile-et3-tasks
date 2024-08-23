@@ -10,9 +10,11 @@ import getNavigationStore from '../../../stores/navigationStore'
 import getThemeStore from '../../../stores/themeStore'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const PasswordInput : React.FC = observer(() => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
     return (
         <CustomView style={{}}>
         <CustomText
@@ -24,7 +26,7 @@ const PasswordInput : React.FC = observer(() => {
         fontSize={20}
         fontWeight={'500'}
       >
-        {createAccountText.password}
+        {t("password")}
       </CustomText>
 
       <CustomView
@@ -42,7 +44,7 @@ const PasswordInput : React.FC = observer(() => {
             fontSize={16}
             fontWeight="500"
           >
-            {forgotPasswordMessage.forgotPasswordMessage}?
+            {t("forgot-pass")}?
           </CustomText>
         </TouchableOpacity>
       </CustomView>

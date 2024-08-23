@@ -6,9 +6,11 @@ import CustomText from '../../../CustomComponents/CustomText';
 import { newsWrittenAt, newsWrittenBy } from '../../Constant/constants';
 import getDimensionsStore from '../../../stores/dimensionsStore';
 import { useTheme } from '../../ThemeContext/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 const NewsForm : React.FC<NewsFormProps> = observer(({newsItem}) => {
   const {theme} = useTheme()
+  const {t} = useTranslation()
 
   return (
     <CustomView
@@ -31,16 +33,16 @@ const NewsForm : React.FC<NewsFormProps> = observer(({newsItem}) => {
         alignItems: 'flex-start',
         }}>
           
-        <CustomText style ={{color : theme.fontBlackColor}} 
+        <CustomText style ={{color : theme.fontColor}} 
         fontWeight='bold'
         fontSize={10}
         >
-          {newsWrittenBy} {newsItem.user_name}
+          {t('news-written-by')} {newsItem.user_name}
         </CustomText>
         <CustomText style ={{color : theme.fontColor}} 
         fontWeight='bold'
         fontSize={10}
-        >{newsWrittenAt} {new Date(newsItem.date_of_news).toDateString()}
+        >{t('news-written-at')} {new Date(newsItem.date_of_news).toDateString()}
         </CustomText>
       </CustomView>
       <CustomText

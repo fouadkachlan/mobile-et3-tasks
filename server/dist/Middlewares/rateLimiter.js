@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaultRateLimiter = exports.loginUserRateLimiter = void 0;
+exports.defaultRateLimiter = void 0;
 const Message_1 = require("../Constant/Message");
 const rateLimitSelect_1 = require("../Models/rateLimitModels/rateLimitSelect");
 const rateLimitInsert_1 = require("../Models/rateLimitModels/rateLimitInsert");
@@ -27,17 +27,11 @@ const rateLimitMiddleware = (option) => (req, res, next) => __awaiter(void 0, vo
         next();
     }
     catch (error) {
-        console.log("Error in rate limit middleware", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send(Message_1.MiddlewareMessages.RateLimiter.Fail.RateLimiterError);
     }
-});
-exports.loginUserRateLimiter = rateLimitMiddleware({
-    windowMs: 60 * 1000,
-    max: 5,
-    limitType: "Login Rate Limit"
 });
 exports.defaultRateLimiter = rateLimitMiddleware({
     windowMs: 60 * 1000,
     max: 100,
-    limitType: "Default Rate Limit"
+    limitType: Message_1.MiddlewareMessages.RateLimiter.DefaultRateLimit
 });

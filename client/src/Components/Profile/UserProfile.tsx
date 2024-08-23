@@ -13,6 +13,7 @@ import Email from './UserEmail/Email';
 import PhoneNumber from './phoneNumber/PhoneNumber';
 import Country from './country/Country';
 import { useTheme } from '../ThemeContext/ThemeContext';
+import { useTranslation } from 'react-i18next';
 const userImage = require("../../../../assets/userImage.png");
 
 
@@ -29,7 +30,7 @@ const UserProfile: React.FC = observer(() => {
     }, 2000)
   } , [])
   const { theme } = useTheme();
-
+  const {t} = useTranslation();
   return (
       <CustomView
       style={{
@@ -54,7 +55,7 @@ const UserProfile: React.FC = observer(() => {
           fontSize={30}
           fontWeight="bold"
         >
-          {userProfileText.myAccount}
+          {t("profile-title")}
         </CustomText>
       </CustomView>
 

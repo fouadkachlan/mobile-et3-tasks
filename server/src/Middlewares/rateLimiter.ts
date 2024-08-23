@@ -17,17 +17,11 @@ const rateLimitMiddleware = (option: { windowMs: number; max: number; limitType:
         await rateLimitInsert.updateRateLimit(ip_Address, limitType, Math.floor(windowMs / 1000), max);
         next();
     } catch (error) {
-        console.log("Error in rate limit middleware", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send(MiddlewareMessages.RateLimiter.Fail.RateLimiterError);
     }
 };
-export const loginUserRateLimiter = rateLimitMiddleware({
-    windowMs: 60 * 1000,
-    max: 5,
-    limitType: "Login Rate Limit"
-});
 export const defaultRateLimiter = rateLimitMiddleware({
     windowMs: 60 * 1000,
     max: 100,
-    limitType: "Default Rate Limit"
+    limitType: MiddlewareMessages.RateLimiter.DefaultRateLimit
 })

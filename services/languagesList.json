@@ -1,0 +1,12 @@
+{
+    "en" : {
+        "index" : 1,
+        "name" : "English",
+        "nativeName" : "English"
+    },
+    "fr" : {
+        "index": 2,
+        "name" : "French",
+        "nativeName" : "Francais"
+    } 
+}

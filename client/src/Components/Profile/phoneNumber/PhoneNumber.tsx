@@ -6,9 +6,11 @@ import CustomView from '../../../CustomComponents/CustomView'
 import { userProfileText } from '../../Constant/constants'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const PhoneNumber = observer(() => {
     const {theme} = useTheme();
+    const {t} = useTranslation()
   return (
     <CustomView
         style={{
@@ -27,7 +29,7 @@ const PhoneNumber = observer(() => {
           fontSize={15}
           fontWeight="300"
         >
-          {userProfileText.phoneNumber} {getLoginStore().user_phone_number.get()}
+          {t("phone-number")} {getLoginStore().user_phone_number.get()}
         </CustomText>
       </CustomView>
   )

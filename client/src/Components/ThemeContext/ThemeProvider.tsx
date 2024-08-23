@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ThemeContext, themes } from "./ThemeContext";
 import getThemeStore from "../../stores/themeStore";
 import { ThemeProviderProps } from "../../types/ThemeContextType";

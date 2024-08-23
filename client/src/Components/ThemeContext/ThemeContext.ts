@@ -11,7 +11,7 @@ export const themes  = {
     },
 
     light : {
-        fontColor: "#77E4C8",
+        fontColor: "#000000",
         backGroundColor : "#FFFFFF",
         navigationColor: "#77E4C8",
         borderColor: "#77E4C8",
@@ -19,8 +19,6 @@ export const themes  = {
     }
     
 }
-
-
 export const ThemeContext = createContext({
     theme: themes.light,
     toggleTheme : () => {}

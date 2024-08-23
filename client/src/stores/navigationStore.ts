@@ -2,7 +2,7 @@ import { observable, runInAction } from 'mobx';
 import { NavigationContainerRef } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation';
 
-class NavigationStore {
+export class NavigationStore {
   navigationRef = observable.box<NavigationContainerRef<RootStackParamList> | null>(null);
 
   setNavigationRef(ref: NavigationContainerRef<RootStackParamList> | null) {
@@ -20,7 +20,6 @@ class NavigationStore {
     runInAction(() => {
       const ref = this.navigationRef.get();
       if (ref) {
-        console.log("Navigating to Login");
         ref.navigate("Login" , "Login");
       } else {
         console.error("Navigation ref is null");

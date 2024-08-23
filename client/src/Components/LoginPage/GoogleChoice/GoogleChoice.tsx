@@ -5,9 +5,11 @@ import CustomButton from '../../../CustomComponents/CustomButton'
 import CustomText from '../../../CustomComponents/CustomText'
 import { googleText } from '../../Constant/constants'
 import getDimensionsStore from '../../../stores/dimensionsStore'
+import { useTranslation } from 'react-i18next'
 const googleImage = require('../../../../../assets/google-symbol.png');
 
 const GoogleChoice = () => {
+  const {t} = useTranslation()
   return (
     <CustomView style={{}}>
          <CustomView
@@ -52,7 +54,7 @@ const GoogleChoice = () => {
               fontSize={17}
               fontWeight="300"
             >
-              Continue With Google
+              {t('continue-with-google')}
             </CustomText>
           </CustomView>
         </CustomButton>

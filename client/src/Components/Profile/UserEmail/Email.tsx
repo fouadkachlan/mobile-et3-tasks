@@ -6,8 +6,10 @@ import getLoginStore from '../../../stores/loginStore'
 import { userProfileText } from '../../Constant/constants'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 const Email = observer(() => {
     const {theme} = useTheme();
+    const {t} = useTranslation()
   return (
     <CustomView
         style={{
@@ -26,7 +28,7 @@ const Email = observer(() => {
           fontSize={15}
           fontWeight="300"
         >
-          {userProfileText.emailAddress} {getLoginStore().user_email.get()}
+          {t("email")} {getLoginStore().user_email.get()}
         </CustomText>
       </CustomView>
 

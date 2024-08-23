@@ -20,7 +20,6 @@ const gateKeeper = (roles: string[] = [] , route : string) => {
             return res.status(401).json({ message: MiddlewareMessages.GateKeeper.Fail.authorizationHeaderMissingError });
         }
         const token = authHeader.startsWith("Bearer") ? authHeader.slice(7).trim() : authHeader;
-        console.log("Token in gatekeeper:" , token);
         if (!token) {
             return res.status(401).json({ message: MiddlewareMessages.GateKeeper.Fail.tokenMissingError});
         }

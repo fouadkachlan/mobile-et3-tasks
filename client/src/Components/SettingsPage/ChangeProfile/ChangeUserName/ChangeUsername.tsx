@@ -9,9 +9,11 @@ import {  useTheme } from '../../../ThemeContext/ThemeContext';
 import { settingsText } from '../../../Constant/constants';
 import getDimensionsStore from '../../../../stores/dimensionsStore';
 import SubmitChangeUsername from './SubmitChangeUsername/SubmitChangeUsername';
+import { useTranslation } from 'react-i18next';
 
 const ChangeUsername: React.FC = observer(() => {
   const { theme } = useTheme()
+  const {t} = useTranslation()
 
   return (
     <CustomView
@@ -30,7 +32,7 @@ const ChangeUsername: React.FC = observer(() => {
         fontSize={25}
         fontWeight={'bold'}
       >
-        {settingsText.changeUsernameText}
+        {t("changeUsernameText")}
       </CustomText>
 
 
@@ -47,7 +49,7 @@ const ChangeUsername: React.FC = observer(() => {
         padding={10}
         value={getLoginStore().user_name.get()}
         onChangeText={getLoginStore().setUsername}
-        placeholderTextColor={theme.fontColor}
+        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
         placeholder="Enter new username"
         keyboardType="default"
         secureTextEntry={false}

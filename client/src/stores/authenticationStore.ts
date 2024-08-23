@@ -4,7 +4,7 @@ import {MMKV} from "react-native-mmkv";
 
 export const mmkvAuth = new MMKV();
 
-class AuthStore {
+export class AuthStore {
     isAuthenticated = observable.box<boolean>(false);
     token = observable.box<string>('')
     checkAuthorization = () => {

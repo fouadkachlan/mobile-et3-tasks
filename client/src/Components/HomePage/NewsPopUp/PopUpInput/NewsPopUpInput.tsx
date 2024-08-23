@@ -5,10 +5,12 @@ import { useTheme } from '../../../ThemeContext/ThemeContext'
 import getNewsStore from '../../../../stores/newsStore'
 import getThemeStore from '../../../../stores/themeStore'
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 
 
 const NewsPopUpInput = observer(() => {
     const {theme} = useTheme()
+    const {t} = useTranslation();
   return (
     <CustomView style={{
         display: 'flex'
@@ -27,7 +29,7 @@ const NewsPopUpInput = observer(() => {
             padding={10}
             value={getNewsStore().news.get()}
             onChangeText={(news : string) => getNewsStore().setNews(news)}
-            placeholder="Enter your news" 
+            placeholder={t("enter-news")} 
             placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
             keyboardType="default"  
             secureTextEntry={false}

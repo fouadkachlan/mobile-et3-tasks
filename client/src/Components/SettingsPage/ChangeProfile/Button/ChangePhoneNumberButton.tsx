@@ -6,9 +6,11 @@ import CustomView from '../../../../CustomComponents/CustomView'
 import { settingsText } from '../../../Constant/constants'
 import getNavigationStore from '../../../../stores/navigationStore'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const ChangePhoneNumberButton = () => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
   return (
     <TouchableOpacity onPress={() => getNavigationStore().navigateToChangePhoneNumber()}>
         <CustomView
@@ -18,7 +20,7 @@ const ChangePhoneNumberButton = () => {
           justifyContent: 'center',
           flexDirection: 'row',
           borderWidth: 2,
-          borderColor: theme.borderColor,
+          borderColor: theme.fontColor,
           borderRadius : getDimensionsStore().windowWidth * 0.1,
           margin: getDimensionsStore().windowWidth * 0.025,
           width: getDimensionsStore().windowWidth * 0.9,
@@ -31,7 +33,7 @@ const ChangePhoneNumberButton = () => {
             }}
             fontSize={20}
             fontWeight="300">
-          {settingsText.changeNumber}
+          {t("changeNumber")}
         </CustomText>
       </CustomView>
     </TouchableOpacity>

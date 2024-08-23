@@ -4,9 +4,11 @@ import CustomText from '../../../CustomComponents/CustomText'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import { loginMessage, welcomingMessage } from '../../Constant/constants'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const LoginHeader : React.FC = () => {
   const {theme} = useTheme();
+  const {t} = useTranslation()
   return (
     <CustomView style={{}}>
        <CustomText
@@ -18,7 +20,7 @@ const LoginHeader : React.FC = () => {
         fontSize={50}
         fontWeight={'bold'}
       >
-        {loginMessage}
+        {t("login")}
       </CustomText>
 
       <CustomText
@@ -30,7 +32,7 @@ const LoginHeader : React.FC = () => {
         fontSize={20}
         fontWeight={'400'}
       >
-        {welcomingMessage}
+        {t("welcome-to-the-app")}
       </CustomText>
 
     </CustomView>

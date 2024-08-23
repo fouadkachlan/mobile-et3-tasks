@@ -8,10 +8,12 @@ import getLoginStore from '../../../../stores/loginStore'
 import { observer } from 'mobx-react-lite'
 import ChangeCountrySubmitButton from './ChangeCountrySubmitButton/ChangeCountrySubmitButton'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 
 const ChangeCountry = observer(() => {
     const {theme} = useTheme()
+    const {t} = useTranslation();
     return (
         <CustomView
       style={{
@@ -29,7 +31,7 @@ const ChangeCountry = observer(() => {
         fontSize={25}
         fontWeight={'bold'}
       >
-        {settingsText.changeCountry}
+        {t("changeCountry")}
       </CustomText>
 
 

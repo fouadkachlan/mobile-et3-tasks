@@ -8,10 +8,12 @@ import getLoginStore from '../../../../stores/loginStore'
 import { observer } from 'mobx-react-lite'
 import SubmitChangeEmailButton from './SubmitChangeEmail/SubmitChangeEmailButton'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 
 const ChangeEmail = observer(() => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
     return (
         <CustomView
       style={{
@@ -29,7 +31,7 @@ const ChangeEmail = observer(() => {
         fontSize={25}
         fontWeight={'bold'}
       >
-        {settingsText.changeEmail}
+        {t("changeEmail")}
       </CustomText>
 
 

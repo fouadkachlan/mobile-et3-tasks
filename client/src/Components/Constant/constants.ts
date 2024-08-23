@@ -1,4 +1,4 @@
-export const IP_ADDRESS : string = "192.168.1.108";
+export const IP_ADDRESS : string = "192.168.100.126";
 export const PORT : string = "3001";
 export const newsWrittenBy : string = "News Written By:";
 export const newsWrittenAt : string = "News Written At:";
@@ -11,16 +11,26 @@ export const forgotPasswordMessage  = {
     forgotPasswordMessage : "Forgot Password"
 } 
 export const settingsText = {
-    settingTitle : "Settings", // check it  , // I18n file
-    //arabic : "hi",
-    //English : "English",
-    //French : "French"
+    settingTitle : "Settings",
     changeThemeText : "Change Theme",
     changeProfile: "Change Profile",
     changeUsernameText: "Change User Name",
     changeEmail : "Change Email Address",
     changeNumber : "Change Phone Number",
-    changeCountry: "Change User Country"
+    changeCountry: "Change User Country",
+    changeLanguage : "Change Language"
+}
+export const newsMessage = {
+    Fail : {
+        AddNewsError : "Error while handling add news",
+        EnterNews : "Sorry , Please enter the news",
+        ADDNEWS : "Error while adding news",
+        FetchNewsError : "Failed Fetching News Information"
+    },
+    Success : {
+        AddNewsError : "Add news Sucessfully",
+
+    }
 }
 export const changeProfile = {
     Fail : {
@@ -30,7 +40,10 @@ export const changeProfile = {
         changeUserName : "Error While Submitting the username change"
     },
     Success : {
-        
+        changeCountry : "Successfully Submitting the Country change",
+        changeEmail : "Successfully  Submitting the Email change",
+        changeNumber : "Successfully  Submitting the Number change",
+        changeUserName : "Successfully Submitting the username change"
     }
 }
 export const loginMessage : string = "Login";
@@ -53,7 +66,8 @@ export const createAccountText = {
     signUp : "Sign Up",
     userCountry : "User Country",
     phoneNumber : "Phone Number",
-    createAccountMessage : "Create An Account"
+    createAccountMessage : "Create An Account",
+    CONGRATULATIONS  : "Congratulations, you are now in our community"
 }
 
 export const userProfileText = {
@@ -62,4 +76,18 @@ export const userProfileText = {
     phoneNumber: "Phone Number:",
     userCountry: "User Country:",
     myAccount : "This is my Profile"
+}
+
+export const loginStoreText = {
+    Fail : {
+        CreateAccountError : "Error While Handling Sign Up!",
+        ErrorMessage : "Error",
+        ProfileFetchError : "Error while fetching user profile.",
+        LoginError : "Error while login"
+    }, 
+    Success : {
+        Sucess : "Success",
+        LOGIN_SUCCSESSGULL :"Login Successfull",
+        USER_CREATED_SUCCESSFULLY : "User Created Successfully"
+    }
 }

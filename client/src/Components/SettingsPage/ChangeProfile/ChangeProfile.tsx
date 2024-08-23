@@ -1,18 +1,17 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import CustomView from '../../../CustomComponents/CustomView'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import {  useTheme } from '../../ThemeContext/ThemeContext'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../../types/navigation'
 import ChangeUserNameButton from './Button/ChangeUserNameButton'
 import ChangeEmailButton from './Button/ChangeEmailButton'
 import ChangeCountryButton from './Button/ChangeCountryButton'
 import ChangePhoneNumberButton from './Button/ChangePhoneNumberButton'
 import CustomText from '../../../CustomComponents/CustomText'
-import { settingsText } from '../../Constant/constants'
+import { useTranslation } from 'react-i18next'
 
 const ChangeProfile = () => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
   return (
     <CustomView style={{
         flex: 1,
@@ -26,7 +25,7 @@ const ChangeProfile = () => {
             color: theme.fontColor,
             marginBottom: getDimensionsStore().windowWidth * 0.1
         }} fontSize={30} fontWeight='bold'>
-           {settingsText.changeProfile}
+           {t("change-profile")}
         </CustomText>
         <ChangeUserNameButton />
         <ChangeEmailButton />

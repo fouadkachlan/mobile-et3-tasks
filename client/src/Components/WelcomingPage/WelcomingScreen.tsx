@@ -8,6 +8,7 @@ import { createAccountText, firstWelcoming, introducingNewsReaderApp, loginMessa
 import getDimensionsStore from '../../stores/dimensionsStore';
 import getNavigationStore from '../../stores/navigationStore';
 import { useTheme } from '../ThemeContext/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 const welcomingImage = require("../../../../assets/welcome.png");
 
@@ -15,7 +16,7 @@ const welcomingImage = require("../../../../assets/welcome.png");
 const WelcomingScreen: React.FC = observer(() => {
   
   const {theme} = useTheme();
-  
+  const {t} = useTranslation()
 
   return (
     <CustomView
@@ -49,7 +50,7 @@ const WelcomingScreen: React.FC = observer(() => {
           fontSize={getDimensionsStore().windowWidth * 0.08}
           fontWeight='bold'
         >
-          {firstWelcoming}
+          {t("welcoming-screen")}
         </CustomText>
         <CustomText
           style={{
@@ -59,7 +60,7 @@ const WelcomingScreen: React.FC = observer(() => {
           fontSize={getDimensionsStore().windowWidth * 0.04}
           fontWeight='400'
         >
-          {introducingNewsReaderApp}
+          {t("welcoming-introduced-text")}
         </CustomText>
         <ActivityIndicator
           style={{
@@ -103,7 +104,7 @@ const WelcomingScreen: React.FC = observer(() => {
               fontSize={20}
               fontWeight="300"
             >
-              {loginMessage}
+              {t("login")}
             </CustomText>
           </CustomView>
         </CustomButton>
@@ -117,7 +118,7 @@ const WelcomingScreen: React.FC = observer(() => {
             fontSize={getDimensionsStore().windowWidth * 0.04}
             fontWeight='500'
           >
-            {createAccountText.createAccountMessage}
+            {t("create-account")}
           </CustomText>
         </TouchableOpacity>
       </CustomView>

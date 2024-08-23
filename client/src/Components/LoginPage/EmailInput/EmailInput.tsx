@@ -8,9 +8,11 @@ import getLoginStore from '../../../stores/loginStore'
 import getThemeStore from '../../../stores/themeStore'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const EmailInput : React.FC = observer(() => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
     return (
         <CustomView style={{}}>
         <CustomText
@@ -22,7 +24,7 @@ const EmailInput : React.FC = observer(() => {
         fontSize={20}
         fontWeight={'500'}
       >
-        {emailAddressText}
+        {t("email")}
       </CustomText>
 
       <CustomInput

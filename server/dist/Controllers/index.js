@@ -13,7 +13,7 @@ const gatekeeper_1 = __importDefault(require("../Middlewares/gatekeeper"));
 const router = (0, express_1.Router)();
 router.post('/createUser', rateLimiter_1.defaultRateLimiter, userController_1.createUser);
 router.post('/createAdmin', rateLimiter_1.defaultRateLimiter, userController_1.createAdmin);
-router.post('/loginUser', rateLimiter_1.loginUserRateLimiter, userController_2.authenticateLoginAsUser);
+router.post('/loginUser', rateLimiter_1.defaultRateLimiter, userController_2.authenticateLoginAsUser);
 router.post('/getUserProfileData', (0, gatekeeper_1.default)(["user"], "/getUserProfileData"), rateLimiter_1.defaultRateLimiter, userController_3.userProfileData);
 router.post('/addNews', (0, gatekeeper_1.default)(["user"], "/addNews"), rateLimiter_1.defaultRateLimiter, newsController_1.addNews);
 router.post('/news', rateLimiter_1.defaultRateLimiter, newsController_1.getAllNews);

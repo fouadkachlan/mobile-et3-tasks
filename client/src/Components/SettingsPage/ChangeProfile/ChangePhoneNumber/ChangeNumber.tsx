@@ -8,10 +8,13 @@ import getLoginStore from '../../../../stores/loginStore'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
 import SubmitChangeNumber from './SubmitChangeNumberButton/SubmitChangeNumber'
+import { useTranslation } from 'react-i18next'
+import getThemeStore from '../../../../stores/themeStore'
 
 
 const ChangeNumber = observer(() => {
     const {theme} = useTheme()
+    const {t} = useTranslation()
     return (
         <CustomView
       style={{
@@ -29,7 +32,7 @@ const ChangeNumber = observer(() => {
         fontSize={25}
         fontWeight={'bold'}
       >
-        {settingsText.changeNumber}
+        {t("changeNumber")}
       </CustomText>
 
 
@@ -46,7 +49,7 @@ const ChangeNumber = observer(() => {
         padding={10}
         value={getLoginStore().user_phone_number.get()}
         onChangeText={getLoginStore().setPhoneNumber}
-        placeholderTextColor={theme.fontColor}
+        placeholderTextColor={getThemeStore().isDarkThemeEnabled.get() ? "white" : "black"}
         placeholder="Enter new Phone Number"
         keyboardType="default"
         secureTextEntry={false}

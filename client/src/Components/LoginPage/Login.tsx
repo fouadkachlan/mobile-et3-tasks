@@ -11,10 +11,11 @@ import PasswordInput from './PasswordInput/PasswordInput';
 import LoginButton from './LoginButton/LoginButton';
 import GoogleChoice from './GoogleChoice/GoogleChoice';
 import CreateAccountChoice from './CreateAccountChoice/CreateAccountChoice';
+import { useTranslation } from 'react-i18next';
 const Login: React.FC = observer(() => {
   
   const { theme } = useTheme();
-
+  const {t} = useTranslation()
   return (
     <CustomView
       style={{
@@ -42,7 +43,7 @@ const Login: React.FC = observer(() => {
           fontSize={15}
           fontWeight="600"
         >
-          {signInChoice}
+          {t("or-sign-in")}
         </CustomText>
       </CustomView>
       <GoogleChoice />

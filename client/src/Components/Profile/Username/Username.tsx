@@ -6,9 +6,11 @@ import getLoginStore from '../../../stores/loginStore'
 import getDimensionsStore from '../../../stores/dimensionsStore'
 import { observer } from 'mobx-react-lite'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const Username = observer(() => {
     const {theme} = useTheme();
+    const {t} = useTranslation()
   return (
     <CustomView
     style={{
@@ -27,7 +29,7 @@ const Username = observer(() => {
       fontSize={15}
       fontWeight="300"
     >
-      {userProfileText.username} {getLoginStore().user_name.get()}
+      {t("username")} {getLoginStore().user_name.get()}
     </CustomText>
   </CustomView>
   )

@@ -6,9 +6,11 @@ import CustomView from '../../../../CustomComponents/CustomView'
 import { settingsText } from '../../../Constant/constants'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
 import getNavigationStore from '../../../../stores/navigationStore'
+import { useTranslation } from 'react-i18next'
 
 const ChangeUserNameButton = () => {
     const {theme} = useTheme();
+    const {t} = useTranslation();
   return (
     <TouchableOpacity onPress={() => getNavigationStore().navigateToChangeUserName()}>
         <CustomView
@@ -18,7 +20,7 @@ const ChangeUserNameButton = () => {
           justifyContent: 'center',
           flexDirection: 'row',
           borderWidth: 2,
-          borderColor: theme.borderColor,
+          borderColor: theme.fontColor,
           borderRadius : getDimensionsStore().windowWidth * 0.1,
           margin: getDimensionsStore().windowWidth * 0.025,
           width: getDimensionsStore().windowWidth * 0.9,
@@ -31,7 +33,7 @@ const ChangeUserNameButton = () => {
             }}
             fontSize={20}
             fontWeight="300">
-          {settingsText.changeUsernameText}
+          {t("changeUsernameText")}
         </CustomText>
       </CustomView>
     </TouchableOpacity>

@@ -4,8 +4,10 @@ import getRequestStore from "./requestsStore";
 import getLoginStore from "./loginStore";
 import { Alert } from "react-native";
 import getNavigationStore from "./navigationStore";
+import { addNewsUtil, fetchNewsUtil, getNewsCredentials, getUserCredentials } from "./storeUtils";
+import { loginStoreText, newsMessage } from "../Components/Constant/constants";
 
-class NewsStore 
+export class NewsStore 
 {
     newsList = observable.box<NewsItem[]>([]);
     newsCount = observable.box<number>(0);
@@ -41,38 +43,38 @@ class NewsStore
      newsInformations = async() : Promise<void> => {
         try
         {
-          await getRequestStore().fetchNewsRequest()      
+          await fetchNewsUtil();      
         } catch ( error ) {
-          console.error("Failed Fetching News Information" , error);
+          Alert.alert(newsMessage.Fail.FetchNewsError , `${error}`);
         }
       }
        handleSubmit = async () => {
-        if (getNewsStore().news.get()) {
+        if (this.news.get()) {
             try {
                 await this.handleAddNews();
                 const newsItem: NewsItem = {
-                    user_name: getLoginStore().user_name.get(),
-                    date_of_news: getNewsStore().date.get(),
-                    news_content: getNewsStore().news.get()
+                    user_name: getUserCredentials().username,
+                    date_of_news: getNewsCredentials().news_date,
+                    news_content: getNewsCredentials().news_content
                 }
                 this.addNews(newsItem);
-                Alert.alert('Success', 'News added successfully');
+                Alert.alert(loginStoreText.Success.Sucess, newsMessage.Success.AddNewsError);
                 getNavigationStore().goBack();
             } catch ( error ) {
-                console.log("Error in handling add news!" , error)
+                Alert.alert(newsMessage.Fail.AddNewsError , `${error}`)
             }      
         } else {
-            Alert.alert('Error' , 'Please Enter the news');
+            Alert.alert(loginStoreText.Fail.ErrorMessage , newsMessage.Fail.EnterNews);
         }        
     }
      handleAddNews = async () : Promise<void> => {
         try {
-            if( getLoginStore().user_id.get() !== -1)
+            if( getUserCredentials().id !== -1)
             {
-              await getRequestStore().addNewsRequest();
+              await addNewsUtil();
             }
         } catch ( error ) {
-            console.error("Error while adding News" , error);
+            Alert.alert(newsMessage.Fail.AddNewsError , `${error}`);
         }
     }
     setNewsList(newsArray : NewsItem[] ) {

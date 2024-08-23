@@ -4,14 +4,13 @@ import getDimensionsStore from '../../../../stores/dimensionsStore'
 import CustomText from '../../../../CustomComponents/CustomText'
 import CustomView from '../../../../CustomComponents/CustomView'
 import { settingsText } from '../../../Constant/constants'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../../../types/navigation'
 import getNavigationStore from '../../../../stores/navigationStore'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const ChangeCountryButton = () => {
     const {theme} = useTheme();
-
+    const {t} = useTranslation()
   return (
     <TouchableOpacity onPress={() => getNavigationStore().navigateToChangeCountry()}>
         <CustomView
@@ -21,7 +20,7 @@ const ChangeCountryButton = () => {
           justifyContent: 'center',
           flexDirection: 'row',
           borderWidth: 2,
-          borderColor: theme.borderColor,
+          borderColor: theme.fontColor,
           borderRadius : getDimensionsStore().windowWidth * 0.1,
           margin: getDimensionsStore().windowWidth * 0.025,
           width: getDimensionsStore().windowWidth * 0.9,
@@ -34,7 +33,7 @@ const ChangeCountryButton = () => {
             }}
             fontSize={20}
             fontWeight="300">
-          {settingsText.changeCountry}
+          {t("changeCountry")}
         </CustomText>
       </CustomView>
     </TouchableOpacity>

@@ -11,10 +11,11 @@ import getRequestStore from '../../../../stores/requestsStore'
 import { observer } from 'mobx-react-lite'
 import getNavigationStore from '../../../../stores/navigationStore'
 import { useTheme } from '../../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 const SubmitButton = observer(() => {
     const {theme} = useTheme();
-    
+    const {t} = useTranslation()
   return (
     <CustomView 
           style={{}}
@@ -40,11 +41,11 @@ const SubmitButton = observer(() => {
                         style={{
                             color: 'black',
                             marginTop:15,
-                            marginLeft:115
+                            marginLeft:100
                         }}
                         fontSize={20}
                         fontWeight='300'
-                    >{submitText}</CustomText>
+                    >{t("submit")}</CustomText>
                 </CustomView>
             </CustomButton>
           </CustomView>

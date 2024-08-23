@@ -1,0 +1,38 @@
+{
+    "change-language" : "Changer la langue",
+    "welcome": "Bienvenu",
+    "change-profile" : "Changer le profile",
+    "change-theme" : "Changer Le Thème",
+    "settings-title" : "Paramètres de l'application",
+    "news-number" : "Le nombre de nouvelles est:",
+    "add-news" : "Ajouter des nouvelles",
+    "news-written-by" : "Nouvelles écrites par",
+    "news-written-at" : "Nouvelles écrites à",
+    "username" : "Nom d'utilisateur:",
+    "email" : "E-mail:",
+    "password": "Mot de pass",
+    "phone-number" : "Numéro de téléphone:",
+    "country" : "Pays utilisateur:",
+    "profile-title" : "Ceci est mon profil",
+    "changeUsernameText": "Changer le nom d'utilisateur",
+    "changeEmail" : "Changer l'adresse email",
+    "changeNumber" : "Changer le numéro de téléphone",
+    "changeCountry": "Changer le pays de l'utilisateur",
+    "enter-news" : "Entrez votre actualité",
+    "submit": "Soumettre",
+    "login" : "Connecter",
+    "welcome-to-the-app":"Bienvenue sur l'application",
+    "forgot-pass": "mot de passe oublié",
+    "or-sign-in" : "_______ ou connectez-vous _______",
+    "continue-with-google" : "Continuer avec Google",
+    "create-account" : "créer un compte",
+    "welcoming-screen": "Bienvenue sur l'application de lecture de nouvelles",
+    "welcoming-introduced-text" : "Nous sommes ravis de vous présenter notre application de lecture de journaux"
+
+
+
+
+
+
+
+}

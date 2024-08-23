@@ -6,8 +6,10 @@ import CustomText from '../../../CustomComponents/CustomText'
 import getNavigationStore from '../../../stores/navigationStore'
 import { createAccountText } from '../../Constant/constants'
 import { useTheme } from '../../ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 const CreateAccountChoice : React.FC = () => {
     const {theme} = useTheme();
+    const {t} = useTranslation()
   return (
     <CustomView style={{}}>
         <TouchableOpacity onPress={() => getNavigationStore().navigateToCreateAccount()}>
@@ -26,7 +28,7 @@ const CreateAccountChoice : React.FC = () => {
             fontSize={16}
             fontWeight="500"
           >
-            {createAccountText.createAccountMessage}
+            {t("create-account")}
           </CustomText>
         </CustomView>
       </TouchableOpacity>
