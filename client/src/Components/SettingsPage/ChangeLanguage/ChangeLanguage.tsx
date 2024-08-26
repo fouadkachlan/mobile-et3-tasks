@@ -62,6 +62,23 @@ const ChangeLanguage : React.FC = observer(() => {
               {languagesList.fr.nativeName}
             </CustomText>
           </TouchableOpacity>
+          <TouchableOpacity style={{
+            padding: 10,
+            borderBottomColor: '#dddddd',
+            borderBottomWidth: 1,
+          }} onPress={() =>{
+            getLanguageStore().changeLng("ar"),
+            setLanguageLocalStorage("ar")
+          }}>
+            <CustomText style={{
+              color: theme.fontColor
+            }}
+            fontSize={20}
+            fontWeight='300'
+            >
+              {languagesList.ar.nativeName}
+            </CustomText>
+          </TouchableOpacity>
         </CustomView>
       </Modal>
       <TouchableOpacity style={{

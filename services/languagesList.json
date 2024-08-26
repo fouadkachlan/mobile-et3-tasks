@@ -9,4 +9,9 @@
         "name" : "French",
         "nativeName" : "Francais"
     } 
+    ,"ar" : {
+        "index" : 3,
+        "name" : "Arabic",
+        "nativeName" : "اللغة العربية"
+    }
 }

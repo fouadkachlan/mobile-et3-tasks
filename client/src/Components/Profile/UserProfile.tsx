@@ -1,10 +1,9 @@
-import { ActivityIndicator, Image, ScrollView, RefreshControl } from 'react-native';
-import React from 'react';
+import { ActivityIndicator, Image, ScrollView } from 'react-native';
+import React , {useEffect} from 'react';
 import { observer } from 'mobx-react-lite';
 import CustomText from '../../CustomComponents/CustomText';
 import CustomView from '../../CustomComponents/CustomView';
 import getLoginStore from '../../stores/loginStore';
-import getRefreshStore from '../../stores/refreshStore';
 import getDimensionsStore from '../../stores/dimensionsStore';
 import Username from './Username/Username';
 import Email from './UserEmail/Email';
@@ -17,10 +16,9 @@ const userImage = require("../../../../assets/userImage.png");
 
 const UserProfile: React.FC = observer(() => {
   
-  React.useEffect(() => {
+  useEffect(() => {
     getLoginStore().handleProfileFetch();
   }, []);
-  const loadingState = getLoadingStore().loading.get();
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -32,7 +30,7 @@ const UserProfile: React.FC = observer(() => {
         backgroundColor: theme.backGroundColor,
       }}
     >
-      {loadingState ? (
+      {getLoadingStore().loading.get() ? (
         <ActivityIndicator size="large" color={theme.borderColor} />
       ) : (
         <ScrollView
